@@ -1,0 +1,136 @@
+.archive {
+  padding: 120px 48px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.archive__header {
+  margin-bottom: 48px;
+}
+
+.archive__label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.archive__title {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.archive__desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: 32px;
+}
+
+/* Tabs */
+.archive__tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.archive__tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.archive__tab:hover {
+  border-color: var(--border-hover);
+  color: var(--text-secondary);
+}
+
+.archive__tab--active {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.archive__tab-icon {
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+.archive__tab--active .archive__tab-icon {
+  opacity: 1;
+}
+
+.archive__tab-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.archive__tab--active .archive__tab-count {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Grid: 4 columns desktop, 3 tablet, 2 mobile */
+.archive__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Banner grid: wider cards (3 columns) */
+.archive__grid--banner {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1100px) {
+  .archive__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .archive__grid--banner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .archive {
+    padding: 100px 24px 60px;
+  }
+  .archive__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .archive__grid--banner {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .archive__tabs {
+    width: 100%;
+  }
+  .archive__tab {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .archive__grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

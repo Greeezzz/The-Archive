@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Voltage OS",
+    "description": "Voltage OS build by Guttsnv",
+    "image": "/banners/banner_1.png",
+    "color": "#1A1A1A",
+    "githubLink": "https://github.com/gutssnv"
+  },
+  {
+    "id": 2,
+    "title": "Pixel OS",
+    "description": "Pixel OS build by Guttsnv",
+    "image": "/banners/banner_2.png",
+    "color": "#1A1A1A",
+    "githubLink": "https://github.com/gutssnv"
+  }
+]

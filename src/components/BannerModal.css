@@ -1,0 +1,181 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: backdropIn 0.25s ease;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.banner-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 60px -10px var(--accent);
+  border-radius: 4px;
+  overflow: hidden;
+  animation: bannerModalIn 0.3s ease;
+}
+
+@keyframes bannerModalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Close button */
+.banner-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text-secondary);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  border: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.banner-modal__close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+}
+
+/* Image panel: landscape layout */
+.banner-modal__image-panel {
+  position: relative;
+  background: #060606;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  min-height: 180px;
+  max-height: 45vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.banner-modal__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Do not crop the banner, show it fully */
+}
+
+.banner-modal__image-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--accent);
+  opacity: 0.3;
+  background: var(--bg-card);
+}
+
+.banner-modal__image-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* Info panel */
+.banner-modal__info-panel {
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.banner-modal__title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.banner-modal__divider {
+  width: 36px;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+.banner-modal__description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.banner-modal__github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 18px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+  background: transparent;
+  color: #ffffff !important; /* Force white text for GitHub button */
+}
+
+.banner-modal__github-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+
+.banner-modal__github-icon {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .banner-modal__image-panel {
+    aspect-ratio: 16 / 9;
+  }
+  .banner-modal__info-panel {
+    padding: 24px 20px;
+  }
+  .banner-modal__title {
+    font-size: 20px;
+  }
+}

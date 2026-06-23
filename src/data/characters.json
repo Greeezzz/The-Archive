@@ -182,5 +182,14 @@
     "image": "/characters/archive_20.png",
     "color": "#A08060",
     "category": "archive"
+  },
+  {
+    "id": 21,
+    "number": "021",
+    "name": "Aemeath",
+    "quote": "Journey Well.",
+    "image": "/characters/archive_21.png",
+    "color": "#F4B8CC",
+    "category": "archive"
   }
 ]

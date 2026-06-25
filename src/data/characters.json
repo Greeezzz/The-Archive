@@ -191,5 +191,14 @@
     "image": "/characters/archive_21.png",
     "color": "#F4B8CC",
     "category": "archive"
+  },
+  {
+    "id": 22,
+    "number": "022",
+    "name": "Ochako Uraraka",
+    "quote": "And then, I fall in love with Izuku Midoriya!",
+    "image": "/characters/archive_22.png",
+    "color": "#3A2010",
+    "category": "archive"
   }
 ]

@@ -17,15 +17,32 @@ export default function BannerModal({ banner, onClose }) {
 
   return createPortal(
     <div className="modal-backdrop" onClick={onClose}>
-      <div
+      <article
         className="banner-modal"
         onClick={(e) => e.stopPropagation()}
         style={{ '--accent': banner.color }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="banner-modal-title"
       >
-        <button className="banner-modal__close" onClick={onClose} aria-label="Close">
-          <span>&#10005;</span>
+        {/* Corner brackets */}
+        <div className="banner-modal__bracket banner-modal__bracket--tl" />
+        <div className="banner-modal__bracket banner-modal__bracket--tr" />
+        <div className="banner-modal__bracket banner-modal__bracket--bl" />
+        <div className="banner-modal__bracket banner-modal__bracket--br" />
+
+        {/* Entry label */}
+        <div className="banner-modal__entry">
+          <span className="banner-modal__entry-label">Banner</span>
+          <span className="banner-modal__entry-line" />
+        </div>
+
+        {/* Close button */}
+        <button className="banner-modal__close" onClick={onClose} aria-label="Close modal">
+          <span>×</span>
         </button>
 
+        {/* Image panel */}
         <div className="banner-modal__image-panel">
           {!imgError ? (
             <img
@@ -34,8 +51,7 @@ export default function BannerModal({ banner, onClose }) {
               className="banner-modal__image"
               onError={() => setImgError(true)}
             />
-          ) : null}
-          {imgError && (
+          ) : (
             <div className="banner-modal__image-fallback" style={{ display: 'flex' }}>
               <span>No Image</span>
             </div>
@@ -43,8 +59,10 @@ export default function BannerModal({ banner, onClose }) {
           <div className="banner-modal__image-accent" />
         </div>
 
+        {/* Info panel */}
         <div className="banner-modal__info-panel">
-          <h2 className="banner-modal__title">{banner.title}</h2>
+          <span className="banner-modal__label">Banner Entry</span>
+          <h2 className="banner-modal__title" id="banner-modal-title">{banner.title}</h2>
           <div className="banner-modal__divider" style={{ background: banner.color }} />
           <p className="banner-modal__description">{banner.description}</p>
           {banner.githubLink && (
@@ -53,14 +71,15 @@ export default function BannerModal({ banner, onClose }) {
               target="_blank"
               rel="noreferrer"
               className="banner-modal__github-link"
-              style={{ borderColor: banner.color, color: '#ffffff' }}
             >
-              <span className="banner-modal__github-icon">⟹</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
               View on GitHub
             </a>
           )}
         </div>
-      </div>
+      </article>
     </div>,
     document.body
   );

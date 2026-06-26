@@ -4,7 +4,7 @@
     "number": "001",
     "name": "Chisato Nishikigi",
     "quote": "All right, let's head out to work, Takina!.",
-    "image": "/characters/archive_1.png",
+    "image": "/characters/archive_1.webp",
     "color": "#FF8989",
     "category": "archive"
   },
@@ -13,7 +13,7 @@
     "number": "002",
     "name": "Takina Inoue",
     "quote": "Miss Chisato, over there.",
-    "image": "/characters/archive_2.png",
+    "image": "/characters/archive_2.webp",
     "color": "#5A54F4",
     "category": "archive"
   },
@@ -22,7 +22,7 @@
     "number": "003",
     "name": "Shorekeeper",
     "quote": "No matter how far you go, I'll always be here… Watching over you. Could this feeling be… Love?",
-    "image": "/characters/archive_3.png",
+    "image": "/characters/archive_3.webp",
     "color": "#44B3F8",
     "category": "archive"
   },
@@ -31,7 +31,7 @@
     "number": "004",
     "name": "Zani",
     "quote": "I love my job! Really. No joke. Was I smiling? No? Then you get the idea.",
-    "image": "/characters/archive_4.png",
+    "image": "/characters/archive_4.webp",
     "color": "#B6B6B6",
     "category": "archive"
   },
@@ -40,7 +40,7 @@
     "number": "005",
     "name": "Asa Mitaka",
     "quote": "If I'd known, I could have had a better life.",
-    "image": "/characters/archive_5.png",
+    "image": "/characters/archive_5.webp",
     "color": "#FFFFFF",
     "category": "archive"
   },
@@ -49,7 +49,7 @@
     "number": "006",
     "name": "Phoebe",
     "quote": "Hm... Eh? Oh, there you are! Who's a good boy...",
-    "image": "/characters/archive_6.png",
+    "image": "/characters/archive_6.webp",
     "color": "#FFEE6B",
     "category": "archive",
     "isWiderDesign": true
@@ -59,7 +59,7 @@
     "number": "007",
     "name": "Reze",
     "quote": "Denji. Truth is... I've never gone to school either.",
-    "image": "/characters/archive_7.png",
+    "image": "/characters/archive_7.webp",
     "color": "#3E3B3B",
     "category": "archive"
   },
@@ -68,7 +68,7 @@
     "number": "008",
     "name": "Stelle",
     "quote": "When there is the chance to make a choice, make one that you know you won't regret...",
-    "image": "/characters/archive_8.png",
+    "image": "/characters/archive_8.webp",
     "color": "#FA8A74",
     "category": "archive",
     "isWiderDesign": true
@@ -78,7 +78,7 @@
     "number": "009",
     "name": "Galbrena",
     "quote": "Who's my next prey?",
-    "image": "/characters/archive_9.png",
+    "image": "/characters/archive_9.webp",
     "color": "#4538DC",
     "category": "archive",
     "isWiderDesign": true
@@ -88,7 +88,7 @@
     "number": "010",
     "name": "Shikimori Miyako",
     "quote": "I'm not cute?! That's so mean!",
-    "image": "/characters/archive_10.png",
+    "image": "/characters/archive_10.webp",
     "color": "#EC5777",
     "category": "archive"
   },
@@ -97,7 +97,7 @@
     "number": "011",
     "name": "Ai Kamiya",
     "quote": "Yeah, I guess they're expecting a lot of me.",
-    "image": "/characters/archive_11.png",
+    "image": "/characters/archive_11.webp",
     "color": "#4056BD",
     "category": "archive",
     "isWiderDesign": true
@@ -107,7 +107,7 @@
     "number": "012",
     "name": "Yakishio Lemon",
     "quote": "I love you.",
-    "image": "/characters/archive_12.png",
+    "image": "/characters/archive_12.webp",
     "color": "#FFF288",
     "category": "archive"
   },
@@ -116,7 +116,7 @@
     "number": "013",
     "name": "Yuzuhara Madoka",
     "quote": "But even so, we have a duty of enjoying all the things that are only available to us right now! Don't forget that, Kaoruko!",
-    "image": "/characters/archive_13.png",
+    "image": "/characters/archive_13.webp",
     "color": "#2D2C2C",
     "category": "archive"
   },
@@ -125,7 +125,7 @@
     "number": "014",
     "name": "Kaoruko Waguri",
     "quote": "I'm Waguri Kaoruko, and you, are Tsumugi Rintaro! Chikyo and Kikyo doesn't matter, you're what matters, and I want to get to know you, Rintaro-kun.",
-    "image": "/characters/archive_14.png",
+    "image": "/characters/archive_14.webp",
     "color": "#F8F3EA",
     "category": "archive"
   },
@@ -134,7 +134,7 @@
     "number": "015",
     "name": "Subaru Hoshina",
     "quote": "As long as I can protect Kaoruko's happiness...I can live with that.",
-    "image": "/characters/archive_15.png",
+    "image": "/characters/archive_15.webp",
     "color": "#F39EA3",
     "category": "archive"
   },
@@ -143,7 +143,7 @@
     "number": "016",
     "name": "Makima",
     "quote": "Are you okay, Denji?",
-    "image": "/characters/archive_16.png",
+    "image": "/characters/archive_16.webp",
     "color": "#59120C",
     "category": "archive"
   },
@@ -152,7 +152,7 @@
     "number": "017",
     "name": "Mornye",
     "quote": "Yes! I knew you would understand.",
-    "image": "/characters/archive_17.png",
+    "image": "/characters/archive_17.webp",
     "color": "#C8A6E6",
     "category": "archive"
   },
@@ -161,7 +161,7 @@
     "number": "018",
     "name": "Ryo Yamada",
     "quote": "And Nijika is my only friend, so...",
-    "image": "/characters/archive_18.png",
+    "image": "/characters/archive_18.webp",
     "color": "#27374D",
     "category": "archive"
   },
@@ -170,7 +170,7 @@
     "number": "019",
     "name": "Female Rover",
     "quote": "I will be there for everyone... As we head toward our shared future, leaving the past behind.",
-    "image": "/characters/archive_19.png",
+    "image": "/characters/archive_19.webp",
     "color": "#E0B84F",
     "category": "archive"
   },
@@ -179,7 +179,7 @@
     "number": "020",
     "name": "Chinatsu Kano",
     "quote": "And it's all thanks to you. Thank you, Taiki Inomata!",
-    "image": "/characters/archive_20.png",
+    "image": "/characters/archive_20.webp",
     "color": "#A08060",
     "category": "archive"
   },
@@ -188,7 +188,7 @@
     "number": "021",
     "name": "Aemeath",
     "quote": "Journey Well.",
-    "image": "/characters/archive_21.png",
+    "image": "/characters/archive_21.webp",
     "color": "#F4B8CC",
     "category": "archive"
   },
@@ -197,7 +197,7 @@
     "number": "022",
     "name": "Ochako Uraraka",
     "quote": "And then, I fall in love with Izuku Midoriya!",
-    "image": "/characters/archive_22.png",
+    "image": "/characters/archive_22.webp",
     "color": "#3A2010",
     "category": "archive"
   }

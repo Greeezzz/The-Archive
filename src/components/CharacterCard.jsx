@@ -1,30 +1,46 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useCallback, useMemo } from 'react';
 import './CharacterCard.css';
+
+// Helper to detect if color is light
+const isLightColor = (hex) => {
+  if (!hex) return false;
+  const cleanHex = hex.replace('#', '');
+  if (cleanHex.length < 6) return true;
+  const r = parseInt(cleanHex.substr(0, 2), 16);
+  const g = parseInt(cleanHex.substr(2, 2), 16);
+  const b = parseInt(cleanHex.substr(4, 2), 16);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 150;
+};
 
 const CharacterCard = memo(function CharacterCard({ character, onClick, index }) {
   const [imgError, setImgError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const entryNum = String(index + 1).padStart(2, '0');
+
+  const accentColor = useMemo(() => character.color || '#c0392b', [character.color]);
+  const isLight = useMemo(() => isLightColor(accentColor), [accentColor]);
+
+  const handleClick = useCallback(() => {
+    onClick(character);
+  }, [character, onClick]);
 
   return (
     <article
-      className={`card ${character.isWiderDesign ? 'card--wide' : ''}`}
-      onClick={() => onClick(character)}
-      style={{ '--index': index }}
+      className={`card ${character.isWiderDesign ? 'card--wide' : ''} ${isLight ? 'card--light' : ''}`}
+      onClick={handleClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        '--index': index,
+        '--accent': accentColor,
+      }}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick(character)}
     >
-      {/* Entry number label */}
-      <div className="card__entry">
-        <span className="card__entry-num">No. {entryNum}</span>
-        <span className="card__entry-line" />
-      </div>
-
       {/* Glow border */}
-      <div
-        className="card__glow"
-        style={{ '--accent': character.color }}
-      />
+      <div className="card__glow" />
 
       {/* Corner brackets */}
       <div className="card__bracket card__bracket--tl" />
@@ -34,6 +50,12 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
 
       {/* Image */}
       <div className="card__image-wrap">
+        {/* Entry number — inside image-wrap so it can't clip */}
+        <div className="card__entry">
+          <span className="card__entry-num">No. {entryNum}</span>
+          <span className="card__entry-line" />
+        </div>
+
         {!imgError ? (
           <img
             src={character.image}
@@ -43,30 +65,30 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
             onError={() => setImgError(true)}
           />
         ) : (
-          <div className="card__image-fallback" style={{ display: 'flex' }}>
-            <span>{character.number}</span>
+          <div className="card__image-fallback">
+            {character.number}
           </div>
         )}
 
-        {/* Editorial hover overlay */}
-        <div className="card__overlay">
+        {/* Color tint overlay */}
+        <div className="card__color-tint" />
+
+        {/* Hover overlay */}
+        <div className={`card__overlay ${isHovered ? 'card__overlay--visible' : ''}`}>
           <span className="card__view-label">View Entry</span>
           <span className="card__overlay-name">{character.name}</span>
-          <span
-            className="card__overlay-num"
-            style={{ color: character.color }}
-          >
+          <span className="card__overlay-num">
             #{character.number}
           </span>
         </div>
+
+        {/* Shine effect */}
+        <div className={`card__shine ${isHovered ? 'card__shine--active' : ''}`} />
       </div>
 
       {/* Info */}
       <div className="card__info">
-        <span
-          className="card__number"
-          style={{ color: character.color }}
-        >
+        <span className="card__number">
           #{character.number}
         </span>
         <h3 className="card__name">{character.name}</h3>

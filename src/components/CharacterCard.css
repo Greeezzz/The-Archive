@@ -1,189 +1,228 @@
-/* CharacterCard.css — Editorial style */
+/* CharacterCard.css — Premium Editorial Style */
 
 :root {
   --card-accent: #c0392b;
-  --card-rule: rgba(255,255,255,0.06);
+  --card-rule: rgba(255,255,255,0.05);
 }
 
 .card {
   position: relative;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: visible;
   content-visibility: auto;
-  contain-intrinsic-size: 0 340px;
-  will-change: transform;
-  animation: cardEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--index, 0) * 40ms);
+  contain-intrinsic-size: 0 380px;
+  transform-style: preserve-3d;
+  opacity: 0;
+  animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 60ms);
 }
 
-@keyframes cardEnter {
+@keyframes cardReveal {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px) scale(0.95);
+    filter: blur(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
-/* Entry number — editorial label */
+/* Glow border */
+.card__glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 8px;
+  border: 1px solid var(--card-rule);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover .card__glow {
+  border-color: rgba(255,255,255,0.15);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 20px 60px -20px var(--accent),
+    0 0 80px -40px var(--accent);
+}
+
+/* Entry number — now inside card__image-wrap */
 .card__entry {
   position: absolute;
-  top: -12px;
-  left: 16px;
+  top: 12px;
+  left: 12px;
   z-index: 10;
   display: flex;
   align-items: center;
   gap: 8px;
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .card__entry {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .card__entry-num {
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  opacity: 0.6;
-  transition: all 0.3s ease;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  background: rgba(0, 0, 0, 0.82);
+  padding: 5px 10px;
+  border-radius: 3px;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--accent);
 }
 
 .card__entry-line {
-  width: 20px;
+  width: 24px;
   height: 1px;
-  background: rgba(255,255,255,0.1);
-  transition: width 0.3s ease, background 0.3s ease;
+  background: linear-gradient(to right, var(--accent), transparent);
+  opacity: 0.5;
 }
 
-.card:hover .card__entry-num {
-  opacity: 1;
-  color: var(--text-secondary);
-}
-
-.card:hover .card__entry-line {
-  width: 32px;
-  background: var(--card-accent);
-}
-
-/* Glow border — subtle default, bold on hover */
-.card__glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 4px;
-  border: 1px solid var(--card-rule);
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.card:hover .card__glow {
-  border-color: rgba(255,255,255,0.15);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 8px 32px -8px var(--accent, var(--card-accent));
-}
-
-/* Corner brackets — editorial style */
+/* Corner brackets */
 .card__bracket {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   pointer-events: none;
   z-index: 3;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card__bracket--tl {
-  top: -1px;
-  left: -1px;
-  border-top: 1px solid rgba(255,255,255,0.3);
-  border-left: 1px solid rgba(255,255,255,0.3);
+  top: 0;
+  left: 0;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+  transform: translate(-4px, -4px);
 }
 
 .card__bracket--tr {
-  top: -1px;
-  right: -1px;
-  border-top: 1px solid rgba(255,255,255,0.3);
-  border-right: 1px solid rgba(255,255,255,0.3);
+  top: 0;
+  right: 0;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  transform: translate(4px, -4px);
 }
 
 .card__bracket--bl {
-  bottom: -1px;
-  left: -1px;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  border-bottom-left-radius: 4px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+  transform: translate(-4px, 4px);
+  border-radius: 0 0 0 6px;
 }
 
 .card__bracket--br {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  border-bottom-right-radius: 4px;
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  transform: translate(4px, 4px);
+  border-radius: 0 0 6px 0;
 }
 
 .card:hover .card__bracket {
   opacity: 1;
 }
 
-/* Image wrap */
+/* Light color variant - brackets visible but darker */
+.card--light .card__bracket {
+  border-color: rgba(0,0,0,0.25);
+}
+
+/* Image */
 .card__image-wrap {
   position: relative;
   aspect-ratio: 3 / 4;
   background: var(--bg-card);
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 4px;
+  transform-style: preserve-3d;
+}
+
+.card--wide .card__image-wrap {
+  aspect-ratio: 9 / 11;
 }
 
 .card__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
   transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 .card:hover .card__image {
-  transform: scale(1.06) translateZ(0);
-  filter: brightness(1.05);
+  transform: scale(1.08) translateZ(20px);
+  filter: brightness(1.08) contrast(1.03);
 }
 
-/* Fallback placeholder */
+/* Color tint overlay */
+.card__color-tint {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--accent) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  mix-blend-mode: overlay;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card:hover .card__color-tint {
+  opacity: 0.15;
+}
+
+/* Fallback */
 .card__image-fallback {
   position: absolute;
   inset: 0;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg-card);
   font-family: var(--font-mono);
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 300;
-  color: var(--card-accent);
-  opacity: 0.3;
+  color: var(--accent);
+  opacity: 0.2;
 }
 
-/* Hover overlay — editorial slide up */
+/* Hover overlay */
 .card__overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 20px 16px;
+  padding: 24px 20px;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.85) 0%,
-    rgba(0,0,0,0.4) 40%,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.5) 40%,
     transparent 70%
   );
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 
-.card:hover .card__overlay {
+.card__overlay--visible {
   opacity: 1;
 }
 
@@ -191,26 +230,27 @@
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 8px;
-  transform: translateY(10px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 10px;
+  transform: translateY(16px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
 .card:hover .card__view-label {
   transform: translateY(0);
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.8);
 }
 
 .card__overlay-name {
-  font-size: 16px;
+  font-family: var(--font-display);
+  font-size: 18px;
   font-weight: 600;
   color: #fff;
-  letter-spacing: -0.01em;
-  transform: translateY(16px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  letter-spacing: -0.02em;
+  transform: translateY(20px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
 }
 
 .card:hover .card__overlay-name {
@@ -219,42 +259,69 @@
 
 .card__overlay-num {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.15em;
-  transform: translateY(12px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-  margin-top: 4px;
+  color: var(--accent);
+  transform: translateY(14px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  margin-top: 8px;
 }
 
 .card:hover .card__overlay-num {
   transform: translateY(0);
 }
 
-/* Info section — editorial style */
+/* Shine effect */
+.card__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.12) 50%,
+    transparent 70%
+  );
+  transform: translateX(-200%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.card__shine--active {
+  opacity: 1;
+  animation: shineSweep 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes shineSweep {
+  from { transform: translateX(-200%); }
+  to { transform: translateX(200%); }
+}
+
+/* Info */
 .card__info {
   padding: 16px 4px 8px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  background: transparent;
+  gap: 8px;
 }
 
 .card__number {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  opacity: 0.5;
+  letter-spacing: 0.15em;
+  opacity: 0.4;
+  color: var(--accent);
   transition: opacity 0.3s ease;
 }
 
 .card:hover .card__number {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .card__name {
-  font-size: 13px;
+  font-family: var(--font-display);
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: 0.01em;
@@ -268,12 +335,19 @@
   color: var(--text-primary);
 }
 
-/* Wide variant */
-.card--wide .card__image-wrap {
-  aspect-ratio: 9 / 11;
-}
-
-/* Active/click state */
+/* Active state */
 .card:active {
   transform: scale(0.98);
+}
+
+/* Mobile */
+@media (hover: none) {
+  .card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .card__shine { display: none; }
+  .card__glow { box-shadow: none !important; }
+  .card:hover .card__glow { box-shadow: none; }
 }

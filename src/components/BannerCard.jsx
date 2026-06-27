@@ -1,30 +1,31 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import './BannerCard.css';
 
 const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
   const [imgError, setImgError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const entryNum = String(index + 1).padStart(2, '0');
+
+  const handleClick = useCallback(() => {
+    onClick(banner);
+  }, [banner, onClick]);
 
   return (
     <article
       className="banner-card"
-      onClick={() => onClick(banner)}
-      style={{ '--index': index }}
+      onClick={handleClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        '--index': index,
+        '--accent': banner.color,
+      }}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick(banner)}
     >
-      {/* Entry number label */}
-      <div className="banner-card__entry">
-        <span className="banner-card__entry-num">No. {entryNum}</span>
-        <span className="banner-card__entry-line" />
-      </div>
-
       {/* Glow border */}
-      <div
-        className="banner-card__glow"
-        style={{ '--accent': banner.color }}
-      />
+      <div className="banner-card__glow" />
 
       {/* Corner brackets */}
       <div className="banner-card__bracket banner-card__bracket--tl" />
@@ -34,6 +35,12 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
 
       {/* Image */}
       <div className="banner-card__image-wrap">
+        {/* Entry number — inside image-wrap so it can't clip */}
+        <div className="banner-card__entry">
+          <span className="banner-card__entry-num">No. {entryNum}</span>
+          <span className="banner-card__entry-line" />
+        </div>
+
         {!imgError ? (
           <img
             src={banner.image}
@@ -43,14 +50,17 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
             onError={() => setImgError(true)}
           />
         ) : (
-          <div className="banner-card__image-fallback" style={{ display: 'flex' }}>
+          <div className="banner-card__image-fallback">
             <span>No Image</span>
           </div>
         )}
 
+        {/* Color tint overlay */}
+        <div className="banner-card__color-tint" />
+
         {/* Hover overlay */}
-        <div className="banner-card__overlay">
-          <span className="banner-card__view-label">View</span>
+        <div className={`banner-card__overlay ${isHovered ? 'banner-card__overlay--visible' : ''}`}>
+          <span className="banner-card__view-label">View Entry</span>
         </div>
       </div>
 

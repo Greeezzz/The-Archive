@@ -1,7 +1,8 @@
-/* BannerModal.css — Editorial style */
+/* BannerModal.css — Dynamic color per banner */
 
 :root {
   --banner-modal-accent: #c0392b;
+  --banner-modal-accent-glow: rgba(192, 57, 43, 0.5);
 }
 
 /* Backdrop */
@@ -11,16 +12,16 @@
   z-index: 200;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(10, 10, 10, 0.9) 100%
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(8, 8, 8, 0.96) 100%
   );
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  animation: backdropIn 0.4s ease;
+  padding: 32px;
+  animation: backdropIn 0.4s ease forwards;
 }
 
 @keyframes backdropIn {
@@ -33,32 +34,36 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 900px;
+  max-width: 960px;
   width: 100%;
   max-height: 90vh;
   background: var(--bg-secondary);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
-  animation: bannerModalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: bannerModalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 24px 80px -24px rgba(0,0,0,0.7),
+    0 0 100px -40px var(--accent, var(--banner-modal-accent));
 }
 
 @keyframes bannerModalIn {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.96);
+    transform: scale(0.96) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
 /* Corner brackets */
 .banner-modal__bracket {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   pointer-events: none;
   z-index: 5;
 }
@@ -66,41 +71,41 @@
 .banner-modal__bracket--tl {
   top: -1px;
   left: -1px;
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid var(--accent, var(--banner-modal-accent));
+  border-left: 2px solid var(--accent, var(--banner-modal-accent));
 }
 
 .banner-modal__bracket--tr {
   top: -1px;
   right: -1px;
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid var(--accent, var(--banner-modal-accent));
+  border-right: 2px solid var(--accent, var(--banner-modal-accent));
 }
 
 .banner-modal__bracket--bl {
   bottom: -1px;
   left: -1px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid var(--accent, var(--banner-modal-accent));
+  border-left: 2px solid var(--accent, var(--banner-modal-accent));
 }
 
 .banner-modal__bracket--br {
   bottom: -1px;
   right: -1px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid var(--accent, var(--banner-modal-accent));
+  border-right: 2px solid var(--accent, var(--banner-modal-accent));
 }
 
 /* Entry label */
 .banner-modal__entry {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 20px;
+  left: 20px;
   z-index: 5;
   display: flex;
   align-items: center;
-  gap: 10px;
-  animation: entryReveal 0.5s ease 0.2s both;
+  gap: 12px;
+  animation: entryReveal 0.4s ease 0.2s both;
 }
 
 @keyframes entryReveal {
@@ -112,57 +117,58 @@
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(0, 0, 0, 0.6);
-  padding: 6px 10px;
-  border-radius: 2px;
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 14px;
+  border-radius: 3px;
+  backdrop-filter: blur(8px);
+  border: 1px solid;
 }
 
 .banner-modal__entry-line {
-  width: 30px;
+  width: 40px;
   height: 1px;
-  background: linear-gradient(to right, var(--accent), transparent);
+  opacity: 0.6;
 }
 
-/* Close button — editorial style */
+/* Close button */
 .banner-modal__close {
   position: absolute;
   top: 16px;
   right: 16px;
   z-index: 10;
-  width: 36px;
-  height: 36px;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.6);
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
 
 .banner-modal__close:hover {
-  background: var(--banner-modal-accent);
+  background: var(--accent, var(--banner-modal-accent));
   color: #fff;
-  border-color: var(--banner-modal-accent);
+  border-color: var(--accent, var(--banner-modal-accent));
   transform: rotate(90deg);
 }
 
 .banner-modal__close span {
   line-height: 1;
+  font-weight: 300;
 }
 
 /* Image panel */
 .banner-modal__image-panel {
   position: relative;
-  background: #050505;
+  background: #030303;
   overflow: hidden;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -171,14 +177,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.banner-modal__image-color-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .banner-modal__image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  animation: imageReveal 0.6s ease 0.1s both;
+  position: relative;
+  z-index: 2;
+  animation: imageReveal 0.5s ease 0.1s both;
 }
 
 @keyframes imageReveal {
@@ -193,10 +210,10 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 300;
-  color: var(--banner-modal-accent);
-  opacity: 0.25;
+  color: var(--accent, var(--banner-modal-accent));
+  opacity: 0.2;
   background: var(--bg-card);
 }
 
@@ -205,9 +222,9 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: var(--accent);
-  animation: accentExpand 0.6s ease 0.3s both;
+  height: 3px;
+  z-index: 3;
+  animation: accentExpand 0.5s ease 0.3s both;
 }
 
 @keyframes accentExpand {
@@ -217,12 +234,16 @@
 
 /* Info panel */
 .banner-modal__info-panel {
-  padding: 40px 44px;
+  padding: 48px 52px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   overflow-y: auto;
-  background: var(--bg-secondary);
+  background: linear-gradient(
+    180deg,
+    var(--bg-secondary) 0%,
+    rgba(17,17,17,0.98) 100%
+  );
   animation: infoReveal 0.5s ease 0.2s both;
 }
 
@@ -235,40 +256,41 @@
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .banner-modal__title {
-  font-size: clamp(24px, 4vw, 32px);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--text-primary);
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .banner-modal__divider {
-  width: 48px;
+  width: 56px;
   height: 2px;
   border-radius: 1px;
-  opacity: 0.9;
-  animation: dividerGrow 0.5s ease 0.4s both;
+  animation: dividerGrow 0.4s ease 0.35s both;
 }
 
 @keyframes dividerGrow {
-  from { width: 0; }
-  to { width: 48px; }
+  from { width: 0; opacity: 0; }
+  to { width: 56px; opacity: 1; }
 }
 
 .banner-modal__description {
-  font-size: 14px;
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
   color: var(--text-secondary);
-  line-height: 1.8;
-  max-width: 520px;
-  animation: descReveal 0.5s ease 0.5s both;
+  line-height: 1.85;
+  max-width: 560px;
+  animation: descReveal 0.5s ease 0.4s both;
 }
 
 @keyframes descReveal {
@@ -276,26 +298,51 @@
   to { opacity: 1; }
 }
 
+/* Decorative element */
+.banner-modal__deco {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  animation: decoReveal 0.5s ease 0.5s both;
+}
+
+@keyframes decoReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.banner-modal__deco-line {
+  flex: 1;
+  height: 1px;
+}
+
+.banner-modal__deco-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
 /* GitHub link */
 .banner-modal__github-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: 8px;
-  padding: 12px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
+  padding: 14px 24px;
+  border: 1px solid;
+  border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--text-secondary);
-  background: transparent;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   width: fit-content;
-  animation: linkReveal 0.5s ease 0.6s both;
+  animation: linkReveal 0.5s ease 0.5s both;
 }
 
 @keyframes linkReveal {
@@ -304,41 +351,56 @@
 }
 
 .banner-modal__github-link:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.08));
+  border-color: var(--accent, var(--banner-modal-accent));
   color: #fff;
-  transform: translateX(6px);
+  transform: translateX(8px);
 }
 
 .banner-modal__github-link svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   transition: transform 0.3s ease;
 }
 
 .banner-modal__github-link:hover svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
 /* Responsive */
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .banner-modal__image-panel {
     aspect-ratio: 16 / 10;
     max-height: 40vh;
   }
   .banner-modal__info-panel {
-    padding: 28px 24px;
+    padding: 40px 36px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 540px) {
   .modal-backdrop {
     padding: 16px;
   }
+  .banner-modal__image-panel {
+    aspect-ratio: 4 / 3;
+  }
   .banner-modal__info-panel {
-    padding: 24px 20px;
+    padding: 28px 24px;
+    gap: 20px;
   }
   .banner-modal__title {
-    font-size: 22px;
+    font-size: 26px;
+  }
+  .banner-modal__description {
+    font-size: 14px;
+  }
+  .banner-modal__bracket {
+    width: 14px;
+    height: 14px;
+  }
+  .banner-modal__github-link {
+    width: 100%;
+    justify-content: center;
   }
 }

@@ -200,5 +200,14 @@
     "image": "/characters/archive_22.webp",
     "color": "#3A2010",
     "category": "archive"
+  },
+  {
+    "id": 23,
+    "number": "023",
+    "name": "Anna Yanami",
+    "quote": "This is why I don't like this part of you, Nukumizu-kun!",
+    "image": "/characters/archive_23.webp",
+    "color": "#4AA8D8",
+    "category": "archive"
   }
 ]

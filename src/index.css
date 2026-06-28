@@ -52,7 +52,7 @@ img {
   max-width: 100%;
 }
 
-/* ── Grain Texture ── */
+/* ── Grain Texture — disabled on mobile ── */
 .grain {
   position: fixed;
   inset: -200%;
@@ -60,9 +60,15 @@ img {
   height: 400%;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  animation: grain 0.5s steps(10) infinite;
+  opacity: 0;
+  will-change: auto;
+}
+
+@media (pointer: fine) {
+  .grain {
+    opacity: 0.03;
+    animation: grain 0.5s steps(10) infinite;
+  }
 }
 
 @keyframes grain {
@@ -89,8 +95,15 @@ img {
   background-size: 200% 100%;
   z-index: 1001;
   transform-origin: left;
-  box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
-  animation: shimmer 2s linear infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+@media (pointer: fine) {
+  .scroll-progress {
+    box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+    animation: shimmer 2s linear infinite;
+  }
 }
 
 @keyframes shimmer {
@@ -98,43 +111,47 @@ img {
   100% { background-position: -200% 0; }
 }
 
-/* ── Ambient Glow Orbs ── */
+/* ── Ambient Glow Orbs — reduced on mobile ── */
 .ambient-glow {
   position: fixed;
   border-radius: 50%;
   filter: blur(120px);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.12;
+  opacity: 0;
+  will-change: auto;
 }
 
-.ambient-glow--1 {
-  width: 700px;
-  height: 700px;
-  background: var(--accent);
-  top: -300px;
-  right: -200px;
-  animation: float1 25s ease-in-out infinite;
-}
-
-.ambient-glow--2 {
-  width: 500px;
-  height: 500px;
-  background: #3498db;
-  bottom: -150px;
-  left: -150px;
-  animation: float2 30s ease-in-out infinite;
-}
-
-.ambient-glow--3 {
-  width: 400px;
-  height: 400px;
-  background: #9b59b6;
-  top: 40%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  animation: float3 35s ease-in-out infinite;
-  opacity: 0.06;
+@media (pointer: fine) {
+  .ambient-glow {
+    opacity: 0.12;
+  }
+  .ambient-glow--1 {
+    width: 700px;
+    height: 700px;
+    background: var(--accent);
+    top: -300px;
+    right: -200px;
+    animation: float1 25s ease-in-out infinite;
+  }
+  .ambient-glow--2 {
+    width: 500px;
+    height: 500px;
+    background: #3498db;
+    bottom: -150px;
+    left: -150px;
+    animation: float2 30s ease-in-out infinite;
+  }
+  .ambient-glow--3 {
+    width: 400px;
+    height: 400px;
+    background: #9b59b6;
+    top: 40%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    animation: float3 35s ease-in-out infinite;
+    opacity: 0.06;
+  }
 }
 
 @keyframes float1 {

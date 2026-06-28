@@ -546,11 +546,11 @@
 
 @media (max-width: 720px) {
   .archive {
-    padding: 100px 24px 60px;
+    padding: 100px 16px 60px;
   }
   .archive__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 16px;
   }
   .archive__grid--banner {
     grid-template-columns: 1fr;
@@ -560,9 +560,13 @@
 @media (max-width: 480px) {
   .archive__grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
   .archive__title-bold {
     font-size: clamp(48px, 15vw, 80px);
+  }
+  /* Strip page animations on mobile */
+  .archive {
+    animation: none !important;
   }
 }

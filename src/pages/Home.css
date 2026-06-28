@@ -753,3 +753,40 @@
     font-size: clamp(60px, 18vw, 100px);
   }
 }
+
+/* ── Mobile Performance: Strip All Heavy Effects ── */
+@media (hover: none), (pointer: coarse) {
+  /* Strip all infinite animations — GPU killers */
+  .home__bg-accent {
+    animation: none !important;
+  }
+  .home__eyebrow-dot {
+    animation: none !important;
+  }
+  .home__footer-scroll-progress {
+    animation: none !important;
+  }
+  .home__float {
+    display: none !important;
+  }
+
+  /* Strip entrance animations — skip straight to final state */
+  .home,
+  .home__issue-stamp,
+  .home__rule-col,
+  .home__content,
+  .home__title-line--1,
+  .home__title-line--2,
+  .home__title-line--3,
+  .home__year-marker,
+  .home__desc-block,
+  .home__actions,
+  .home__deco-col,
+  .home__deco-line,
+  .home__footer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

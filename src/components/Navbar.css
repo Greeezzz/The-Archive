@@ -139,7 +139,6 @@
   right: 0;
   bottom: 0;
   background: rgba(8, 8, 8, 0.98);
-  backdrop-filter: blur(20px);
   z-index: 99;
   display: flex;
   align-items: center;
@@ -194,6 +193,9 @@
   }
   .navbar--scrolled {
     padding: 16px 32px;
+    /* Strip GPU-heavy backdrop-filter on mobile */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   .navbar__links {
     display: none;

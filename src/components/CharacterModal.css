@@ -294,6 +294,7 @@
   .modal {
     grid-template-columns: 1fr;
     max-height: 92vh;
+    animation: none;
   }
   .modal__image-panel {
     aspect-ratio: unset;
@@ -302,6 +303,9 @@
   }
   .modal__info-panel {
     padding: 40px 32px;
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   .modal__name {
     font-size: 30px;

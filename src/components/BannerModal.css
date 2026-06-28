@@ -376,6 +376,12 @@
   .banner-modal__info-panel {
     padding: 40px 36px;
   }
+  /* Strip backdrop-filter on mobile — GPU-heavy */
+  .modal-backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    animation: none;
+  }
 }
 
 @media (max-width: 540px) {
@@ -402,5 +408,23 @@
   .banner-modal__github-link {
     width: 100%;
     justify-content: center;
+  }
+  /* Strip all animations on mobile — performance killer */
+  .banner-modal,
+  .banner-modal__entry,
+  .banner-modal__image-accent,
+  .banner-modal__info-panel,
+  .banner-modal__divider,
+  .banner-modal__description,
+  .banner-modal__deco,
+  .banner-modal__github-link {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .banner-modal__image {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

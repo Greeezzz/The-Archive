@@ -340,14 +340,48 @@
   transform: scale(0.98);
 }
 
-/* Mobile */
-@media (hover: none) {
+/* Mobile — strip all heavy effects */
+@media (hover: none), (pointer: coarse) {
   .card {
-    animation: none;
-    opacity: 1;
-    transform: none;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    contain-intrinsic-size: auto;
+    will-change: auto;
+    transform-style: flat;
   }
-  .card__shine { display: none; }
-  .card__glow { box-shadow: none !important; }
-  .card:hover .card__glow { box-shadow: none; }
+
+  .card__glow {
+    display: none !important;
+  }
+
+  .card__shine {
+    display: none !important;
+  }
+
+  .card__bracket {
+    display: none !important;
+  }
+
+  .card__entry {
+    display: none !important;
+  }
+
+  .card__image-wrap {
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .card__overlay {
+    display: none !important;
+  }
+
+  .card__color-tint {
+    display: none !important;
+  }
+
+  .card__info {
+    padding: 12px 2px 6px;
+  }
 }

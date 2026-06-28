@@ -279,13 +279,40 @@
   transform: scale(0.98);
 }
 
-/* Mobile */
-@media (hover: none) {
+/* Mobile — strip all heavy effects */
+@media (hover: none), (pointer: coarse) {
   .banner-card {
-    animation: none;
+    animation: none !important;
     opacity: 1;
-    transform: none;
+    transform: none !important;
+    filter: none !important;
+    contain-intrinsic-size: auto;
+    will-change: auto;
+    transform-style: flat;
   }
-  .banner-card__glow { box-shadow: none !important; }
-  .banner-card:hover .banner-card__glow { box-shadow: none; }
+
+  .banner-card__glow {
+    display: none !important;
+  }
+
+  .banner-card__bracket {
+    display: none !important;
+  }
+
+  .banner-card__entry {
+    display: none !important;
+  }
+
+  .banner-card__image-wrap {
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .banner-card__overlay {
+    display: none !important;
+  }
+
+  .banner-card__color-tint {
+    display: none !important;
+  }
 }

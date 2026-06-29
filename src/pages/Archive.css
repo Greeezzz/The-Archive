@@ -1,7 +1,7 @@
 /* Archive.css */
 
 :root {
-  --archive-accent: #c0392b;
+  --archive-accent: #F4B8CC;
   --archive-rule: rgba(255,255,255,0.06);
   --archive-rule-light: rgba(255,255,255,0.1);
 }
@@ -311,9 +311,9 @@
 
 .archive__search--active,
 .archive__search:focus-within {
-  border-color: rgba(192,57,43,0.4);
-  background: rgba(192,57,43,0.03);
-  box-shadow: 0 0 0 1px rgba(192,57,43,0.1), 0 8px 32px -8px rgba(192,57,43,0.2);
+  border-color: rgba(244, 184, 204, 0.4);
+  background: rgba(244, 184, 204, 0.03);
+  box-shadow: 0 0 0 1px rgba(244, 184, 204, 0.1), 0 8px 32px -8px rgba(244, 184, 204, 0.2);
 }
 
 .archive__search-icon {
@@ -387,7 +387,7 @@
 
 .archive__search--active ~ .archive__search-rule {
   width: 140px;
-  box-shadow: 0 0 12px rgba(192,57,43,0.4);
+  box-shadow: 0 0 12px rgba(244, 184, 204, 0.4);
 }
 
 /* Bottom rule */
@@ -471,14 +471,14 @@
   text-transform: uppercase;
   color: var(--archive-accent);
   padding: 12px 24px;
-  border: 1px solid rgba(192,57,43,0.3);
-  background: rgba(192,57,43,0.05);
+  border: 1px solid rgba(244, 184, 204, 0.3);
+  background: rgba(244, 184, 204, 0.05);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .archive__empty-btn:hover {
-  background: rgba(192,57,43,0.1);
+  background: rgba(244, 184, 204, 0.1);
   border-color: var(--archive-accent);
 }
 

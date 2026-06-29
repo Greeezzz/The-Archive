@@ -87,10 +87,10 @@
   left: 50%;
   width: 0;
   height: 1px;
-  background: linear-gradient(90deg, var(--accent), #e74c3c);
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
   transform: translateX(-50%);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 8px rgba(192,57,43,0.5);
+  box-shadow: 0 0 8px rgba(244, 184, 204, 0.5);
 }
 
 .navbar__link:hover .navbar__link-line,

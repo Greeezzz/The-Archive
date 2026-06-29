@@ -1,7 +1,9 @@
 /* Home.css — Editorial style */
 
 :root {
-  --home-accent: #c0392b;
+  --home-accent: #F4B8CC;
+  --home-accent-alt: #7091F0;
+  --home-accent-glow: rgba(244, 184, 204, 0.4);
   --home-rule: rgba(255,255,255,0.06);
   --home-rule-light: rgba(255,255,255,0.12);
 }
@@ -46,7 +48,7 @@
   right: -10%;
   width: 60vw;
   height: 60vw;
-  background: radial-gradient(circle, rgba(192,57,43,0.08) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(244, 184, 204, 0.08) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
   animation: pulse 8s ease-in-out infinite;
@@ -77,6 +79,28 @@
   right: 20%;
   width: 1px;
   height: 100%;
+}
+
+/* Cyborg scanline filter */
+.home__scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(244, 184, 204, 0.012) 2px,
+    rgba(244, 184, 204, 0.012) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+@media (pointer: fine) {
+  .home__scanline {
+    opacity: 1;
+  }
 }
 
 @keyframes pulse {
@@ -122,7 +146,7 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--home-accent);
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* ── Main layout ── */
@@ -375,7 +399,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--home-accent), #e74c3c);
+  background: linear-gradient(135deg, var(--home-accent), var(--home-accent-alt));
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: -1;
@@ -419,7 +443,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--home-accent), #e74c3c);
+  background: linear-gradient(90deg, var(--home-accent), var(--home-accent-alt));
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -603,7 +627,7 @@
   left: 0;
   width: 40%;
   height: 100%;
-  background: linear-gradient(90deg, var(--home-accent), #e74c3c);
+  background: linear-gradient(90deg, var(--home-accent), var(--home-accent-alt));
   animation: scrollProgress 3s ease-in-out infinite;
 }
 
@@ -627,7 +651,7 @@
   font-weight: 900;
   letter-spacing: 0.2em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.025);
+  -webkit-text-stroke: 1px rgba(244, 184, 204, 0.025);
   user-select: none;
   white-space: nowrap;
 }
@@ -653,7 +677,7 @@
 .home__float--2 {
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, #3498db 0%, transparent 70%);
+  background: radial-gradient(circle, var(--home-accent-alt) 0%, transparent 70%);
   opacity: 0.03;
   bottom: 30%;
   right: 15%;
@@ -756,7 +780,7 @@
 
 /* ── Mobile Performance: Strip All Heavy Effects ── */
 @media (hover: none), (pointer: coarse) {
-  /* Strip all infinite animations — GPU killers */
+  /* Strip all infinite animations ── */
   .home__bg-accent {
     animation: none !important;
   }
@@ -770,7 +794,7 @@
     display: none !important;
   }
 
-  /* Strip entrance animations — skip straight to final state */
+  /* Strip entrance animations ── */
   .home,
   .home__issue-stamp,
   .home__rule-col,

@@ -1,7 +1,8 @@
 /* About.css — Simplified */
 
 :root {
-  --about-accent: #c0392b;
+  --about-accent: #F4B8CC;
+  --about-accent-alt: #7091F0;
   --about-rule: rgba(255,255,255,0.05);
   --about-rule-light: rgba(255,255,255,0.1);
 }
@@ -245,7 +246,7 @@
   font-weight: 300;
   color: var(--text-secondary);
   line-height: 1.95;
-  border-left: 2px solid rgba(255,255,255,0.05);
+  border-left: 2px solid rgba(244, 184, 204, 0.1);
   padding-left: 28px;
 }
 
@@ -334,7 +335,7 @@
   background: var(--about-accent);
   color: #fff;
   transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(192,57,43,0.4);
+  box-shadow: 0 0 20px rgba(244, 184, 204, 0.4);
 }
 
 .about__social-link:hover .about__social-text {
@@ -375,7 +376,7 @@
 .about__social-link:hover .about__social-arrow {
   opacity: 1;
   transform: translateX(4px);
-  color: var(--about-accent);
+  color: var(--about-accent-alt);
 }
 
 /* Aside */

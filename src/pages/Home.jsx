@@ -12,6 +12,7 @@ export default function Home() {
         <div className="home__bg-grid" />
         <div className="home__bg-accent" />
         <div className="home__bg-lines" />
+        <div className="home__scanline" aria-hidden="true" />
 
         {/* Floating decorative orbs */}
         <div className="home__float home__float--1" aria-hidden="true" />
@@ -89,6 +90,10 @@ export default function Home() {
               </Link>
               <Link to="/about" className="home__btn home__btn--secondary">
                 Meet the Creator
+                <span className="home__btn-dot" />
+              </Link>
+              <Link to="/projects" className="home__btn home__btn--secondary">
+                View Projects
                 <span className="home__btn-dot" />
               </Link>
             </div>

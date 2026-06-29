@@ -15,7 +15,8 @@
   --text-muted: #444444;
   --border: #222222;
   --border-hover: #333333;
-  --accent: #c0392b;
+  --accent: #F4B8CC;
+  --accent-alt: #7091F0;
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'DM Mono', monospace;
   --font-display: 'Playfair Display', Georgia, serif;
@@ -91,7 +92,7 @@ img {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent), #e74c3c, var(--accent));
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--accent));
   background-size: 200% 100%;
   z-index: 1001;
   transform-origin: left;
@@ -101,7 +102,7 @@ img {
 
 @media (pointer: fine) {
   .scroll-progress {
-    box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+    box-shadow: 0 0 20px rgba(244, 184, 204, 0.5);
     animation: shimmer 2s linear infinite;
   }
 }
@@ -137,7 +138,7 @@ img {
   .ambient-glow--2 {
     width: 500px;
     height: 500px;
-    background: #3498db;
+    background: var(--accent-alt);
     bottom: -150px;
     left: -150px;
     animation: float2 30s ease-in-out infinite;
@@ -200,12 +201,12 @@ img {
 /* Text selection */
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: #000;
 }
 
 ::-moz-selection {
   background: var(--accent);
-  color: #fff;
+  color: #000;
 }
 
 /* Focus states */

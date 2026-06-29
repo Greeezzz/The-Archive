@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import PageTransition from './components/PageTransition';
 import Cursor from './components/Cursor';
 import './index.css';
+import Projects from './pages/Projects';
 
 export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/archive" element={<Archive />} />
           <Route path="/about"   element={<About />} />
           <Route path="*"        element={<NotFound />} />
+          <Route path="/projects" element={<Projects />} />
         </Routes>
       </PageTransition>
     </BrowserRouter>

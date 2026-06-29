@@ -1,8 +1,8 @@
 /* BannerModal.css — Dynamic color per banner */
 
 :root {
-  --banner-modal-accent: #c0392b;
-  --banner-modal-accent-glow: rgba(192, 57, 43, 0.5);
+  --banner-modal-accent: #F4B8CC;
+  --banner-modal-accent-glow: rgba(244, 184, 204, 0.5);
 }
 
 /* Backdrop */

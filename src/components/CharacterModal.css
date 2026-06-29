@@ -181,7 +181,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #141;
+  background: var(--bg-card);
   font-family: var(--font-mono);
   font-size: 64px;
   font-weight: 300;

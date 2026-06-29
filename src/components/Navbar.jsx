@@ -40,6 +40,10 @@ export default function Navbar() {
           <span className="navbar__link-text">About</span>
           <span className="navbar__link-line" />
         </Link>
+        <Link to="/projects" className={`navbar__link ${location.pathname === '/projects' ? 'navbar__link--active' : ''}`}>
+          <span className="navbar__link-text">Projects</span>
+          <span className="navbar__link-line" />
+        </Link>
       </div>
 
       {/* Mobile menu toggle */}
@@ -59,6 +63,7 @@ export default function Navbar() {
           <Link to="/"        className="navbar__mobile-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
           <Link to="/archive" className="navbar__mobile-link" onClick={() => setIsMenuOpen(false)}>Archive</Link>
           <Link to="/about"   className="navbar__mobile-link" onClick={() => setIsMenuOpen(false)}>About</Link>
+          <Link to="/projects" className="navbar__mobile-link" onClick={() => setIsMenuOpen(false)}>Projects</Link>
         </div>
       </div>
     </nav>

@@ -29,13 +29,13 @@
   to { opacity: 1; }
 }
 
-/* ── Background layers ── */
+/* Cyberpunk Background layers */
 .home__bg-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    linear-gradient(rgba(112, 145, 240, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(112, 145, 240, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 80%);
   pointer-events: none;
@@ -48,10 +48,12 @@
   right: -10%;
   width: 60vw;
   height: 60vw;
-  background: radial-gradient(circle, rgba(244, 184, 204, 0.08) 0%, transparent 60%);
+  background: radial-gradient(circle, var(--home-accent) 0%, transparent 60%);
+  opacity: 0.08;
   pointer-events: none;
   z-index: 0;
   animation: pulse 8s ease-in-out infinite;
+  filter: blur(40px);
 }
 
 .home__bg-lines {
@@ -66,7 +68,7 @@
 .home__bg-lines::after {
   content: '';
   position: absolute;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.02), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(112, 145, 240, 0.05), transparent);
 }
 
 .home__bg-lines::before {
@@ -81,34 +83,12 @@
   height: 100%;
 }
 
-/* Cyborg scanline filter */
-.home__scanline {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(244, 184, 204, 0.012) 2px,
-    rgba(244, 184, 204, 0.012) 4px
-  );
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-}
-
-@media (pointer: fine) {
-  .home__scanline {
-    opacity: 1;
-  }
-}
-
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.05); }
+  0%, 100% { opacity: 0.08; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.05); }
 }
 
-/* ── Issue stamp — top right ── */
+/* Cyberpunk Issue stamp */
 .home__issue-stamp {
   position: absolute;
   top: 40px;
@@ -126,8 +106,8 @@
 }
 
 .home__issue-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
+  font-family: var(--font-cyber);
+  font-size: 8px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -137,16 +117,18 @@
 .home__issue-divider {
   width: 32px;
   height: 1px;
-  background: linear-gradient(to right, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(to right, var(--home-accent), transparent);
+  box-shadow: 0 0 10px var(--home-accent-glow);
 }
 
 .home__issue-vol {
-  font-family: var(--font-mono);
-  font-size: 9px;
+  font-family: var(--font-cyber);
+  font-size: 8px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--home-accent);
-  opacity: 0.8;
+  opacity: 0.9;
+  text-shadow: 0 0 10px var(--home-accent-glow);
 }
 
 /* ── Main layout ── */
@@ -242,7 +224,7 @@
   50% { transform: scale(1.3); opacity: 1; }
 }
 
-/* ── Hero title — editorial pull quote style ── */
+/* ── Hero title — cyberpunk editorial style ── */
 .home__hero {
   position: relative;
   margin: 8px 0;
@@ -253,6 +235,7 @@
   flex-direction: column;
   gap: 0;
   line-height: 1;
+  position: relative;
 }
 
 .home__title-line {
@@ -305,13 +288,60 @@
   letter-spacing: -0.04em;
   color: var(--text-primary);
   line-height: 0.85;
-  text-shadow: 0 0 80px rgba(255,255,255,0.05);
+  position: relative;
+}
+
+/* Cyberpunk glitch effect on title */
+.home__title-bold::before,
+.home__title-bold::after {
+  content: 'Archive';
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.home__title-bold::before {
+  color: var(--home-accent);
+  animation: glitch-1 3s infinite;
+}
+
+.home__title-bold::after {
+  color: var(--home-accent-alt);
+  animation: glitch-2 3s infinite;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { opacity: 0; transform: translate(0); }
+  5% { opacity: 0.8; transform: translate(-3px, 0); clip-path: inset(0 0 80% 0); }
+  10% { opacity: 0; }
+  50% { opacity: 0; }
+  55% { opacity: 0.8; transform: translate(3px, 0); clip-path: inset(80% 0 0 0); }
+  60% { opacity: 0; }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { opacity: 0; transform: translate(0); }
+  7% { opacity: 0.8; transform: translate(3px, 0); clip-path: inset(40% 0 40% 0); }
+  12% { opacity: 0; }
+  52% { opacity: 0; }
+  57% { opacity: 0.8; transform: translate(-3px, 0); clip-path: inset(0 0 60% 0); }
+  62% { opacity: 0; }
 }
 
 .home__title-accent {
   display: inline;
   color: var(--home-accent);
-  text-shadow: 0 0 40px var(--home-accent-glow);
+  text-shadow:
+    0 0 10px var(--home-accent),
+    0 0 20px var(--home-accent-glow),
+    0 0 40px var(--home-accent-glow);
+  animation: accentPulse 2s ease-in-out infinite;
+}
+
+@keyframes accentPulse {
+  0%, 100% { text-shadow: 0 0 10px var(--home-accent), 0 0 20px var(--home-accent-glow); }
+  50% { text-shadow: 0 0 20px var(--home-accent), 0 0 40px var(--home-accent-glow), 0 0 60px var(--home-accent-glow); }
 }
 
 /* Year marker */
@@ -532,13 +562,14 @@
   to { transform: scaleY(1); opacity: 1; }
 }
 
-/* ── Footer strip ── */
+/* ── Cyberpunk Footer strip ── */
 .home__footer {
   position: relative;
   z-index: 2;
   margin-top: auto;
   padding: 40px 80px;
-  border-top: 1px solid var(--home-rule);
+  border-top: 1px solid var(--home-accent);
+  box-shadow: 0 -1px 20px var(--home-accent-glow);
   animation: footerSlide 0.8s ease 1.2s both;
 }
 
@@ -637,7 +668,7 @@
   100% { left: 100%; }
 }
 
-/* ── Ghost watermark ── */
+/* ── Cyberpunk Ghost watermark ── */
 .home__watermark {
   position: absolute;
   right: -80px;
@@ -646,14 +677,15 @@
   pointer-events: none;
   z-index: 1;
   writing-mode: vertical-rl;
-  font-family: var(--font-display);
+  font-family: var(--font-cyber);
   font-size: clamp(120px, 18vw, 240px);
   font-weight: 900;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(244, 184, 204, 0.025);
+  -webkit-text-stroke: 1px rgba(244, 184, 204, 0.05);
   user-select: none;
   white-space: nowrap;
+  text-shadow: 0 0 60px rgba(244, 184, 204, 0.1);
 }
 
 /* ── Floating decorative elements ── */
@@ -812,5 +844,44 @@
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  /* Strip all infinite animations ── */
+  .home__bg-accent,
+  .home__eyebrow-dot,
+  .home__footer-scroll-progress,
+  .home__float--1,
+  .home__float--2,
+  .home__float--3 {
+    animation: none !important;
+  }
+
+  /* Strip entrance animations ── */
+  .home,
+  .home__issue-stamp,
+  .home__rule-col,
+  .home__content,
+  .home__title-line--1,
+  .home__title-line--2,
+  .home__title-line--3,
+  .home__year-marker,
+  .home__desc-rule,
+  .home__desc-block,
+  .home__actions,
+  .home__deco-col,
+  .home__deco-line,
+  .home__footer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Strip text effects ── */
+  .home__title-line {
+    overflow: visible;
   }
 }

@@ -7,6 +7,7 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import PageTransition from './components/PageTransition';
 import Cursor from './components/Cursor';
+import BackToTop from './components/BackToTop';
 import './index.css';
 import Projects from './pages/Projects';
 
@@ -27,6 +28,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {/* Skip to main content for accessibility */}
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+
       {/* Global Effects */}
       <div className="grain" aria-hidden="true" />
       <div className="ambient-glow ambient-glow--1" aria-hidden="true" />
@@ -40,6 +44,7 @@ export default function App() {
 
       <Cursor />
       <Navbar />
+      <main id="main-content">
       <PageTransition>
         <Routes>
           <Route path="/"        element={<Home />} />
@@ -49,6 +54,8 @@ export default function App() {
           <Route path="/projects" element={<Projects />} />
         </Routes>
       </PageTransition>
+      </main>
+      <BackToTop />
     </BrowserRouter>
   );
 }

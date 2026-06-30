@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import characters from '../data/characters.json';
 import './About.css';
 
 const stats = [
   { label: 'Project',    value: 'The Archive' },
   { label: 'Medium',     value: 'Digital Design' },
-  { label: 'Characters', value: '22 & growing' },
+  { label: 'Characters', value: `${characters.length} & growing` },
   { label: 'Since',      value: '2025' },
 ];
 

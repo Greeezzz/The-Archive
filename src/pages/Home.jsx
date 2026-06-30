@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import characters from '../data/characters.json';
 import './Home.css';
 
+const currentYear = new Date().getFullYear();
+
 export default function Home() {
   return (
     <div className="home-wrapper">
@@ -32,7 +34,7 @@ export default function Home() {
           {/* Left vertical rule */}
           <div className="home__rule-col">
             <div className="home__rule-line" />
-            <span className="home__rule-text">EST. 2025</span>
+            <span className="home__rule-text">EST. {currentYear}</span>
             <div className="home__rule-line home__rule-line--bottom" />
           </div>
 
@@ -63,7 +65,7 @@ export default function Home() {
 
               {/* Decorative year marker */}
               <div className="home__year-marker">
-                <span className="home__year-num">2025</span>
+                <span className="home__year-num">{currentYear}</span>
               </div>
             </div>
 
@@ -120,7 +122,7 @@ export default function Home() {
             <div className="home__footer-left">
               <span className="home__footer-tag">CheloKebab10k</span>
               <span className="home__footer-sep">/</span>
-              <span className="home__footer-date">2025</span>
+              <span className="home__footer-date">{currentYear}</span>
             </div>
             <div className="home__footer-center">
               <span className="home__footer-tagline">Storytelling with design</span>

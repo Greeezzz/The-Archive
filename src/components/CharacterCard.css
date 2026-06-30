@@ -1,14 +1,16 @@
-/* CharacterCard.css — Premium Editorial Style */
+/* CharacterCard.css — Cyberpunk Editorial Style */
 
 :root {
   --card-accent: #F4B8CC;
-  --card-rule: rgba(255,255,255,0.05);
+  --card-accent-alt: #7091F0;
+  --card-accent-cyan: #00F5FF;
+  --card-rule: rgba(112, 145, 240, 0.08);
 }
 
 .card {
   position: relative;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: visible;
   content-visibility: auto;
   contain-intrinsic-size: 0 380px;
@@ -31,26 +33,28 @@
   }
 }
 
-/* Glow border */
+/* Cyberpunk Glow border with neon effect */
 .card__glow {
   position: absolute;
-  inset: -2px;
+  inset: -3px;
   border-radius: 8px;
-  border: 1px solid var(--card-rule);
+  border: 1px solid rgba(112, 145, 240, 0.15);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   z-index: 0;
 }
 
 .card:hover .card__glow {
-  border-color: rgba(255,255,255,0.15);
+  border-color: var(--accent);
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.03),
-    0 20px 60px -20px var(--accent),
-    0 0 80px -40px var(--accent);
+    0 0 0 1px rgba(244, 184, 204, 0.1),
+    0 0 20px var(--accent),
+    0 0 40px var(--accent-glow),
+    0 0 60px var(--accent-alt-glow),
+    inset 0 0 20px rgba(244, 184, 204, 0.05);
 }
 
-/* Entry number — now inside card__image-wrap */
+/* Entry number — inside card__image-wrap with neon badge */
 .card__entry {
   position: absolute;
   top: 12px;
@@ -70,77 +74,100 @@
 }
 
 .card__entry-num {
-  font-family: var(--font-mono);
-  font-size: 9px;
+  font-family: var(--font-cyber);
+  font-size: 8px;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  color: var(--accent);
-  background: rgba(0, 0, 0, 0.82);
+  letter-spacing: 0.15em;
+  color: #000;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
   padding: 5px 10px;
-  border-radius: 3px;
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--accent);
+  border-radius: 2px;
+  border: none;
+  box-shadow:
+    0 0 10px var(--accent-glow),
+    0 0 20px var(--accent-alt-glow);
 }
 
 .card__entry-line {
   width: 24px;
-  height: 1px;
-  background: linear-gradient(to right, var(--accent), transparent);
-  opacity: 0.5;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent-cyan), transparent);
+  box-shadow: 0 0 8px var(--accent-cyan-glow);
+  opacity: 0.7;
 }
 
-/* Corner brackets */
+/* Cyberpunk Corner brackets — tech-style */
 .card__bracket {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   pointer-events: none;
   z-index: 3;
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Top-left bracket */
 .card__bracket--tl {
-  top: 0;
-  left: 0;
-  border-top: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-  transform: translate(-4px, -4px);
+  top: -2px;
+  left: -2px;
+  border-top: 3px solid var(--accent);
+  border-left: 3px solid var(--accent);
+  transform: translate(-3px, -3px);
 }
 
+/* Top-right bracket */
 .card__bracket--tr {
-  top: 0;
-  right: 0;
-  border-top: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-  transform: translate(4px, -4px);
+  top: -2px;
+  right: -2px;
+  border-top: 3px solid var(--accent-alt);
+  border-right: 3px solid var(--accent-alt);
+  transform: translate(3px, -3px);
 }
 
+/* Bottom-left bracket */
 .card__bracket--bl {
-  bottom: 0;
-  left: 0;
-  border-bottom: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-  transform: translate(-4px, 4px);
-  border-radius: 0 0 0 6px;
+  bottom: -2px;
+  left: -2px;
+  border-bottom: 3px solid var(--accent-alt);
+  border-left: 3px solid var(--accent-alt);
+  transform: translate(-3px, 3px);
+  border-radius: 0 0 0 4px;
 }
 
+/* Bottom-right bracket */
 .card__bracket--br {
-  bottom: 0;
-  right: 0;
-  border-bottom: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-  transform: translate(4px, 4px);
-  border-radius: 0 0 6px 0;
+  bottom: -2px;
+  right: -2px;
+  border-bottom: 3px solid var(--accent);
+  border-right: 3px solid var(--accent);
+  transform: translate(3px, 3px);
+  border-radius: 0 0 4px 0;
 }
 
 .card:hover .card__bracket {
   opacity: 1;
 }
 
-/* Light color variant - brackets visible but darker */
+/* Glow effect on brackets */
+.card:hover .card__bracket--tl,
+.card:hover .card__bracket--br {
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.card:hover .card__bracket--tr,
+.card:hover .card__bracket--bl {
+  box-shadow: 0 0 10px var(--accent-alt);
+}
+
+/* Light color variant */
 .card--light .card__bracket {
-  border-color: rgba(0,0,0,0.25);
+  border-color: rgba(0,0,0,0.3);
+  box-shadow: none !important;
+}
+
+.card--light .card__glow {
+  border-color: rgba(112, 145, 240, 0.2);
 }
 
 /* Image */
@@ -157,6 +184,23 @@
   aspect-ratio: 9 / 11;
 }
 
+/* Cyberpunk scanline overlay on image */
+.card__image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.05) 3px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.5;
+}
+
 .card__image {
   width: 100%;
   height: 100%;
@@ -167,17 +211,18 @@
 
 .card:hover .card__image {
   transform: scale(1.08) translateZ(20px);
-  filter: brightness(1.08) contrast(1.03);
+  filter: brightness(1.08) contrast(1.03) saturate(1.1);
 }
 
-/* Color tint overlay */
+/* Cyberpunk color tint overlay — gradient from pink to purple */
 .card__color-tint {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 30% 30%,
+  background: linear-gradient(
+    135deg,
     var(--accent) 0%,
-    transparent 70%
+    var(--accent-alt) 50%,
+    var(--accent-cyan) 100%
   );
   opacity: 0;
   mix-blend-mode: overlay;
@@ -186,7 +231,7 @@
 }
 
 .card:hover .card__color-tint {
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
 /* Fallback */
@@ -197,14 +242,15 @@
   align-items: center;
   justify-content: center;
   background: var(--bg-card);
-  font-family: var(--font-mono);
+  font-family: var(--font-cyber);
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 700;
   color: var(--accent);
-  opacity: 0.2;
+  opacity: 0.3;
+  text-shadow: 0 0 20px var(--accent-glow);
 }
 
-/* Hover overlay */
+/* Cyberpunk Hover overlay */
 .card__overlay {
   position: absolute;
   inset: 0;
@@ -214,12 +260,13 @@
   padding: 24px 20px;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.92) 0%,
-    rgba(0,0,0,0.5) 40%,
+    rgba(8, 8, 12, 0.95) 0%,
+    rgba(8, 8, 12, 0.6) 40%,
     transparent 70%
   );
   opacity: 0;
   transition: opacity 0.4s ease;
+  z-index: 5;
 }
 
 .card__overlay--visible {
@@ -227,20 +274,22 @@
 }
 
 .card__view-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
+  font-family: var(--font-cyber);
+  font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: var(--accent-cyan);
   margin-bottom: 10px;
   transform: translateY(16px);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  text-shadow: 0 0 10px var(--accent-cyan-glow);
 }
 
 .card:hover .card__view-label {
   transform: translateY(0);
-  color: rgba(255,255,255,0.8);
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .card__overlay-name {
@@ -258,11 +307,12 @@
 }
 
 .card__overlay-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-cyber);
+  font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
   transform: translateY(14px);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
   margin-top: 8px;
@@ -272,29 +322,32 @@
   transform: translateY(0);
 }
 
-/* Shine effect */
+/* Cyberpunk Shine effect — neon sweep */
 .card__shine {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     105deg,
-    transparent 30%,
-    rgba(255,255,255,0.12) 50%,
-    transparent 70%
+    transparent 20%,
+    rgba(244, 184, 204, 0.15) 40%,
+    rgba(112, 145, 240, 0.15) 50%,
+    rgba(244, 184, 204, 0.15) 60%,
+    transparent 80%
   );
   transform: translateX(-200%);
   pointer-events: none;
   opacity: 0;
+  z-index: 6;
 }
 
 .card__shine--active {
   opacity: 1;
-  animation: shineSweep 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: neonShine 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes shineSweep {
-  from { transform: translateX(-200%); }
-  to { transform: translateX(200%); }
+@keyframes neonShine {
+  0% { transform: translateX(-200%); }
+  100% { transform: translateX(200%); }
 }
 
 /* Info */
@@ -302,21 +355,23 @@
   padding: 16px 4px 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .card__number {
-  font-family: var(--font-mono);
-  font-size: 10px;
+  font-family: var(--font-cyber);
+  font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.15em;
-  opacity: 0.4;
-  color: var(--accent);
-  transition: opacity 0.3s ease;
+  opacity: 0.5;
+  color: var(--accent-alt);
+  transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .card:hover .card__number {
-  opacity: 0.7;
+  opacity: 0.9;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .card__name {
@@ -371,6 +426,10 @@
   .card__image-wrap {
     will-change: auto;
     transform: none !important;
+  }
+
+  .card__image-wrap::after {
+    display: none;
   }
 
   .card__overlay {

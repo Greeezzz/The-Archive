@@ -1,4 +1,4 @@
-/* Navbar.css — Editorial style upgrade v2 */
+/* Navbar.css — Cyberpunk Editorial Style */
 
 .navbar {
   position: fixed;
@@ -9,40 +9,55 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px 64px;
+  padding: 24px 64px;
   transition: background 0.4s ease, border-bottom 0.4s ease, padding 0.4s ease;
 }
 
 .navbar--scrolled {
-  background: rgba(8, 8, 8, 0.9);
+  background: rgba(8, 8, 12, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  padding: 18px 64px;
-  box-shadow: 0 4px 32px -8px rgba(0,0,0,0.4);
+  border-bottom: 1px solid var(--accent);
+  padding: 16px 64px;
+  box-shadow:
+    0 4px 32px -8px rgba(0,0,0,0.4),
+    0 0 30px var(--accent-glow);
 }
 
 .navbar__logo {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-family: var(--font-cyber);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   color: var(--text-primary);
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
+  position: relative;
 }
 
 .navbar__logo:hover {
-  opacity: 0.7;
+  color: var(--accent);
+  text-shadow:
+    0 0 10px var(--accent),
+    0 0 20px var(--accent-glow);
 }
 
 .navbar__logo-bracket {
-  color: var(--text-muted);
+  color: var(--accent-alt);
   transition: color 0.3s ease;
 }
 
 .navbar__logo:hover .navbar__logo-bracket {
   color: var(--accent);
+}
+
+/* Logo cyberpunk decoration */
+.navbar__logo::before {
+  content: '//';
+  color: var(--accent);
+  opacity: 0.5;
+  margin-right: 8px;
+  font-size: 10px;
 }
 
 .navbar__links {
@@ -70,7 +85,8 @@
 
 .navbar__link:hover,
 .navbar__link--active {
-  color: var(--text-primary);
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .navbar__link-text {
@@ -81,16 +97,19 @@
   transform: translateY(-2px);
 }
 
+/* Cyberpunk animated underline with glow */
 .navbar__link-line {
   position: absolute;
   bottom: 0;
   left: 50%;
   width: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--accent-cyan));
   transform: translateX(-50%);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 8px rgba(244, 184, 204, 0.5);
+  box-shadow:
+    0 0 10px var(--accent),
+    0 0 20px var(--accent-glow);
 }
 
 .navbar__link:hover .navbar__link-line,
@@ -98,28 +117,54 @@
   width: 100%;
 }
 
-/* Mobile toggle */
+/* Cyberpunk indicator dot */
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.navbar__link--active::after,
+.navbar__link:hover::after {
+  transform: translateX(-50%) scale(1);
+}
+
+/* Mobile toggle — cyberpunk style */
 .navbar__toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  width: 28px;
-  padding: 4px;
+  gap: 6px;
+  width: 32px;
+  padding: 6px;
   background: transparent;
-  border: none;
-  cursor: none;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.navbar__toggle:hover {
+  border-color: var(--accent);
 }
 
 .navbar__toggle-line {
   width: 100%;
-  height: 1.5px;
+  height: 2px;
   background: var(--text-secondary);
   transition: all 0.3s ease;
   transform-origin: center;
+  box-shadow: 0 0 5px var(--accent-glow);
 }
 
 .navbar__toggle--open .navbar__toggle-line:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 5px);
+  transform: rotate(45deg) translate(5px, 6px);
+  background: var(--accent);
 }
 
 .navbar__toggle--open .navbar__toggle-line:nth-child(2) {
@@ -128,17 +173,18 @@
 }
 
 .navbar__toggle--open .navbar__toggle-line:nth-child(3) {
-  transform: rotate(-45deg) translate(4px, -5px);
+  transform: rotate(-45deg) translate(5px, -6px);
+  background: var(--accent-alt);
 }
 
-/* Mobile menu */
+/* Mobile menu — cyberpunk overlay */
 .navbar__mobile {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(8, 8, 8, 0.98);
+  background: rgba(8, 8, 12, 0.98);
   z-index: 99;
   display: flex;
   align-items: center;
@@ -146,6 +192,17 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.navbar__mobile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--accent) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(0deg, var(--accent) 1px, transparent 1px) 0 0 / 60px 60px;
+  opacity: 0.03;
+  pointer-events: none;
 }
 
 .navbar__mobile--open {
@@ -157,19 +214,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
 }
 
 .navbar__mobile-link {
-  font-family: var(--font-display);
-  font-size: 32px;
+  font-family: var(--font-cyber);
+  font-size: 36px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
+  position: relative;
 }
 
 .navbar__mobile--open .navbar__mobile-link {
@@ -178,12 +236,35 @@
 }
 
 .navbar__mobile-link:nth-child(1) { transition-delay: 0.1s; }
-.navbar__mobile-link:nth-child(2) { transition-delay: 0.15s; }
-.navbar__mobile-link:nth-child(3) { transition-delay: 0.2s; }
+.navbar__mobile-link:nth-child(2) { transition-delay: 0.2s; }
+.navbar__mobile-link:nth-child(3) { transition-delay: 0.3s; }
 
 .navbar__mobile-link:hover {
-  color: var(--text-primary);
-  transform: translateX(8px);
+  color: var(--accent);
+  text-shadow:
+    0 0 10px var(--accent),
+    0 0 30px var(--accent-glow);
+  transform: translateX(12px);
+  letter-spacing: 0.15em;
+}
+
+/* Cyberpunk corner decoration on mobile links */
+.navbar__mobile-link::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid var(--accent);
+  border-top: 2px solid var(--accent);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar__mobile-link:hover::before {
+  opacity: 1;
 }
 
 /* Responsive */
@@ -193,7 +274,6 @@
   }
   .navbar--scrolled {
     padding: 16px 32px;
-    /* Strip GPU-heavy backdrop-filter on mobile */
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }

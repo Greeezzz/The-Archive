@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './CharacterModal.css';
 
@@ -16,16 +16,50 @@ const isLightColor = (hex) => {
 
 export default function CharacterModal({ character, onClose }) {
   const [imgError, setImgError] = useState(false);
+  const modalRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+
+    // Focus trap
+    const previouslyFocused = document.activeElement;
+    closeButtonRef.current?.focus();
+
     return () => {
       window.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
+      previouslyFocused?.focus();
     };
   }, [onClose]);
+
+  // Focus trap handler
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const handleTab = (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+
+    modal.addEventListener('keydown', handleTab);
+    return () => modal.removeEventListener('keydown', handleTab);
+  }, []);
 
   const characterColor = useMemo(() => character.color || '#c0392b', [character.color]);
   const isLight = useMemo(() => isLightColor(characterColor), [characterColor]);
@@ -37,6 +71,7 @@ export default function CharacterModal({ character, onClose }) {
       <article
         className={`modal ${isLight ? 'modal--light' : ''}`}
         onClick={(e) => e.stopPropagation()}
+        ref={modalRef}
         style={{
           '--accent': characterColor,
           '--accent-glow': `${characterColor}80`,
@@ -59,7 +94,7 @@ export default function CharacterModal({ character, onClose }) {
         </div>
 
         {/* Close button */}
-        <button className="modal__close" onClick={onClose} aria-label="Close modal">
+        <button className="modal__close" onClick={onClose} aria-label="Close modal" ref={closeButtonRef}>
           <span>×</span>
         </button>
 

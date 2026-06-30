@@ -1,22 +1,17 @@
-/* BannerModal.css — Dynamic color per banner */
+/* BannerModal.css — Cyberpunk Editorial Style */
 
 :root {
   --banner-modal-accent: #F4B8CC;
-  --banner-modal-accent-glow: rgba(244, 184, 204, 0.5);
+  --banner-modal-accent-alt: #7091F0;
+  --banner-modal-accent-cyan: #00F5FF;
 }
 
-/* Backdrop */
+/* Cyberpunk Backdrop */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(8, 8, 8, 0.96) 100%
-  );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(8, 8, 12, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,7 +24,7 @@
   to { opacity: 1; }
 }
 
-/* Modal container */
+/* Cyberpunk Modal container */
 .banner-modal {
   position: relative;
   display: flex;
@@ -38,14 +33,14 @@
   width: 100%;
   max-height: 90vh;
   background: var(--bg-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
+  border: 1px solid rgba(112, 145, 240, 0.2);
+  border-radius: 4px;
   overflow: hidden;
   animation: bannerModalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.03),
-    0 24px 80px -24px rgba(0,0,0,0.7),
-    0 0 100px -40px var(--accent, var(--banner-modal-accent));
+    0 0 0 1px rgba(244, 184, 204, 0.05),
+    0 0 60px rgba(112, 145, 240, 0.15),
+    0 0 100px rgba(244, 184, 204, 0.1);
 }
 
 @keyframes bannerModalIn {
@@ -59,11 +54,11 @@
   }
 }
 
-/* Corner brackets */
+/* Cyberpunk Corner brackets */
 .banner-modal__bracket {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   pointer-events: none;
   z-index: 5;
 }
@@ -71,29 +66,33 @@
 .banner-modal__bracket--tl {
   top: -1px;
   left: -1px;
-  border-top: 2px solid var(--accent, var(--banner-modal-accent));
-  border-left: 2px solid var(--accent, var(--banner-modal-accent));
+  border-top: 3px solid var(--banner-modal-accent);
+  border-left: 3px solid var(--banner-modal-accent);
+  box-shadow: 0 0 15px rgba(244, 184, 204, 0.5);
 }
 
 .banner-modal__bracket--tr {
   top: -1px;
   right: -1px;
-  border-top: 2px solid var(--accent, var(--banner-modal-accent));
-  border-right: 2px solid var(--accent, var(--banner-modal-accent));
+  border-top: 3px solid var(--banner-modal-accent-alt);
+  border-right: 3px solid var(--banner-modal-accent-alt);
+  box-shadow: 0 0 15px rgba(112, 145, 240, 0.5);
 }
 
 .banner-modal__bracket--bl {
   bottom: -1px;
   left: -1px;
-  border-bottom: 2px solid var(--accent, var(--banner-modal-accent));
-  border-left: 2px solid var(--accent, var(--banner-modal-accent));
+  border-bottom: 3px solid var(--banner-modal-accent-alt);
+  border-left: 3px solid var(--banner-modal-accent-alt);
+  box-shadow: 0 0 15px rgba(112, 145, 240, 0.5);
 }
 
 .banner-modal__bracket--br {
   bottom: -1px;
   right: -1px;
-  border-bottom: 2px solid var(--accent, var(--banner-modal-accent));
-  border-right: 2px solid var(--accent, var(--banner-modal-accent));
+  border-bottom: 3px solid var(--banner-modal-accent);
+  border-right: 3px solid var(--banner-modal-accent);
+  box-shadow: 0 0 15px rgba(244, 184, 204, 0.5);
 }
 
 /* Entry label */
@@ -114,25 +113,29 @@
 }
 
 .banner-modal__entry-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
+  font-family: var(--font-cyber);
+  font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  background: rgba(0, 0, 0, 0.7);
+  color: #000;
+  background: linear-gradient(135deg, var(--banner-modal-accent), var(--banner-modal-accent-alt));
   padding: 8px 14px;
-  border-radius: 3px;
-  backdrop-filter: blur(8px);
-  border: 1px solid;
+  border-radius: 2px;
+  box-shadow:
+    0 0 15px rgba(244, 184, 204, 0.5),
+    0 0 30px rgba(112, 145, 240, 0.5);
 }
 
 .banner-modal__entry-line {
   width: 40px;
-  height: 1px;
-  opacity: 0.6;
+  height: 2px;
+  background: linear-gradient(to right, var(--banner-modal-accent-cyan), transparent);
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+  opacity: 0.7;
 }
 
-/* Close button */
+/* Cyberpunk Close button */
 .banner-modal__close {
   position: absolute;
   top: 16px;
@@ -141,23 +144,25 @@
   width: 40px;
   height: 40px;
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(8, 8, 12, 0.9);
   color: var(--text-secondary);
-  font-size: 18px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
 }
 
 .banner-modal__close:hover {
-  background: var(--accent, var(--banner-modal-accent));
-  color: #fff;
-  border-color: var(--accent, var(--banner-modal-accent));
+  background: var(--banner-modal-accent);
+  color: #000;
+  border-color: var(--banner-modal-accent);
   transform: rotate(90deg);
+  box-shadow:
+    0 0 20px rgba(244, 184, 204, 0.5),
+    0 0 40px rgba(112, 145, 240, 0.5);
 }
 
 .banner-modal__close span {
@@ -168,7 +173,7 @@
 /* Image panel */
 .banner-modal__image-panel {
   position: relative;
-  background: #030303;
+  background: var(--bg-primary);
   overflow: hidden;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -177,13 +182,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(112, 145, 240, 0.1);
+}
+
+/* Scanlines on image */
+.banner-modal__image-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.05) 3px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.4;
 }
 
 .banner-modal__image-color-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0.12;
+  opacity: 0.08;
+  background: linear-gradient(135deg, var(--banner-modal-accent), var(--banner-modal-accent-alt), var(--banner-modal-accent-cyan));
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 1;
@@ -192,7 +215,7 @@
 .banner-modal__image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   position: relative;
   z-index: 2;
   animation: imageReveal 0.5s ease 0.1s both;
@@ -209,12 +232,13 @@
   inset: 0;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-cyber);
   font-size: 40px;
-  font-weight: 300;
-  color: var(--accent, var(--banner-modal-accent));
-  opacity: 0.2;
+  font-weight: 700;
+  color: var(--banner-modal-accent);
+  opacity: 0.3;
   background: var(--bg-card);
+  text-shadow: 0 0 30px rgba(244, 184, 204, 0.5);
 }
 
 .banner-modal__image-accent {
@@ -223,7 +247,9 @@
   left: 0;
   right: 0;
   height: 3px;
+  background: linear-gradient(90deg, var(--banner-modal-accent), var(--banner-modal-accent-alt), var(--banner-modal-accent-cyan));
   z-index: 3;
+  box-shadow: 0 0 20px rgba(244, 184, 204, 0.5);
   animation: accentExpand 0.5s ease 0.3s both;
 }
 
@@ -239,26 +265,32 @@
   flex-direction: column;
   gap: 24px;
   overflow-y: auto;
-  background: linear-gradient(
-    180deg,
-    var(--bg-secondary) 0%,
-    rgba(17,17,17,0.98) 100%
-  );
-  animation: infoReveal 0.5s ease 0.2s both;
+  background: var(--bg-secondary);
+  position: relative;
 }
 
-@keyframes infoReveal {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Cyberpunk grid in info panel */
+.banner-modal__info-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(112, 145, 240, 0.02) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(0deg, rgba(112, 145, 240, 0.02) 1px, transparent 1px) 0 0 / 40px 40px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .banner-modal__label {
-  font-family: var(--font-mono);
-  font-size: 10px;
+  font-family: var(--font-cyber);
+  font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  opacity: 0.8;
+  opacity: 0.7;
+  color: var(--banner-modal-accent-alt);
+  position: relative;
+  z-index: 1;
 }
 
 .banner-modal__title {
@@ -268,13 +300,19 @@
   letter-spacing: -0.03em;
   color: var(--text-primary);
   line-height: 1.1;
+  position: relative;
+  z-index: 1;
 }
 
 .banner-modal__divider {
   width: 56px;
   height: 2px;
   border-radius: 1px;
+  background: linear-gradient(90deg, var(--banner-modal-accent), var(--banner-modal-accent-alt));
+  box-shadow: 0 0 15px rgba(244, 184, 204, 0.5);
   animation: dividerGrow 0.4s ease 0.35s both;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes dividerGrow {
@@ -291,6 +329,8 @@
   line-height: 1.85;
   max-width: 560px;
   animation: descReveal 0.5s ease 0.4s both;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes descReveal {
@@ -298,13 +338,15 @@
   to { opacity: 1; }
 }
 
-/* Decorative element */
+/* Cyberpunk Decorative element */
 .banner-modal__deco {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-top: 8px;
   animation: decoReveal 0.5s ease 0.5s both;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes decoReveal {
@@ -318,31 +360,43 @@
 }
 
 .banner-modal__deco-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
+  background: var(--banner-modal-accent);
+  box-shadow:
+    0 0 10px var(--banner-modal-accent),
+    0 0 20px rgba(244, 184, 204, 0.5);
+  animation: pulse 2s ease-in-out infinite;
 }
 
-/* GitHub link */
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 10px var(--banner-modal-accent), 0 0 20px rgba(244, 184, 204, 0.5); }
+  50% { box-shadow: 0 0 20px var(--banner-modal-accent), 0 0 40px rgba(244, 184, 204, 0.5); }
+}
+
+/* Cyberpunk GitHub link */
 .banner-modal__github-link {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   margin-top: 8px;
   padding: 14px 24px;
-  border: 1px solid;
+  border: 1px solid rgba(112, 145, 240, 0.3);
   border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-cyber);
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(244, 184, 204, 0.03);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   width: fit-content;
   animation: linkReveal 0.5s ease 0.5s both;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes linkReveal {
@@ -351,10 +405,13 @@
 }
 
 .banner-modal__github-link:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.08));
-  border-color: var(--accent, var(--banner-modal-accent));
-  color: #fff;
+  background: linear-gradient(135deg, rgba(244, 184, 204, 0.1), rgba(112, 145, 240, 0.1));
+  border-color: var(--banner-modal-accent);
+  color: var(--banner-modal-accent);
   transform: translateX(8px);
+  box-shadow:
+    0 0 20px rgba(244, 184, 204, 0.3),
+    0 0 40px rgba(112, 145, 240, 0.2);
 }
 
 .banner-modal__github-link svg {
@@ -376,7 +433,9 @@
   .banner-modal__info-panel {
     padding: 40px 36px;
   }
-  /* Strip backdrop-filter on mobile — GPU-heavy */
+  .banner-modal__info-panel::before {
+    display: none;
+  }
   .modal-backdrop {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -402,14 +461,13 @@
     font-size: 14px;
   }
   .banner-modal__bracket {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
   }
   .banner-modal__github-link {
     width: 100%;
     justify-content: center;
   }
-  /* Strip all animations on mobile — performance killer */
   .banner-modal,
   .banner-modal__entry,
   .banner-modal__image-accent,

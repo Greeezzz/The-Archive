@@ -18,10 +18,7 @@ export default function App() {
       <a href="#main-content" className="skip-link">Skip to main content</a>
 
       {/* Global Effects */}
-      <div className="grain" aria-hidden="true" />
-      <div className="ambient-glow ambient-glow--1" aria-hidden="true" />
-      <div className="ambient-glow ambient-glow--2" aria-hidden="true" />
-      <div className="ambient-glow ambient-glow--3" aria-hidden="true" />
+      <div className="ambient-grid" aria-hidden="true" />
       <ScrollProgress />
 
       <Cursor />

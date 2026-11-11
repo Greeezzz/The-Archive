@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Orbitron:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import './styles/tokens.css';
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -6,41 +7,40 @@
   padding: 0;
 }
 
+/* Compatibility aliases during component migration */
 :root {
-  /* ── Cyberpunk Editorial Color Palette ── */
-  --bg-primary: #08080c;
-  --bg-secondary: #0d0d14;
-  --bg-card: #12121a;
-  --bg-card-hover: #1a1a26;
-  --text-primary: #e8e8f0;
-  --text-secondary: #9090a8;
-  --text-muted: #505068;
-  --border: #1e1e2e;
-  --border-hover: #2a2a40;
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--panel);
+  --bg-card: var(--panel);
+  --bg-card-hover: var(--panel-2);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-dim);
+  --text-muted: var(--text-mute);
+  --border: var(--line);
+  --border-hover: var(--line-hi);
 
-  /* ── Neon Accent Colors ── */
-  --accent: #F4B8CC;        /* Hot pink — primary */
-  --accent-alt: #7091F0;     /* Electric purple — secondary */
-  --accent-cyan: #00F5FF;   /* Cyan — tertiary */
-  --accent-glow: rgba(244, 184, 204, 0.5);
-  --accent-alt-glow: rgba(112, 145, 240, 0.5);
-  --accent-cyan-glow: rgba(0, 245, 255, 0.5);
+  /* Legacy mappings until components migrate to --signal / --entry */
+  --accent: var(--signal);
+  --accent-alt: var(--data);
+  --accent-cyan: var(--data);
+  --accent-glow: transparent;
+  --accent-alt-glow: transparent;
+  --accent-cyan-glow: transparent;
 
-  /* ── Fonts ── */
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'DM Mono', monospace;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-cyber: 'Orbitron', sans-serif;
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-cyber: var(--font-display);
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg);
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -57,6 +57,7 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  color: inherit;
 }
 
 img {
@@ -64,395 +65,94 @@ img {
   max-width: 100%;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CYBERPUNK GLOBAL EFFECTS
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── Scanline Overlay ── */
-.grain {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9997;
-  opacity: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
-}
-
-@media (pointer: fine) {
-  .grain {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .grain {
-    opacity: 0;
-  }
-}
-
-/* ── Neon Grid Background ── */
-.grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(112, 145, 240, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(112, 145, 240, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: gridPulse 8s ease-in-out infinite;
-}
-
-@keyframes gridPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-/* ── Glitch Animation Keyframes ── */
-@keyframes glitch-1 {
-  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px, 0); }
-  20% { clip-path: inset(20% 0 60% 0); transform: translate(2px, 0); }
-  40% { clip-path: inset(50% 0 30% 0); transform: translate(-1px, 0); }
-  60% { clip-path: inset(70% 0 10% 0); transform: translate(1px, 0); }
-  80% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 0); }
-}
-
-@keyframes glitch-2 {
-  0%, 100% { clip-path: inset(95% 0 0 0); transform: translate(2px, 0); }
-  20% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 0); }
-  40% { clip-path: inset(30% 0 50% 0); transform: translate(1px, 0); }
-  60% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 0); }
-  80% { clip-path: inset(80% 0 10% 0); transform: translate(2px, 0); }
-}
-
-@keyframes glitch-skew {
-  0%, 100% { transform: skew(0deg); }
-  10% { transform: skew(-2deg); }
-  20% { transform: skew(1deg); }
-  30% { transform: skew(0deg); }
-  50% { transform: skew(2deg); }
-  70% { transform: skew(-1deg); }
-  90% { transform: skew(1deg); }
-}
-
-/* ── Neon Text Glow Mixin ── */
-.neon-text-pink {
-  color: var(--accent);
-  text-shadow:
-    0 0 5px var(--accent),
-    0 0 10px var(--accent),
-    0 0 20px var(--accent),
-    0 0 40px var(--accent-glow);
-}
-
-.neon-text-purple {
-  color: var(--accent-alt);
-  text-shadow:
-    0 0 5px var(--accent-alt),
-    0 0 10px var(--accent-alt),
-    0 0 20px var(--accent-alt),
-    0 0 40px var(--accent-alt-glow);
-}
-
-.neon-text-cyan {
-  color: var(--accent-cyan);
-  text-shadow:
-    0 0 5px var(--accent-cyan),
-    0 0 10px var(--accent-cyan),
-    0 0 20px var(--accent-cyan),
-    0 0 40px var(--accent-cyan-glow);
-}
-
-/* ── Neon Border Mixin ── */
-.neon-border-pink {
-  border: 1px solid var(--accent);
-  box-shadow:
-    0 0 5px var(--accent),
-    0 0 10px var(--accent-glow),
-    inset 0 0 5px var(--accent-glow);
-}
-
-.neon-border-purple {
-  border: 1px solid var(--accent-alt);
-  box-shadow:
-    0 0 5px var(--accent-alt),
-    0 0 10px var(--accent-alt-glow),
-    inset 0 0 5px var(--accent-alt-glow);
-}
-
-/* ── Neon Button Base ── */
-.neon-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 28px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  background: transparent;
-  border: 1px solid var(--accent);
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.neon-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-.neon-btn:hover {
-  color: #000;
-  border-color: var(--accent);
-  box-shadow:
-    0 0 20px var(--accent-glow),
-    0 0 40px var(--accent-glow),
-    inset 0 0 20px var(--accent-glow);
-  transform: translateY(-2px);
-}
-
-.neon-btn:hover::before {
-  opacity: 1;
-}
-
-/* ── Hexagon Decorative Element ── */
-.hexagon {
-  width: 40px;
-  height: 46px;
-  position: relative;
-}
-
-.hexagon::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--accent);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  opacity: 0.2;
-}
-
-/* ── Data Stream Decoration ── */
-.data-stream {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  color: var(--accent);
-  opacity: 0.3;
-  letter-spacing: 0.1em;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SCROLL PROGRESS BAR
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── Cyberpunk Scroll Progress Bar ── */
+/* ── Clean Scroll Progress Bar (2px --signal) ── */
 .scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--accent-cyan), var(--accent));
-  background-size: 300% 100%;
+  background: var(--signal);
   z-index: 1001;
   transform-origin: left;
   will-change: transform;
   pointer-events: none;
 }
 
-@media (pointer: fine) {
-  .scroll-progress {
-    box-shadow:
-      0 0 10px var(--accent),
-      0 0 20px var(--accent-alt-glow),
-      0 0 30px var(--accent-cyan-glow);
-    animation: neonScroll 3s linear infinite;
-  }
-}
-
-@keyframes neonScroll {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   AMBIENT GLOW ORBS
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── Cyberpunk Ambient Orbs ── */
-.ambient-glow {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  will-change: auto;
-}
-
-@media (pointer: fine) {
-  .ambient-glow {
-    opacity: 1;
-  }
-
-  .ambient-glow--1 {
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-    top: -400px;
-    right: -200px;
-    animation: floatNeon1 20s ease-in-out infinite;
-    filter: blur(100px);
-  }
-
-  .ambient-glow--2 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, var(--accent-alt) 0%, transparent 70%);
-    bottom: -200px;
-    left: -200px;
-    animation: floatNeon2 25s ease-in-out infinite;
-    filter: blur(80px);
-  }
-
-  .ambient-glow--3 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: floatNeon3 30s ease-in-out infinite;
-    filter: blur(60px);
-    opacity: 0.5;
-  }
-}
-
-@keyframes floatNeon1 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
-  25% { transform: translate(-50px, 50px) scale(1.1); opacity: 0.2; }
-  50% { transform: translate(30px, -30px) scale(0.95); opacity: 0.12; }
-  75% { transform: translate(-30px, -50px) scale(1.05); opacity: 0.18; }
-}
-
-@keyframes floatNeon2 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.12; }
-  33% { transform: translate(50px, -40px) scale(1.08); opacity: 0.18; }
-  66% { transform: translate(-40px, 50px) scale(0.92); opacity: 0.1; }
-}
-
-@keyframes floatNeon3 {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.3; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ambient-glow {
-    animation: none !important;
-    opacity: 0.08 !important;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SCROLLBAR
-   ═══════════════════════════════════════════════════════════ */
-
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent), var(--accent-alt));
-  border-radius: 3px;
+  background: var(--line-hi);
+  border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--accent-cyan), var(--accent));
+  background: var(--text-mute);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: linear-gradient(var(--accent), var(--accent-alt)) var(--bg-primary);
+  scrollbar-color: var(--line-hi) var(--bg);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PAGE TRANSITION
-   ═══════════════════════════════════════════════════════════ */
-
-.page-enter {
-  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes pageEnter {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page-enter {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   TEXT SELECTION & FOCUS
-   ═══════════════════════════════════════════════════════════ */
-
+/* ── Selection ── */
 ::selection {
-  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-  color: #000;
+  background: var(--signal);
+  color: var(--signal-ink);
 }
-
 ::-moz-selection {
-  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-  color: #000;
+  background: var(--signal);
+  color: var(--signal-ink);
 }
 
+/* ── Accessible Focus visible per DESIGN.md: 2px solid --signal, offset 3px, no glow ── */
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  box-shadow: 0 0 10px var(--accent-glow);
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SKIP LINK
-   ═══════════════════════════════════════════════════════════ */
-
+/* ── Skip link ── */
 .skip-link {
   position: fixed;
   top: -100%;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-  color: #000;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0 0 8px 8px;
-  font-weight: 600;
+  background: var(--signal);
+  color: var(--signal-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 16px;
   z-index: 10000;
-  transition: top 0.3s ease;
-  text-decoration: none;
+  transition: top 0.2s ease;
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--cut-sm)) 100%, var(--cut-sm) 100%);
 }
 
 .skip-link:focus {
   top: 0;
   outline: none;
+}
+
+/* ── Subtle Ambient Grid (M11) ── */
+.ambient-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

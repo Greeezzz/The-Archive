@@ -1,0 +1,46 @@
+.ui-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  clip-path: polygon(
+    var(--cut-sm) 0,
+    100% 0,
+    100% calc(100% - var(--cut-sm)),
+    calc(100% - var(--cut-sm)) 100%,
+    0 100%,
+    0 var(--cut-sm)
+  );
+  line-height: 1.4;
+  user-select: none;
+}
+
+.ui-tag--nocut {
+  clip-path: none;
+}
+
+.ui-tag--signal {
+  border-color: var(--signal);
+  color: var(--signal);
+  background: rgba(255, 229, 0, 0.05);
+}
+
+.ui-tag--data {
+  border-color: var(--data);
+  color: var(--data);
+  background: rgba(61, 224, 255, 0.05);
+}
+
+.ui-tag--alert {
+  border-color: var(--alert);
+  color: var(--alert);
+  background: rgba(255, 77, 61, 0.05);
+}

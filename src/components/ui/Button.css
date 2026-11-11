@@ -1,0 +1,78 @@
+.ui-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--line-hi);
+  background: var(--panel);
+  color: var(--text);
+  clip-path: polygon(
+    var(--cut-sm) 0,
+    100% 0,
+    100% calc(100% - var(--cut-sm)),
+    calc(100% - var(--cut-sm)) 100%,
+    0 100%,
+    0 var(--cut-sm)
+  );
+  transition:
+    background-color var(--dur-micro) var(--ease-snap),
+    border-color var(--dur-micro) var(--ease-snap),
+    color var(--dur-micro) var(--ease-snap),
+    transform var(--dur-micro) var(--ease-snap);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.ui-btn:hover {
+  border-color: var(--signal);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.ui-btn:active {
+  transform: translateY(0);
+}
+
+/* Primary Variant (filled signal) */
+.ui-btn--primary {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--signal-ink);
+  font-weight: 700;
+}
+
+.ui-btn--primary:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+}
+
+/* Ghost Variant */
+.ui-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-dim);
+}
+
+.ui-btn--ghost:hover {
+  background: var(--panel-2);
+  border-color: var(--line);
+  color: var(--text);
+}
+
+/* Disabled State */
+.ui-btn:disabled,
+.ui-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}

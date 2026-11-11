@@ -1,0 +1,43 @@
+:root {
+  /* surfaces */
+  --bg:        #0a0b0d;
+  --panel:     #111316;
+  --panel-2:   #171a1e;
+  --line:      #2a2e34;   /* 1px default borders */
+  --line-hi:   #3d434b;   /* hover / active borders */
+
+  /* text */
+  --text:      #e9ecef;
+  --text-dim:  #8a9099;
+  --text-mute: #555b63;
+
+  /* signal colors */
+  --signal:    #ffe500;   /* primary accent: hazard yellow. CTAs, active, key labels */
+  --signal-ink:#0a0b0d;   /* text on top of --signal */
+  --data:      #3de0ff;   /* secondary: small data readouts only, never big fills */
+  --alert:     #ff4d3d;   /* errors / 404 only */
+
+  /* per-entry color. Set inline from characters.json `color` */
+  --entry:     #ffffff;
+
+  /* type */
+  --font-display: 'Chakra Petch', 'Rajdhani', sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'DM Mono', monospace;
+
+  /* geometry */
+  --cut:       14px;            /* chamfer size, large panels */
+  --cut-sm:    8px;             /* chamfer size, buttons/tags */
+  --gap:       8px;             /* base spacing unit */
+  --frame:     clamp(16px, 3vw, 40px); /* page side padding */
+
+  /* motion tokens (CSS equivalents of src/lib/motion.js) */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-snap:   cubic-bezier(0.2, 0, 0, 1);
+  --dur-micro:   0.15s;
+  --dur-ui:      0.28s;
+  --dur-panel:   0.5s;
+  --dur-page:    0.7s;
+  --dur-hero:    1.0s;
+}

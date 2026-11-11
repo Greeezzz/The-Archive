@@ -31,14 +31,12 @@ export default function Reveal({
       initial={{
         opacity: 0,
         y: 12,
-        clipPath: 'inset(0 100% 0 0)',
       }}
       whileInView={{
         opacity: 1,
         y: 0,
-        clipPath: 'inset(0 0% 0 0)',
       }}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: true, margin: '-20px' }}
       transition={{
         duration,
         delay,

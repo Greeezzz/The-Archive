@@ -1,34 +1,45 @@
+/* BackToTop.css — Industrial HUD Style */
+
 .back-to-top {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 48px;
-  height: 48px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-primary);
+  bottom: calc(var(--frame) + 12px);
+  right: calc(var(--frame) + 12px);
+  width: 40px;
+  height: 40px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
   cursor: pointer;
-  z-index: 100;
+  z-index: 95;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  clip-path: polygon(
+    var(--cut-sm) 0,
+    100% 0,
+    100% calc(100% - var(--cut-sm)),
+    calc(100% - var(--cut-sm)) 100%,
+    0 100%,
+    0 var(--cut-sm)
+  );
+  transition:
+    border-color var(--dur-micro) var(--ease-snap),
+    color var(--dur-micro) var(--ease-snap),
+    background var(--dur-micro) var(--ease-snap),
+    transform var(--dur-micro) var(--ease-snap);
 }
 
 .back-to-top svg {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.3s ease;
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur-micro) var(--ease-snap);
 }
 
 .back-to-top:hover {
-  background: var(--bg-secondary);
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(244, 184, 204, 0.2);
+  border-color: var(--signal);
+  color: var(--signal);
+  background: var(--panel-2);
+  transform: translateY(-2px);
 }
 
 .back-to-top:hover svg {
@@ -36,19 +47,12 @@
 }
 
 .back-to-top:active {
-  transform: translateY(-2px);
+  transform: translateY(0);
 }
 
-.back-to-top:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-}
-
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .back-to-top {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 44px;
-    height: 44px;
+    bottom: 16px;
+    right: 16px;
   }
 }

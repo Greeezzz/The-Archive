@@ -1,102 +1,81 @@
-/* Cursor.css — Cyberpunk Neon Cursor */
+/* Cursor.css — Industrial HUD Crosshair & Ring (M9) */
 
-.cursor__dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  margin: -4px 0 0 -4px;
-  will-change: transform;
-  box-shadow:
-    0 0 10px var(--accent),
-    0 0 20px var(--accent-glow);
-}
-
+.cursor__dot,
 .cursor__ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--accent-alt);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  margin: -20px 0 0 -20px;
-  will-change: transform;
-  box-shadow:
-    0 0 10px var(--accent-alt-glow),
-    inset 0 0 10px var(--accent-alt-glow);
+  display: none;
 }
 
-.cursor__dot {
-  transition: transform 0.06s ease-out, width 0.2s ease, height 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-}
+@media (pointer: fine) {
+  /* Only activate custom cursor on fine pointers (mouse) */
+  .cursor__dot {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--signal);
+    pointer-events: none;
+    z-index: 9999;
+    margin: -3px 0 0 -3px;
+    will-change: transform;
+    transition: transform 0.04s ease-out, background 0.15s ease;
+  }
 
-.cursor__ring {
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              opacity 0.2s ease,
-              box-shadow 0.3s ease;
-}
+  .cursor__ring {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--text-dim);
+    pointer-events: none;
+    z-index: 9998;
+    margin: -12px 0 0 -12px;
+    will-change: transform;
+    transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                margin 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.15s ease,
+                background-color 0.15s ease;
+  }
 
-.cursor__ring--hover {
-  width: 56px;
-  height: 56px;
-  margin: -28px 0 0 -28px;
-  border-color: var(--accent);
-  box-shadow:
-    0 0 15px var(--accent),
-    0 0 30px var(--accent-glow),
-    inset 0 0 15px var(--accent-glow);
-}
+  /* Crosshair tick marks */
+  .cursor__ring::before,
+  .cursor__ring::after {
+    content: '';
+    position: absolute;
+    background: var(--text-mute);
+  }
 
-.cursor__dot--click {
-  width: 12px;
-  height: 12px;
-  margin: -6px 0 0 -6px;
-  background: var(--accent-cyan);
-  box-shadow:
-    0 0 15px var(--accent-cyan),
-    0 0 30px var(--accent-cyan-glow);
-}
+  .cursor__ring::before {
+    top: 50%;
+    left: -4px;
+    right: -4px;
+    height: 1px;
+    transform: translateY(-50%);
+  }
 
-/* Hide default cursor */
-*, *::before, *::after { cursor: none !important; }
+  .cursor__ring::after {
+    left: 50%;
+    top: -4px;
+    bottom: -4px;
+    width: 1px;
+    transform: translateX(-50%);
+  }
 
-/* Mobile: hide custom cursor */
-@media (hover: none), (pointer: coarse) {
-  .cursor__dot, .cursor__ring { display: none; }
-  *, *::before, *::after { cursor: auto !important; }
-}
+  /* Lock-on hover state */
+  .cursor__ring--hover {
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    border-color: var(--signal);
+    background-color: rgba(255, 229, 0, 0.06);
+  }
 
-/* Cyberpunk corner brackets on cursor ring */
-.cursor__ring::before,
-.cursor__ring::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border: none;
-}
-
-.cursor__ring::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-}
-
-.cursor__ring::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid var(--accent-alt);
-  border-right: 2px solid var(--accent-alt);
+  .cursor__ring--hover::before,
+  .cursor__ring--hover::after {
+    background: var(--signal);
+  }
 }

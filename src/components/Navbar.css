@@ -1,4 +1,4 @@
-/* Navbar.css — Cyberpunk Editorial Style */
+/* Navbar.css — Industrial HUD Style */
 
 .navbar {
   position: fixed;
@@ -9,287 +9,230 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 64px;
-  transition: background 0.4s ease, border-bottom 0.4s ease, padding 0.4s ease;
+  padding: 14px var(--frame);
+  background: rgba(10, 11, 13, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  transition: padding var(--dur-ui) var(--ease-out), background var(--dur-ui) var(--ease-out);
+}
+
+@media (min-width: 769px) {
+  .navbar {
+    top: calc(var(--frame) + 1px);
+    left: calc(var(--frame) + 1px);
+    right: calc(var(--frame) + 1px);
+    border: none;
+    border-bottom: 1px solid var(--line);
+  }
 }
 
 .navbar--scrolled {
-  background: rgba(8, 8, 12, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--accent);
-  padding: 16px 64px;
-  box-shadow:
-    0 4px 32px -8px rgba(0,0,0,0.4),
-    0 0 30px var(--accent-glow);
+  background: rgba(17, 19, 22, 0.95);
+  border-bottom-color: var(--line-hi);
 }
 
 .navbar__logo {
-  font-family: var(--font-cyber);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--text-primary);
-  transition: all 0.3s ease;
+  letter-spacing: 0.16em;
+  color: var(--text);
+  text-transform: uppercase;
   text-decoration: none;
-  position: relative;
-}
-
-.navbar__logo:hover {
-  color: var(--accent);
-  text-shadow:
-    0 0 10px var(--accent),
-    0 0 20px var(--accent-glow);
+  transition: color var(--dur-micro) var(--ease-snap);
 }
 
 .navbar__logo-bracket {
-  color: var(--accent-alt);
-  transition: color 0.3s ease;
+  color: var(--signal);
 }
 
-.navbar__logo:hover .navbar__logo-bracket {
-  color: var(--accent);
-}
-
-/* Logo cyberpunk decoration */
-.navbar__logo::before {
-  content: '//';
-  color: var(--accent);
-  opacity: 0.5;
-  margin-right: 8px;
-  font-size: 10px;
+.navbar__logo:hover {
+  color: var(--signal);
 }
 
 .navbar__links {
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 28px;
 }
 
 .navbar__link {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-dim);
   text-decoration: none;
-  transition: color 0.3s ease;
-  padding: 4px 0;
+  padding: 6px 4px;
+  transition: color var(--dur-micro) var(--ease-snap);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
 }
 
-.navbar__link:hover,
+.navbar__link:hover {
+  color: var(--text);
+}
+
 .navbar__link--active {
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-glow);
+  color: var(--signal);
 }
 
-.navbar__link-text {
-  transition: transform 0.3s ease;
+.navbar__link-bracket {
+  color: var(--signal);
+  opacity: 0;
+  transition: opacity var(--dur-micro) var(--ease-snap);
 }
 
-.navbar__link:hover .navbar__link-text {
-  transform: translateY(-2px);
+.navbar__link--active .navbar__link-bracket {
+  opacity: 1;
 }
 
-/* Cyberpunk animated underline with glow */
+/* Signal underline wipe */
 .navbar__link-line {
   position: absolute;
   bottom: 0;
-  left: 50%;
-  width: 0;
+  left: 0;
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--accent-cyan));
-  transform: translateX(-50%);
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow:
-    0 0 10px var(--accent),
-    0 0 20px var(--accent-glow);
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-ui) var(--ease-out);
 }
 
 .navbar__link:hover .navbar__link-line,
 .navbar__link--active .navbar__link-line {
-  width: 100%;
+  transform: scaleX(1);
 }
 
-/* Cyberpunk indicator dot */
-.navbar__link::after {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%) scale(0);
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent);
-  transition: transform 0.3s ease;
-}
-
-.navbar__link--active::after,
-.navbar__link:hover::after {
-  transform: translateX(-50%) scale(1);
-}
-
-/* Mobile toggle — cyberpunk style */
+/* Mobile Toggle */
 .navbar__toggle {
   display: none;
   flex-direction: column;
-  gap: 6px;
-  width: 32px;
-  padding: 6px;
-  background: transparent;
-  border: 1px solid var(--border);
-  transition: border-color 0.3s ease;
-}
-
-.navbar__toggle:hover {
-  border-color: var(--accent);
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 8px;
+  clip-path: polygon(
+    var(--cut-sm) 0,
+    100% 0,
+    100% calc(100% - var(--cut-sm)),
+    calc(100% - var(--cut-sm)) 100%,
+    0 100%,
+    0 var(--cut-sm)
+  );
 }
 
 .navbar__toggle-line {
   width: 100%;
-  height: 2px;
-  background: var(--text-secondary);
-  transition: all 0.3s ease;
-  transform-origin: center;
-  box-shadow: 0 0 5px var(--accent-glow);
+  height: 1px;
+  background: var(--text);
+  transition: transform var(--dur-ui) var(--ease-out), opacity var(--dur-micro) var(--ease-out);
 }
 
 .navbar__toggle--open .navbar__toggle-line:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 6px);
-  background: var(--accent);
+  transform: translateY(6px) rotate(45deg);
 }
 
 .navbar__toggle--open .navbar__toggle-line:nth-child(2) {
   opacity: 0;
-  transform: scaleX(0);
 }
 
 .navbar__toggle--open .navbar__toggle-line:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -6px);
-  background: var(--accent-alt);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
-/* Mobile menu — cyberpunk overlay */
+/* Mobile Menu Backdrop */
+.navbar__mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 140;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-panel) var(--ease-in-out);
+}
+
+.navbar__mobile-backdrop--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile Menu Drawer */
 .navbar__mobile {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(8, 8, 12, 0.98);
-  z-index: 99;
+  width: min(320px, 85vw);
+  background: var(--panel);
+  border-left: 1px solid var(--line-hi);
+  z-index: 150;
+  transform: translateX(100%);
+  transition: transform var(--dur-panel) var(--ease-in-out);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-.navbar__mobile::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, var(--accent) 1px, transparent 1px) 0 0 / 60px 60px,
-    linear-gradient(0deg, var(--accent) 1px, transparent 1px) 0 0 / 60px 60px;
-  opacity: 0.03;
-  pointer-events: none;
+  flex-direction: column;
+  padding: 80px 24px 32px;
 }
 
 .navbar__mobile--open {
-  opacity: 1;
-  visibility: visible;
+  transform: translateX(0);
 }
 
 .navbar__mobile-inner {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
+  gap: 12px;
 }
 
 .navbar__mobile-link {
-  font-family: var(--font-cyber);
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0;
-  transform: translateY(30px);
-  position: relative;
+  clip-path: polygon(
+    var(--cut-sm) 0,
+    100% 0,
+    100% calc(100% - var(--cut-sm)),
+    calc(100% - var(--cut-sm)) 100%,
+    0 100%,
+    0 var(--cut-sm)
+  );
+  transition: border-color var(--dur-micro) var(--ease-snap), color var(--dur-micro) var(--ease-snap);
 }
 
-.navbar__mobile--open .navbar__mobile-link {
-  opacity: 1;
-  transform: translateY(0);
+.navbar__mobile-link:hover,
+.navbar__mobile-link--active {
+  border-color: var(--signal);
+  color: var(--signal);
 }
 
-.navbar__mobile-link:nth-child(1) { transition-delay: 0.1s; }
-.navbar__mobile-link:nth-child(2) { transition-delay: 0.2s; }
-.navbar__mobile-link:nth-child(3) { transition-delay: 0.3s; }
-
-.navbar__mobile-link:hover {
-  color: var(--accent);
-  text-shadow:
-    0 0 10px var(--accent),
-    0 0 30px var(--accent-glow);
-  transform: translateX(12px);
-  letter-spacing: 0.15em;
-}
-
-/* Cyberpunk corner decoration on mobile links */
-.navbar__mobile-link::before {
-  content: '';
-  position: absolute;
-  left: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-left: 2px solid var(--accent);
-  border-top: 2px solid var(--accent);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.navbar__mobile-link:hover::before {
-  opacity: 1;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .navbar {
-    padding: 24px 32px;
-  }
-  .navbar--scrolled {
-    padding: 16px 32px;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
+@media (max-width: 768px) {
   .navbar__links {
     display: none;
   }
   .navbar__toggle {
     display: flex;
-  }
-}
-
-@media (max-width: 540px) {
-  .navbar {
-    padding: 20px 24px;
-  }
-  .navbar--scrolled {
-    padding: 14px 24px;
   }
 }

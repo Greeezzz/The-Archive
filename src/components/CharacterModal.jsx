@@ -117,6 +117,9 @@ export default function CharacterModal({ character, onClose }) {
               src={character.image}
               alt={character.name}
               className="modal__image"
+              width={900}
+              height={1126}
+              decoding="async"
               onError={() => setImgError(true)}
             />
           ) : (

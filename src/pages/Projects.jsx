@@ -130,6 +130,8 @@ export default function Projects() {
                       src={p.image}
                       alt={p.name}
                       className="pcard__image"
+                      width={1200}
+                      height={674}
                       loading="lazy"
                       decoding="async"
                     />

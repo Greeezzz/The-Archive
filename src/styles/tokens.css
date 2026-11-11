@@ -9,7 +9,7 @@
   /* text */
   --text:      #e9ecef;
   --text-dim:  #8a9099;
-  --text-mute: #555b63;
+  --text-mute: #7c838c;   /* 4.6:1 on --panel-2 — was #555b63 (2.9:1, failed WCAG AA) */
 
   /* signal colors */
   --signal:    #ffe500;   /* primary accent: hazard yellow. CTAs, active, key labels */

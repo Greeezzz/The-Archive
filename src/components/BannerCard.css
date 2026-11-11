@@ -179,7 +179,7 @@
 .banner-card__num {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--entry, var(--signal));
+  color: var(--entry-text, var(--entry, var(--signal)));
 }
 
 .banner-card__description {
@@ -187,4 +187,22 @@
   font-size: 13px;
   color: var(--text-dim);
   line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-card__scanline {
+    display: none !important;
+  }
+  .banner-card,
+  .banner-card .banner-card__image,
+  .banner-card:hover .banner-card__image,
+  .banner-card:focus-visible .banner-card__image {
+    transition: none !important;
+  }
+  .banner-card:hover .banner-card__image,
+  .banner-card:focus-visible .banner-card__image,
+  .banner-card:hover .banner-card__bracket,
+  .banner-card:focus-visible .banner-card__bracket {
+    transform: none !important;
+  }
 }

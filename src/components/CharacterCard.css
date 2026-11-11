@@ -198,7 +198,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--entry, var(--signal));
+  color: var(--entry-text, var(--entry, var(--signal)));
   text-transform: uppercase;
 }
 

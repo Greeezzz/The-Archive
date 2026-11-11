@@ -1,17 +1,6 @@
-import React, { memo, useState, useCallback, useMemo } from 'react';
+import { memo, useState, useCallback, useMemo } from 'react';
+import { isLightColor } from '../lib/color';
 import './CharacterCard.css';
-
-// Helper to detect if color is light
-const isLightColor = (hex) => {
-  if (!hex) return false;
-  const cleanHex = hex.replace('#', '');
-  if (cleanHex.length < 6) return true;
-  const r = parseInt(cleanHex.substr(0, 2), 16);
-  const g = parseInt(cleanHex.substr(2, 2), 16);
-  const b = parseInt(cleanHex.substr(4, 2), 16);
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-  return brightness > 150;
-};
 
 const CharacterCard = memo(function CharacterCard({ character, onClick, index }) {
   const [imgError, setImgError] = useState(false);

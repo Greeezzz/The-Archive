@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './Cursor.css';
 
 export default function Cursor() {
@@ -16,14 +16,22 @@ export default function Cursor() {
       }
     };
 
-    const onEnter = () => ringRef.current?.classList.add('cursor__ring--hover');
-    const onLeave = () => ringRef.current?.classList.remove('cursor__ring--hover');
-
     const clickables = 'a, button, [role="button"], .card, .banner-card, .navbar__link';
-    document.querySelectorAll(clickables).forEach(el => {
-      el.addEventListener('mouseenter', onEnter);
-      el.addEventListener('mouseleave', onLeave);
-    });
+    const onMouseOver = (e) => {
+      if (e.target.closest(clickables)) {
+        ringRef.current?.classList.add('cursor__ring--hover');
+      }
+    };
+    const onMouseOut = (e) => {
+      if (e.target.closest(clickables)) {
+        if (!e.relatedTarget || !e.relatedTarget.closest(clickables)) {
+          ringRef.current?.classList.remove('cursor__ring--hover');
+        }
+      }
+    };
+
+    document.addEventListener('mouseover', onMouseOver);
+    document.addEventListener('mouseout', onMouseOut);
 
     const lerp = (a, b, t) => a + (b - a) * t;
     const animate = () => {
@@ -40,6 +48,8 @@ export default function Cursor() {
 
     return () => {
       window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseover', onMouseOver);
+      document.removeEventListener('mouseout', onMouseOut);
       cancelAnimationFrame(raf.current);
     };
   }, []);

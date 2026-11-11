@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback } from 'react';
 import './BannerCard.css';
 
 const BannerCard = memo(function BannerCard({ banner, onClick, index }) {

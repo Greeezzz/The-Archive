@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, memo } from 'react';
+import { useState, useCallback, useMemo, memo } from 'react';
 import CharacterCard from '../components/CharacterCard';
 import BannerCard from '../components/BannerCard';
 import CharacterModal from '../components/CharacterModal';
@@ -40,7 +40,7 @@ export default function Archive() {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return banners;
     return banners.filter(banner =>
-      (banner.name || '').toLowerCase().includes(query) ||
+      (banner.title || '').toLowerCase().includes(query) ||
       (banner.description || '').toLowerCase().includes(query)
     );
   }, [searchQuery]);

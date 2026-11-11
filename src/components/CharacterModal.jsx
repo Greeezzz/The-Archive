@@ -1,18 +1,7 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { isLightColor } from '../lib/color';
 import './CharacterModal.css';
-
-// Helper to detect if color is light
-const isLightColor = (hex) => {
-  if (!hex) return false;
-  const cleanHex = hex.replace('#', '');
-  if (cleanHex.length < 6) return true;
-  const r = parseInt(cleanHex.substr(0, 2), 16);
-  const g = parseInt(cleanHex.substr(2, 2), 16);
-  const b = parseInt(cleanHex.substr(4, 2), 16);
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-  return brightness > 150;
-};
 
 export default function CharacterModal({ character, onClose }) {
   const [imgError, setImgError] = useState(false);
@@ -63,7 +52,6 @@ export default function CharacterModal({ character, onClose }) {
 
   const characterColor = useMemo(() => character.color || '#c0392b', [character.color]);
   const isLight = useMemo(() => isLightColor(characterColor), [characterColor]);
-  const textColor = useMemo(() => isLight ? 'rgba(0,0,0,0.8)' : 'inherit', [isLight]);
   const contrastText = useMemo(() => isLight ? 'rgba(0,0,0,0.85)' : '#fff', [isLight]);
 
   return createPortal(

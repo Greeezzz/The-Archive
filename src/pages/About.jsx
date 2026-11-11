@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import characters from '../data/characters.json';
 import './About.css';
 

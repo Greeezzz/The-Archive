@@ -1,48 +1,39 @@
-import { Link } from 'react-router-dom';
+import DecodeText from '../components/motion/DecodeText';
+import Button from '../components/ui/Button';
 import './NotFound.css';
 
 export default function NotFound() {
   return (
-    <main className="notfound page-enter">
-      <div className="notfound__bg-lines" />
-
-      <div className="notfound__layout">
-
-        <div className="notfound__vol-col">
-          <span className="notfound__vol">404</span>
-          <div className="notfound__vol-rule" />
+    <div className="notfound-wrapper">
+      <main className="notfound">
+        <div className="notfound__meta">
+          <span className="notfound__alert-dot" />
+          <span>STATUS: ERROR_404 // SIGNAL_TERMINATED</span>
         </div>
 
-        <div className="notfound__content">
-          <p className="notfound__eyebrow">— Entry not found</p>
-
+        <div className="notfound__title-block">
+          <span className="notfound__code">// ERROR 404</span>
           <h1 className="notfound__title">
-            <span className="notfound__title-serif">This page</span>
-            <span className="notfound__title-bold">
-              doesn't<span className="notfound__title-accent">.</span>
-            </span>
-            <span className="notfound__title-serif notfound__title-serif--indent">exist</span>
+            <DecodeText text="SIGNAL LOST" duration={600} />
           </h1>
-
-          <p className="notfound__desc">
-            Karakter ini belum diarsipkan — atau mungkin aldah dihapus dari koleksi.
-          </p>
-
-          <div className="notfound__actions">
-            <Link to="/" className="notfound__btn">
-              Back to home
-              <span className="notfound__btn-arrow">→</span>
-            </Link>
-            <Link to="/archive" className="notfound__btn notfound__btn--ghost">
-              Browse Archive
-            </Link>
-          </div>
         </div>
-      </div>
 
-      <div className="notfound__watermark" aria-hidden="true">
-        <span>404</span>
-      </div>
-    </main>
+        <div className="notfound__desc-box">
+          <p>
+            Dossier ini belum diarsipkan — atau sinyal transmisi terputus di sektor ini. Periksa kembali
+            rute koordinat Anda.
+          </p>
+        </div>
+
+        <div className="notfound__actions">
+          <Button to="/" variant="primary">
+            Return Home <span>→</span>
+          </Button>
+          <Button to="/archive" variant="secondary">
+            Browse Archive <span>↗</span>
+          </Button>
+        </div>
+      </main>
+    </div>
   );
 }

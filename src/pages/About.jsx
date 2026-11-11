@@ -94,6 +94,10 @@ export default function About() {
                       src="/profile/profile.jpg"
                       alt="Chelo Arung Samudro"
                       className="about__photo"
+                      width={736}
+                      height={736}
+                      loading="lazy"
+                      decoding="async"
                       onError={() => setImgError(true)}
                     />
                   ) : (

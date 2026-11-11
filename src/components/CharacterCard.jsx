@@ -1,4 +1,5 @@
 import { memo, useState, useCallback } from 'react';
+import { readableOn } from '../lib/color';
 import './CharacterCard.css';
 
 const CharacterCard = memo(function CharacterCard({ character, onClick, index }) {
@@ -23,10 +24,10 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
       onKeyDown={handleKeyDown}
       style={{
         '--entry': character.color || 'var(--signal)',
+        '--entry-text': readableOn(character.color || '#e9ecef'),
       }}
       role="button"
       tabIndex={0}
-      aria-label={`Operator ${character.name}, Entry ${entryNum}`}
     >
       {/* Corner Brackets */}
       <span className="card__bracket card__bracket--tl" aria-hidden="true" />
@@ -44,6 +45,8 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
             src={character.image}
             alt={character.name}
             className="card__image"
+            width={900}
+            height={1126}
             loading="lazy"
             decoding="async"
             onError={() => setImgError(true)}
@@ -59,7 +62,7 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
       <div className="card__info">
         <div className="card__identity">
           <span className="card__number">ENTRY-{entryNum}</span>
-          <h3 className="card__name">{character.name}</h3>
+          <h2 className="card__name">{character.name}</h2>
         </div>
         <span className="card__status-indicator" aria-hidden="true" />
       </div>

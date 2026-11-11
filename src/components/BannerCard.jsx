@@ -1,4 +1,5 @@
 import { memo, useState, useCallback } from 'react';
+import { readableOn } from '../lib/color';
 import './BannerCard.css';
 
 const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
@@ -23,10 +24,10 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
       onKeyDown={handleKeyDown}
       style={{
         '--entry': banner.color || 'var(--signal)',
+        '--entry-text': readableOn(banner.color || '#e9ecef'),
       }}
       role="button"
       tabIndex={0}
-      aria-label={`Banner ${banner.title}`}
     >
       {/* Corner Brackets */}
       <span className="banner-card__bracket banner-card__bracket--tl" aria-hidden="true" />
@@ -44,6 +45,8 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
             src={banner.image}
             alt={banner.title}
             className="banner-card__image"
+            width={1720}
+            height={968}
             loading="lazy"
             decoding="async"
             onError={() => setImgError(true)}
@@ -58,7 +61,7 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
       {/* Info */}
       <div className="banner-card__info">
         <div className="banner-card__identity">
-          <h3 className="banner-card__title">{banner.title}</h3>
+          <h2 className="banner-card__title">{banner.title}</h2>
           <span className="banner-card__num">BANNER-{entryNum}</span>
         </div>
         <p className="banner-card__description">{banner.description}</p>

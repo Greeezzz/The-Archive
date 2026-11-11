@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import './styles/tokens.css';
 
 *, *::before, *::after {
@@ -139,6 +138,43 @@ img {
   outline: none;
 }
 
+/* ── DecodeText: scrambling copy overlays a fixed-width ghost (no layout shift) ── */
+.decode {
+  position: relative;
+  display: inline-block;
+}
+
+.decode__ghost {
+  visibility: hidden;
+}
+
+.decode__text {
+  position: absolute;
+  inset: 0;
+  white-space: inherit;
+}
+
+.decode__live {
+  position: absolute;
+  inset: 0;
+  white-space: inherit;
+  user-select: none;
+}
+
+/* ── Screen-reader-only (live regions, extra labels) ── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── Subtle Ambient Grid (M11) ── */
 .ambient-grid {
   position: fixed;
@@ -154,5 +190,16 @@ img {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Global kill-switch: MOTION.md §5 wants near-static, not just "less motion".
+     Component-level rules above only cover their own effects. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

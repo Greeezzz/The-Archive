@@ -10,6 +10,7 @@ export default function DecodeText({
   as: Component = 'span',
 }) {
   const [displayText, setDisplayText] = useState(text);
+  const [running, setRunning] = useState(false);
   const [prevText, setPrevText] = useState(text);
   const animRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -29,6 +30,7 @@ export default function DecodeText({
     const startAnimation = () => {
       const length = text.length;
       const startTime = performance.now();
+      setRunning(true);
 
       const frame = (now) => {
         const elapsed = now - startTime;
@@ -52,6 +54,7 @@ export default function DecodeText({
           animRef.current = requestAnimationFrame(frame);
         } else {
           setDisplayText(text);
+          setRunning(false);
         }
       };
 
@@ -71,8 +74,15 @@ export default function DecodeText({
   }, [text, duration, delay]);
 
   return (
-    <Component className={className} aria-label={text}>
-      <span aria-hidden="true">{displayText}</span>
+    <Component className={`decode ${className}`.trim()}>
+      {/* Ghost reserves the final width (no layout shift while scrambling) and is
+          hidden from paint and the a11y tree. The real text is painted once the
+          scramble settles, and stays in the a11y tree the whole time. */}
+      <span className="decode__ghost" aria-hidden="true">{text}</span>
+      {running && (
+        <span className="decode__live" aria-hidden="true">{displayText}</span>
+      )}
+      <span className={running ? 'visually-hidden' : 'decode__text'}>{text}</span>
     </Component>
   );
 }

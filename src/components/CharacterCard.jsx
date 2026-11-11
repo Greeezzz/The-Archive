@@ -1,49 +1,43 @@
-import { memo, useState, useCallback, useMemo } from 'react';
-import { isLightColor } from '../lib/color';
+import { memo, useState, useCallback } from 'react';
 import './CharacterCard.css';
 
 const CharacterCard = memo(function CharacterCard({ character, onClick, index }) {
   const [imgError, setImgError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const entryNum = String(index + 1).padStart(2, '0');
-
-  const accentColor = useMemo(() => character.color || '#c0392b', [character.color]);
-  const isLight = useMemo(() => isLightColor(accentColor), [accentColor]);
+  const entryNum = character.number || String(index + 1).padStart(3, '0');
 
   const handleClick = useCallback(() => {
     onClick(character);
   }, [character, onClick]);
 
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick(character);
+    }
+  }, [character, onClick]);
+
   return (
     <article
-      className={`card ${character.isWiderDesign ? 'card--wide' : ''} ${isLight ? 'card--light' : ''}`}
+      className={`card ${character.isWiderDesign ? 'card--wide' : ''}`}
       onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onKeyDown={handleKeyDown}
       style={{
-        '--index': index,
-        '--accent': accentColor,
+        '--entry': character.color || 'var(--signal)',
       }}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick(character)}
+      aria-label={`Operator ${character.name}, Entry ${entryNum}`}
     >
-      {/* Glow border */}
-      <div className="card__glow" />
+      {/* Corner Brackets */}
+      <span className="card__bracket card__bracket--tl" aria-hidden="true" />
+      <span className="card__bracket card__bracket--tr" aria-hidden="true" />
+      <span className="card__bracket card__bracket--bl" aria-hidden="true" />
+      <span className="card__bracket card__bracket--br" aria-hidden="true" />
 
-      {/* Corner brackets */}
-      <div className="card__bracket card__bracket--tl" />
-      <div className="card__bracket card__bracket--tr" />
-      <div className="card__bracket card__bracket--bl" />
-      <div className="card__bracket card__bracket--br" />
-
-      {/* Image */}
+      {/* Image Panel */}
       <div className="card__image-wrap">
-        {/* Entry number — inside image-wrap so it can't clip */}
-        <div className="card__entry">
-          <span className="card__entry-num">No. {entryNum}</span>
-          <span className="card__entry-line" />
-        </div>
+        <span className="card__scanline" aria-hidden="true" />
+        <span className="card__image-scrim" aria-hidden="true" />
 
         {!imgError ? (
           <img
@@ -51,36 +45,23 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
             alt={character.name}
             className="card__image"
             loading="lazy"
+            decoding="async"
             onError={() => setImgError(true)}
           />
         ) : (
           <div className="card__image-fallback">
-            {character.number}
+            <span>{entryNum}</span>
           </div>
         )}
-
-        {/* Color tint overlay */}
-        <div className="card__color-tint" />
-
-        {/* Hover overlay */}
-        <div className={`card__overlay ${isHovered ? 'card__overlay--visible' : ''}`}>
-          <span className="card__view-label">View Entry</span>
-          <span className="card__overlay-name">{character.name}</span>
-          <span className="card__overlay-num">
-            #{character.number}
-          </span>
-        </div>
-
-        {/* Shine effect */}
-        <div className={`card__shine ${isHovered ? 'card__shine--active' : ''}`} />
       </div>
 
-      {/* Info */}
+      {/* Bottom Info Bar */}
       <div className="card__info">
-        <span className="card__number">
-          #{character.number}
-        </span>
-        <h3 className="card__name">{character.name}</h3>
+        <div className="card__identity">
+          <span className="card__number">ENTRY-{entryNum}</span>
+          <h3 className="card__name">{character.name}</h3>
+        </div>
+        <span className="card__status-indicator" aria-hidden="true" />
       </div>
     </article>
   );

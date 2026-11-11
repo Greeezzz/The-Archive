@@ -1,446 +1,240 @@
-/* CharacterCard.css — Cyberpunk Editorial Style */
-
-:root {
-  --card-accent: #F4B8CC;
-  --card-accent-alt: #7091F0;
-  --card-accent-cyan: #00F5FF;
-  --card-rule: rgba(112, 145, 240, 0.08);
-}
+/* CharacterCard.css — Industrial HUD Dossier Panel (M5) */
 
 .card {
   position: relative;
   cursor: pointer;
-  border-radius: 4px;
-  overflow: visible;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 380px;
-  transform-style: preserve-3d;
-  opacity: 0;
-  animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: calc(var(--index, 0) * 60ms);
-}
-
-@keyframes cardReveal {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-    filter: blur(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-/* Cyberpunk Glow border with neon effect */
-.card__glow {
-  position: absolute;
-  inset: -3px;
-  border-radius: 8px;
-  border: 1px solid rgba(112, 145, 240, 0.15);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.card:hover .card__glow {
-  border-color: var(--accent);
-  box-shadow:
-    0 0 0 1px rgba(244, 184, 204, 0.1),
-    0 0 20px var(--accent),
-    0 0 40px var(--accent-glow),
-    0 0 60px var(--accent-alt-glow),
-    inset 0 0 20px rgba(244, 184, 204, 0.05);
-}
-
-/* Entry number — inside card__image-wrap with neon badge */
-.card__entry {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 10;
+  background: var(--panel);
+  border: 1px solid var(--line);
   display: flex;
-  align-items: center;
-  gap: 8px;
-  transform: translateY(-6px);
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-direction: column;
+  outline: none;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+  transition:
+    border-color var(--dur-ui) var(--ease-out),
+    transform var(--dur-ui) var(--ease-out);
 }
 
-.card:hover .card__entry {
-  transform: translateY(0);
-  opacity: 1;
+.card--wide {
+  grid-column: span 2;
 }
 
-.card__entry-num {
-  font-family: var(--font-cyber);
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  color: #000;
-  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-  padding: 5px 10px;
-  border-radius: 2px;
-  border: none;
-  box-shadow:
-    0 0 10px var(--accent-glow),
-    0 0 20px var(--accent-alt-glow);
+@media (max-width: 540px) {
+  .card--wide {
+    grid-column: span 1;
+  }
 }
 
-.card__entry-line {
-  width: 24px;
-  height: 2px;
-  background: linear-gradient(to right, var(--accent-cyan), transparent);
-  box-shadow: 0 0 8px var(--accent-cyan-glow);
-  opacity: 0.7;
+.card:hover,
+.card:focus-visible {
+  border-color: var(--entry, var(--signal));
+  transform: translateY(-2px);
 }
 
-/* Cyberpunk Corner brackets — tech-style */
+/* ── L-Shaped Corner Brackets (M5 Lock-on) ── */
 .card__bracket {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   pointer-events: none;
-  z-index: 3;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+  transition:
+    transform var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out);
 }
 
-/* Top-left bracket */
 .card__bracket--tl {
-  top: -2px;
-  left: -2px;
-  border-top: 3px solid var(--accent);
-  border-left: 3px solid var(--accent);
-  transform: translate(-3px, -3px);
+  top: 0;
+  left: 0;
+  border-top: 1px solid var(--line-hi);
+  border-left: 1px solid var(--line-hi);
 }
 
-/* Top-right bracket */
 .card__bracket--tr {
-  top: -2px;
-  right: -2px;
-  border-top: 3px solid var(--accent-alt);
-  border-right: 3px solid var(--accent-alt);
-  transform: translate(3px, -3px);
+  top: 0;
+  right: 0;
+  border-top: 1px solid var(--line-hi);
+  border-right: 1px solid var(--line-hi);
 }
 
-/* Bottom-left bracket */
 .card__bracket--bl {
-  bottom: -2px;
-  left: -2px;
-  border-bottom: 3px solid var(--accent-alt);
-  border-left: 3px solid var(--accent-alt);
-  transform: translate(-3px, 3px);
-  border-radius: 0 0 0 4px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid var(--line-hi);
+  border-left: 1px solid var(--line-hi);
 }
 
-/* Bottom-right bracket */
 .card__bracket--br {
-  bottom: -2px;
-  right: -2px;
-  border-bottom: 3px solid var(--accent);
-  border-right: 3px solid var(--accent);
-  transform: translate(3px, 3px);
-  border-radius: 0 0 4px 0;
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid var(--line-hi);
+  border-right: 1px solid var(--line-hi);
 }
 
-.card:hover .card__bracket {
-  opacity: 1;
-}
-
-/* Glow effect on brackets */
+/* Expanding brackets on lock-on */
 .card:hover .card__bracket--tl,
-.card:hover .card__bracket--br {
-  box-shadow: 0 0 10px var(--accent);
+.card:focus-visible .card__bracket--tl {
+  transform: translate(-3px, -3px);
+  border-color: var(--entry, var(--signal));
 }
 
 .card:hover .card__bracket--tr,
-.card:hover .card__bracket--bl {
-  box-shadow: 0 0 10px var(--accent-alt);
+.card:focus-visible .card__bracket--tr {
+  transform: translate(3px, -3px);
+  border-color: var(--entry, var(--signal));
 }
 
-/* Light color variant */
-.card--light .card__bracket {
-  border-color: rgba(0,0,0,0.3);
-  box-shadow: none !important;
+.card:hover .card__bracket--bl,
+.card:focus-visible .card__bracket--bl {
+  transform: translate(-3px, 3px);
+  border-color: var(--entry, var(--signal));
 }
 
-.card--light .card__glow {
-  border-color: rgba(112, 145, 240, 0.2);
+.card:hover .card__bracket--br,
+.card:focus-visible .card__bracket--br {
+  transform: translate(3px, 3px);
+  border-color: var(--entry, var(--signal));
 }
 
-/* Image */
+/* ── Image Wrap & Art ── */
 .card__image-wrap {
   position: relative;
   aspect-ratio: 3 / 4;
-  background: var(--bg-card);
+  background: var(--bg);
   overflow: hidden;
-  border-radius: 4px;
-  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card--wide .card__image-wrap {
-  aspect-ratio: 9 / 11;
-}
-
-/* Cyberpunk scanline overlay on image */
-.card__image-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.05) 3px,
-    rgba(0, 0, 0, 0.05) 4px
-  );
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0.5;
+  aspect-ratio: 16 / 11;
 }
 
 .card__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
-  transform: translateZ(0);
+  transition: transform var(--dur-panel) var(--ease-out);
+  display: block;
 }
 
-.card:hover .card__image {
-  transform: scale(1.08) translateZ(20px);
-  filter: brightness(1.08) contrast(1.03) saturate(1.1);
+.card:hover .card__image,
+.card:focus-visible .card__image {
+  transform: scale(1.03);
 }
 
-/* Cyberpunk color tint overlay — gradient from pink to purple */
-.card__color-tint {
+/* Dark gradient scrim at bottom of image */
+.card__image-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    var(--accent) 0%,
-    var(--accent-alt) 50%,
-    var(--accent-cyan) 100%
-  );
-  opacity: 0;
-  mix-blend-mode: overlay;
-  transition: opacity 0.5s ease;
+  background: linear-gradient(to top, rgba(17, 19, 22, 0.9) 0%, transparent 40%);
   pointer-events: none;
+  z-index: 2;
 }
 
-.card:hover .card__color-tint {
-  opacity: 0.12;
-}
-
-/* Fallback */
-.card__image-fallback {
+/* Scan line sweep on hover (M5) */
+.card__scanline {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--entry, var(--signal));
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.card:hover .card__scanline,
+.card:focus-visible .card__scanline {
+  opacity: 0.8;
+  animation: cardScan var(--dur-panel) var(--ease-out) forwards;
+}
+
+@keyframes cardScan {
+  0% { top: 0%; opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.card__image-fallback {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-mute);
+}
+
+/* ── Info Bar ── */
+.card__info {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: var(--bg-card);
-  font-family: var(--font-cyber);
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: 0.3;
-  text-shadow: 0 0 20px var(--accent-glow);
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+  position: relative;
+  z-index: 3;
 }
 
-/* Cyberpunk Hover overlay */
-.card__overlay {
-  position: absolute;
-  inset: 0;
+.card__identity {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px 20px;
-  background: linear-gradient(
-    to top,
-    rgba(8, 8, 12, 0.95) 0%,
-    rgba(8, 8, 12, 0.6) 40%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 5;
+  gap: 2px;
+  min-width: 0;
+  transition: transform var(--dur-ui) var(--ease-out);
 }
 
-.card__overlay--visible {
-  opacity: 1;
-}
-
-.card__view-label {
-  font-family: var(--font-cyber);
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent-cyan);
-  margin-bottom: 10px;
-  transform: translateY(16px);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
-  text-shadow: 0 0 10px var(--accent-cyan-glow);
-}
-
-.card:hover .card__view-label {
-  transform: translateY(0);
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-glow);
-}
-
-.card__overlay-name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: -0.02em;
-  transform: translateY(20px);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
-}
-
-.card:hover .card__overlay-name {
-  transform: translateY(0);
-}
-
-.card__overlay-num {
-  font-family: var(--font-cyber);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-glow);
-  transform: translateY(14px);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-  margin-top: 8px;
-}
-
-.card:hover .card__overlay-num {
-  transform: translateY(0);
-}
-
-/* Cyberpunk Shine effect — neon sweep */
-.card__shine {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(244, 184, 204, 0.15) 40%,
-    rgba(112, 145, 240, 0.15) 50%,
-    rgba(244, 184, 204, 0.15) 60%,
-    transparent 80%
-  );
-  transform: translateX(-200%);
-  pointer-events: none;
-  opacity: 0;
-  z-index: 6;
-}
-
-.card__shine--active {
-  opacity: 1;
-  animation: neonShine 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes neonShine {
-  0% { transform: translateX(-200%); }
-  100% { transform: translateX(200%); }
-}
-
-/* Info */
-.card__info {
-  padding: 16px 4px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.card:hover .card__identity,
+.card:focus-visible .card__identity {
+  transform: translateX(4px);
 }
 
 .card__number {
-  font-family: var(--font-cyber);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  opacity: 0.5;
-  color: var(--accent-alt);
-  transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.card:hover .card__number {
-  opacity: 0.9;
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-glow);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--entry, var(--signal));
+  text-transform: uppercase;
 }
 
 .card__name {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.3s ease;
 }
 
-.card:hover .card__name {
-  color: var(--text-primary);
+.card__status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 0;
+  background: var(--line-hi);
+  transition: background-color var(--dur-micro) var(--ease-snap);
 }
 
-/* Active state */
-.card:active {
-  transform: scale(0.98);
+.card:hover .card__status-indicator,
+.card:focus-visible .card__status-indicator {
+  background: var(--entry, var(--signal));
 }
 
-/* Mobile — strip all heavy effects */
-@media (hover: none), (pointer: coarse) {
-  .card {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    contain-intrinsic-size: auto;
-    will-change: auto;
-    transform-style: flat;
-  }
-
-  .card__glow {
+@media (prefers-reduced-motion: reduce) {
+  .card__scanline {
     display: none !important;
   }
-
-  .card__shine {
-    display: none !important;
-  }
-
-  .card__bracket {
-    display: none !important;
-  }
-
-  .card__entry {
-    display: none !important;
-  }
-
-  .card__image-wrap {
-    will-change: auto;
+  .card:hover .card__identity {
     transform: none !important;
   }
-
-  .card__image-wrap::after {
-    display: none;
-  }
-
-  .card__overlay {
-    display: none !important;
-  }
-
-  .card__color-tint {
-    display: none !important;
-  }
-
-  .card__info {
-    padding: 12px 2px 6px;
+  .card:hover .card__bracket {
+    transform: none !important;
   }
 }

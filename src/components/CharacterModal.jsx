@@ -1,15 +1,19 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { isLightColor } from '../lib/color';
+import { motion, useReducedMotion } from 'motion/react';
+import { ease, dur } from '../lib/motion';
 import './CharacterModal.css';
 
 export default function CharacterModal({ character, onClose }) {
   const [imgError, setImgError] = useState(false);
   const modalRef = useRef(null);
   const closeButtonRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
     window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
 
@@ -24,7 +28,7 @@ export default function CharacterModal({ character, onClose }) {
     };
   }, [onClose]);
 
-  // Focus trap handler
+  // Tab key focus trap
   useEffect(() => {
     const modal = modalRef.current;
     if (!modal) return;
@@ -50,48 +54,64 @@ export default function CharacterModal({ character, onClose }) {
     return () => modal.removeEventListener('keydown', handleTab);
   }, []);
 
-  const characterColor = useMemo(() => character.color || '#c0392b', [character.color]);
-  const isLight = useMemo(() => isLightColor(characterColor), [characterColor]);
-  const contrastText = useMemo(() => isLight ? 'rgba(0,0,0,0.85)' : '#fff', [isLight]);
+  const entryNum = character.number || '000';
+  const entryColor = character.color || 'var(--signal)';
 
   return createPortal(
-    <div className="modal-backdrop" onClick={onClose}>
-      <article
-        className={`modal ${isLight ? 'modal--light' : ''}`}
+    <motion.div
+      className="modal-backdrop"
+      onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: dur.ui }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-name"
+    >
+      <motion.article
+        className="modal"
         onClick={(e) => e.stopPropagation()}
         ref={modalRef}
         style={{
-          '--accent': characterColor,
-          '--accent-glow': `${characterColor}80`,
-          '--text-on-accent': contrastText,
+          '--entry': entryColor,
         }}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-name"
+        initial={
+          shouldReduceMotion
+            ? { opacity: 0 }
+            : { clipPath: 'inset(50% 0)', opacity: 0, scale: 0.98 }
+        }
+        animate={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { clipPath: 'inset(0% 0)', opacity: 1, scale: 1 }
+        }
+        exit={
+          shouldReduceMotion
+            ? { opacity: 0 }
+            : { clipPath: 'inset(50% 0)', opacity: 0, scale: 0.98 }
+        }
+        transition={{ duration: dur.panel, ease: ease.out }}
       >
-        {/* Corner brackets */}
-        <div className="modal__bracket modal__bracket--tl" />
-        <div className="modal__bracket modal__bracket--tr" />
-        <div className="modal__bracket modal__bracket--bl" />
-        <div className="modal__bracket modal__bracket--br" />
+        {/* L Brackets */}
+        <span className="modal__bracket modal__bracket--tl" aria-hidden="true" />
+        <span className="modal__bracket modal__bracket--tr" aria-hidden="true" />
+        <span className="modal__bracket modal__bracket--bl" aria-hidden="true" />
+        <span className="modal__bracket modal__bracket--br" aria-hidden="true" />
 
-        {/* Entry number */}
-        <div className="modal__entry">
-          <span className="modal__entry-num">{character.number}</span>
-          <span className="modal__entry-line" />
-        </div>
-
-        {/* Close button */}
-        <button className="modal__close" onClick={onClose} aria-label="Close modal" ref={closeButtonRef}>
-          <span>×</span>
+        {/* Close Button */}
+        <button
+          className="modal__close"
+          onClick={onClose}
+          aria-label="Close dossier modal"
+          ref={closeButtonRef}
+        >
+          <span>✕</span>
         </button>
 
-        {/* Image panel */}
+        {/* Art Panel */}
         <div className="modal__image-panel">
-          <div
-            className="modal__image-color-overlay"
-            style={{ background: characterColor }}
-          />
+          <span className="modal__image-scrim" aria-hidden="true" />
           {!imgError ? (
             <img
               src={character.image}
@@ -101,35 +121,37 @@ export default function CharacterModal({ character, onClose }) {
             />
           ) : (
             <div className="modal__image-fallback">
-              {character.number}
+              <span>{entryNum}</span>
             </div>
           )}
-          <div className="modal__image-accent" />
         </div>
 
-        {/* Info panel */}
+        {/* Data Panel */}
         <div className="modal__info-panel">
-          <span className="modal__number">
-            {character.number}
-          </span>
+          <div className="modal__meta-header">
+            <span>OPERATOR DOSSIER</span>
+            <span>//</span>
+            <span>ENTRY-{entryNum}</span>
+          </div>
+
           <h2 className="modal__name" id="modal-name">
             {character.name}
           </h2>
-          <div className="modal__divider" />
-          <blockquote className="modal__quote">
-            <span className="modal__quote-mark">&ldquo;</span>
-            {character.quote}
-            <span className="modal__quote-mark">&rdquo;</span>
-          </blockquote>
 
-          <div className="modal__deco">
-            <span className="modal__deco-line" />
-            <span className="modal__deco-dot" />
-            <span className="modal__deco-line" />
+          <div className="modal__transcript-block">
+            <span className="modal__transcript-label">// TRANSCRIPT_LOG:</span>
+            <blockquote className="modal__quote">
+              &ldquo;{character.quote}&rdquo;
+            </blockquote>
+          </div>
+
+          <div className="modal__footer-meta">
+            <span>STATUS: VERIFIED</span>
+            <span>SECURITY_LEVEL: 04</span>
           </div>
         </div>
-      </article>
-    </div>,
+      </motion.article>
+    </motion.div>,
     document.body
   );
 }

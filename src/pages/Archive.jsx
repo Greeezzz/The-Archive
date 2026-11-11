@@ -1,13 +1,15 @@
 import { useState, useCallback, useMemo, memo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import CharacterCard from '../components/CharacterCard';
 import BannerCard from '../components/BannerCard';
 import CharacterModal from '../components/CharacterModal';
 import BannerModal from '../components/BannerModal';
+import DecodeText from '../components/motion/DecodeText';
+import Reveal from '../components/motion/Reveal';
 import characters from '../data/characters.json';
 import banners from '../data/banners.json';
 import './Archive.css';
 
-// Memoized card components
 const MemoizedCharacterCard = memo(CharacterCard);
 const MemoizedBannerCard = memo(BannerCard);
 
@@ -17,7 +19,6 @@ export default function Archive() {
   const [activeTab, setActiveTab] = useState('archive');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Memoized callbacks
   const handleSetSelected = useCallback((char) => setSelected(char), []);
   const handleSetSelectedBanner = useCallback((banner) => setSelectedBanner(banner), []);
   const handleTabChange = useCallback((tab) => {
@@ -25,7 +26,7 @@ export default function Archive() {
     setSearchQuery('');
   }, []);
 
-  // Filter characters - memoized
+  // Filter characters
   const filteredCharacters = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return characters;
@@ -35,7 +36,7 @@ export default function Archive() {
     );
   }, [searchQuery]);
 
-  // Filter banners - memoized
+  // Filter banners
   const filteredBanners = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return banners;
@@ -57,187 +58,144 @@ export default function Archive() {
   return (
     <div className="archive-wrapper">
       <main className="archive">
-
-        {/* Header */}
+        {/* Console Header */}
         <header className="archive__header">
-
-          {/* Top rule */}
-          <div className="archive__top">
-            <div className="archive__top-rule" />
-            <div className="archive__issue-info">
-              <span className="archive__issue-vol">Vol. I</span>
-              <span className="archive__issue-sep" />
-              <span className="archive__issue-label">The Archive</span>
-            </div>
+          <div className="archive__top-meta">
+            <span className="archive__status-label">
+              <span className="archive__status-dot" />
+              DATABASE // SEC-01 // OPERATOR_REGISTRY
+            </span>
+            <span>VER: 2.4.0 // STABLE</span>
           </div>
 
-          {/* Main header */}
           <div className="archive__header-main">
-            <div className="archive__meta-col">
-              <div className="archive__vert-rule" />
-              <span className="archive__vol">Issue 01</span>
-            </div>
-
             <div className="archive__title-block">
-              <p className="archive__eyebrow">— Collection</p>
+              <span className="archive__eyebrow">// ARCHIVE COLLECTION</span>
               <h1 className="archive__title">
-                <span className="archive__title-line archive__title-line--1">
-                  <span className="archive__title-serif">The</span>
-                </span>
-                <span className="archive__title-line archive__title-line--2">
-                  <span className="archive__title-bold">Archive</span>
-                  <span className="archive__title-accent">.</span>
-                </span>
+                <DecodeText text="OPERATOR FILES" duration={550} />
+                <span className="archive__title-signal">.</span>
               </h1>
             </div>
-
-            <div className="archive__control-block">
-              <div className="archive__count-block">
-                <span className="archive__count-num">
-                  {showCharacterGrid ? filteredCharacters.length : filteredBanners.length}
-                </span>
-                <span className="archive__count-label">
-                  {showCharacterGrid
-                    ? filteredCharacters.length === characters.length ? 'Characters' : `of ${characters.length}`
-                    : filteredBanners.length === banners.length ? 'Banners' : `of ${banners.length}`
-                  }
-                </span>
-              </div>
-
-              <div className="archive__tabs">
-                <button
-                  className={`archive__tab ${showCharacterGrid ? 'archive__tab--active' : ''}`}
-                  onClick={() => handleTabChange('archive')}
-                >
-                  <span className="archive__tab-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="3" y="3" width="7" height="7" rx="1"/>
-                      <rect x="14" y="3" width="7" height="7" rx="1"/>
-                      <rect x="3" y="14" width="7" height="7" rx="1"/>
-                      <rect x="14" y="14" width="7" height="7" rx="1"/>
-                    </svg>
-                  </span>
-                  Archive
-                  <span className="archive__tab-count">{characters.length}</span>
-                </button>
-                <span className="archive__tab-sep">/</span>
-                <button
-                  className={`archive__tab ${showBannerGrid ? 'archive__tab--active' : ''}`}
-                  onClick={() => handleTabChange('banner')}
-                >
-                  <span className="archive__tab-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="3" y="6" width="18" height="12" rx="2"/>
-                      <line x1="3" y1="10" x2="21" y2="10"/>
-                    </svg>
-                  </span>
-                  Banner
-                  <span className="archive__tab-count">{banners.length}</span>
-                </button>
-              </div>
-            </div>
           </div>
 
-          {/* Search */}
-          <div className="archive__search-wrap">
-            <div className={`archive__search ${isSearching ? 'archive__search--active' : ''}`}>
-              <svg className="archive__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.35-4.35" strokeLinecap="round"/>
-              </svg>
+          {/* Controls Row: Segmented Tabs & Search Input */}
+          <div className="archive__controls-row">
+            <div className="archive__tabs" role="tablist">
+              <button
+                className={`archive__tab ${showCharacterGrid ? 'archive__tab--active' : ''}`}
+                onClick={() => handleTabChange('archive')}
+                role="tab"
+                aria-selected={showCharacterGrid}
+              >
+                {showCharacterGrid && (
+                  <motion.div
+                    className="archive__tab-indicator"
+                    layoutId="activeTabIndicator"
+                    transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+                  />
+                )}
+                <span>OPERATORS</span>
+                <span className="archive__tab-count">[{characters.length}]</span>
+              </button>
+
+              <button
+                className={`archive__tab ${showBannerGrid ? 'archive__tab--active' : ''}`}
+                onClick={() => handleTabChange('banner')}
+                role="tab"
+                aria-selected={showBannerGrid}
+              >
+                {showBannerGrid && (
+                  <motion.div
+                    className="archive__tab-indicator"
+                    layoutId="activeTabIndicator"
+                    transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+                  />
+                )}
+                <span>BANNERS</span>
+                <span className="archive__tab-count">[{banners.length}]</span>
+              </button>
+            </div>
+
+            {/* Terminal Style Search */}
+            <div className="archive__search-box">
+              <span className="archive__search-prompt">&gt;</span>
               <input
                 type="text"
                 className="archive__search-input"
-                placeholder={`Search ${showCharacterGrid ? 'characters' : 'banners'}...`}
+                placeholder={showCharacterGrid ? 'SEARCH_OPERATORS...' : 'SEARCH_BANNERS...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Filter archive entries"
               />
               {isSearching && (
                 <button
                   className="archive__search-clear"
                   onClick={() => setSearchQuery('')}
-                  aria-label="Clear"
+                  aria-label="Clear search"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round"/>
-                  </svg>
+                  ✕
                 </button>
               )}
             </div>
-            <div className="archive__search-rule" />
           </div>
-
-          <div className="archive__bottom-rule" />
         </header>
 
-        {/* Grid section */}
+        {/* Content Section */}
         <section className="archive__section">
-          <div className="archive__section-label">
-            <span className="archive__section-text">
-              {showCharacterGrid ? 'Character Entries' : 'Banner Collection'}
-              {isSearching && <span className="archive__section-filtered"> — filtered</span>}
-            </span>
-            <div className="archive__section-line" />
-          </div>
-
-          {/* Empty state */}
+          {/* Empty State */}
           {noResults && (
             <div className="archive__empty">
-              <div className="archive__empty-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.35-4.35"/>
-                  <path d="M8 8l6 6M14 8l-6 6"/>
-                </svg>
-              </div>
-              <p className="archive__empty-text">No results for "{searchQuery}"</p>
-              <button className="archive__empty-btn" onClick={() => setSearchQuery('')}>
-                Clear search
+              <span className="archive__empty-code">SIGNAL_LOST // 0 MATCHES</span>
+              <p className="archive__empty-text">No dossiers match query: "{searchQuery}"</p>
+              <button
+                className="ui-btn ui-btn--secondary"
+                onClick={() => setSearchQuery('')}
+              >
+                RESET QUERY
               </button>
             </div>
           )}
 
-          {/* Character grid */}
-          {showCharacterGrid && (
-            <div className="archive__grid">
+          {/* Character Grid */}
+          {showCharacterGrid && !noResults && (
+            <motion.div layout className="archive__grid">
               {filteredCharacters.map((char, i) => (
-                <MemoizedCharacterCard
-                  key={char.id}
-                  character={char}
-                  index={i}
-                  onClick={handleSetSelected}
-                />
+                <Reveal key={char.id} delay={Math.min(i * 0.04, 0.3)}>
+                  <MemoizedCharacterCard
+                    character={char}
+                    index={i}
+                    onClick={handleSetSelected}
+                  />
+                </Reveal>
               ))}
-            </div>
+            </motion.div>
           )}
 
-          {/* Banner grid */}
-          {showBannerGrid && (
-            <div className="archive__grid archive__grid--banner">
+          {/* Banner Grid */}
+          {showBannerGrid && !noResults && (
+            <motion.div layout className="archive__grid archive__grid--banner">
               {filteredBanners.map((banner, i) => (
-                <MemoizedBannerCard
-                  key={banner.id}
-                  banner={banner}
-                  index={i}
-                  onClick={handleSetSelectedBanner}
-                />
+                <Reveal key={banner.id} delay={Math.min(i * 0.06, 0.3)}>
+                  <MemoizedBannerCard
+                    banner={banner}
+                    index={i}
+                    onClick={handleSetSelectedBanner}
+                  />
+                </Reveal>
               ))}
-            </div>
+            </motion.div>
           )}
         </section>
 
-        {/* Ghost watermark */}
-        <div className="archive__watermark" aria-hidden="true">
-          {showCharacterGrid ? 'ENTRIES' : 'BANNERS'}
-        </div>
-
-        {/* Modals */}
-        {selected && (
-          <CharacterModal character={selected} onClose={() => setSelected(null)} />
-        )}
-        {selectedBanner && (
-          <BannerModal banner={selectedBanner} onClose={() => setSelectedBanner(null)} />
-        )}
+        {/* Modals with AnimatePresence (M6) */}
+        <AnimatePresence>
+          {selected && (
+            <CharacterModal character={selected} onClose={() => setSelected(null)} />
+          )}
+          {selectedBanner && (
+            <BannerModal banner={selectedBanner} onClose={() => setSelectedBanner(null)} />
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );

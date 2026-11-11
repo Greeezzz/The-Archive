@@ -1,488 +1,178 @@
-/* BannerModal.css — Cyberpunk Editorial Style */
+/* BannerModal.css — Industrial HUD Banner Modal (M6) */
 
-:root {
-  --banner-modal-accent: #F4B8CC;
-  --banner-modal-accent-alt: #7091F0;
-  --banner-modal-accent-cyan: #00F5FF;
-}
-
-/* Cyberpunk Backdrop */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: rgba(8, 8, 12, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-  animation: backdropIn 0.4s ease forwards;
-}
-
-@keyframes backdropIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Cyberpunk Modal container */
 .banner-modal {
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 960px;
+  max-width: 860px;
   width: 100%;
-  max-height: 90vh;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(112, 145, 240, 0.2);
-  border-radius: 4px;
+  max-height: 88vh;
+  background: var(--panel);
+  border: 1px solid var(--line-hi);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
   overflow: hidden;
-  animation: bannerModalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  box-shadow:
-    0 0 0 1px rgba(244, 184, 204, 0.05),
-    0 0 60px rgba(112, 145, 240, 0.15),
-    0 0 100px rgba(244, 184, 204, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
 }
 
-@keyframes bannerModalIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* Cyberpunk Corner brackets */
+/* L Brackets */
 .banner-modal__bracket {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   pointer-events: none;
-  z-index: 5;
+  z-index: 10;
+  border-color: var(--entry, var(--signal));
 }
 
 .banner-modal__bracket--tl {
-  top: -1px;
-  left: -1px;
-  border-top: 3px solid var(--banner-modal-accent);
-  border-left: 3px solid var(--banner-modal-accent);
-  box-shadow: 0 0 15px rgba(244, 184, 204, 0.5);
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
 }
 
 .banner-modal__bracket--tr {
-  top: -1px;
-  right: -1px;
-  border-top: 3px solid var(--banner-modal-accent-alt);
-  border-right: 3px solid var(--banner-modal-accent-alt);
-  box-shadow: 0 0 15px rgba(112, 145, 240, 0.5);
+  top: 0;
+  right: 0;
+  border-top: 1px solid;
+  border-right: 1px solid;
 }
 
 .banner-modal__bracket--bl {
-  bottom: -1px;
-  left: -1px;
-  border-bottom: 3px solid var(--banner-modal-accent-alt);
-  border-left: 3px solid var(--banner-modal-accent-alt);
-  box-shadow: 0 0 15px rgba(112, 145, 240, 0.5);
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
 }
 
 .banner-modal__bracket--br {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 3px solid var(--banner-modal-accent);
-  border-right: 3px solid var(--banner-modal-accent);
-  box-shadow: 0 0 15px rgba(244, 184, 204, 0.5);
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
 }
 
-/* Entry label */
-.banner-modal__entry {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  animation: entryReveal 0.4s ease 0.2s both;
-}
-
-@keyframes entryReveal {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.banner-modal__entry-label {
-  font-family: var(--font-cyber);
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #000;
-  background: linear-gradient(135deg, var(--banner-modal-accent), var(--banner-modal-accent-alt));
-  padding: 8px 14px;
-  border-radius: 2px;
-  box-shadow:
-    0 0 15px rgba(244, 184, 204, 0.5),
-    0 0 30px rgba(112, 145, 240, 0.5);
-}
-
-.banner-modal__entry-line {
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(to right, var(--banner-modal-accent-cyan), transparent);
-  box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
-  opacity: 0.7;
-}
-
-/* Cyberpunk Close button */
+/* Close Button */
 .banner-modal__close {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-  border-radius: 3px;
-  background: rgba(8, 8, 12, 0.9);
-  color: var(--text-secondary);
-  font-size: 20px;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  width: 32px;
+  height: 32px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
   cursor: pointer;
-  border: 1px solid var(--border);
+  clip-path: polygon(
+    var(--cut-sm) 0,
+    100% 0,
+    100% calc(100% - var(--cut-sm)),
+    calc(100% - var(--cut-sm)) 100%,
+    0 100%,
+    0 var(--cut-sm)
+  );
+  transition:
+    background-color var(--dur-micro) var(--ease-snap),
+    border-color var(--dur-micro) var(--ease-snap),
+    color var(--dur-micro) var(--ease-snap);
 }
 
-.banner-modal__close:hover {
-  background: var(--banner-modal-accent);
-  color: #000;
-  border-color: var(--banner-modal-accent);
-  transform: rotate(90deg);
-  box-shadow:
-    0 0 20px rgba(244, 184, 204, 0.5),
-    0 0 40px rgba(112, 145, 240, 0.5);
+.banner-modal__close:hover,
+.banner-modal__close:focus-visible {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--signal-ink);
 }
 
-.banner-modal__close span {
-  line-height: 1;
-  font-weight: 300;
-}
-
-/* Image panel */
+/* Top Image Banner */
 .banner-modal__image-panel {
   position: relative;
-  background: var(--bg-primary);
+  background: var(--bg);
   overflow: hidden;
   width: 100%;
   aspect-ratio: 16 / 9;
-  min-height: 200px;
-  max-height: 50vh;
+  max-height: 44vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(112, 145, 240, 0.1);
-}
-
-/* Scanlines on image */
-.banner-modal__image-panel::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.05) 3px,
-    rgba(0, 0, 0, 0.05) 4px
-  );
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0.4;
-}
-
-.banner-modal__image-color-overlay {
-  position: absolute;
-  inset: 0;
-  opacity: 0.08;
-  background: linear-gradient(135deg, var(--banner-modal-accent), var(--banner-modal-accent-alt), var(--banner-modal-accent-cyan));
-  mix-blend-mode: screen;
-  pointer-events: none;
-  z-index: 1;
+  border-bottom: 1px solid var(--line);
 }
 
 .banner-modal__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: relative;
-  z-index: 2;
-  animation: imageReveal 0.5s ease 0.1s both;
+  display: block;
 }
 
-@keyframes imageReveal {
-  from { opacity: 0; transform: scale(1.02); }
-  to { opacity: 1; transform: scale(1); }
+.banner-modal__image-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 19, 22, 0.8) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .banner-modal__image-fallback {
-  display: none;
-  position: absolute;
-  inset: 0;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-cyber);
-  font-size: 40px;
-  font-weight: 700;
-  color: var(--banner-modal-accent);
-  opacity: 0.3;
-  background: var(--bg-card);
-  text-shadow: 0 0 30px rgba(244, 184, 204, 0.5);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  color: var(--text-mute);
 }
 
-.banner-modal__image-accent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--banner-modal-accent), var(--banner-modal-accent-alt), var(--banner-modal-accent-cyan));
-  z-index: 3;
-  box-shadow: 0 0 20px rgba(244, 184, 204, 0.5);
-  animation: accentExpand 0.5s ease 0.3s both;
-}
-
-@keyframes accentExpand {
-  from { transform: scaleX(0); transform-origin: left; }
-  to { transform: scaleX(1); }
-}
-
-/* Info panel */
+/* Info Panel */
 .banner-modal__info-panel {
-  padding: 48px 52px;
+  padding: 32px 36px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
+  background: var(--panel);
   overflow-y: auto;
-  background: var(--bg-secondary);
-  position: relative;
 }
 
-/* Cyberpunk grid in info panel */
-.banner-modal__info-panel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(112, 145, 240, 0.02) 1px, transparent 1px) 0 0 / 40px 40px,
-    linear-gradient(0deg, rgba(112, 145, 240, 0.02) 1px, transparent 1px) 0 0 / 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.banner-modal__label {
-  font-family: var(--font-cyber);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+.banner-modal__meta-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--entry, var(--signal));
   text-transform: uppercase;
-  opacity: 0.7;
-  color: var(--banner-modal-accent-alt);
-  position: relative;
-  z-index: 1;
 }
 
 .banner-modal__title {
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: clamp(24px, 4vw, 36px);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  color: var(--text);
   line-height: 1.1;
-  position: relative;
-  z-index: 1;
-}
-
-.banner-modal__divider {
-  width: 56px;
-  height: 2px;
-  border-radius: 1px;
-  background: linear-gradient(90deg, var(--banner-modal-accent), var(--banner-modal-accent-alt));
-  box-shadow: 0 0 15px rgba(244, 184, 204, 0.5);
-  animation: dividerGrow 0.4s ease 0.35s both;
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes dividerGrow {
-  from { width: 0; opacity: 0; }
-  to { width: 56px; opacity: 1; }
+  text-transform: uppercase;
 }
 
 .banner-modal__description {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--text-secondary);
-  line-height: 1.85;
-  max-width: 560px;
-  animation: descReveal 0.5s ease 0.4s both;
-  position: relative;
-  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
 }
 
-@keyframes descReveal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Cyberpunk Decorative element */
-.banner-modal__deco {
+.banner-modal__actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   margin-top: 8px;
-  animation: decoReveal 0.5s ease 0.5s both;
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes decoReveal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.banner-modal__deco-line {
-  flex: 1;
-  height: 1px;
-}
-
-.banner-modal__deco-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--banner-modal-accent);
-  box-shadow:
-    0 0 10px var(--banner-modal-accent),
-    0 0 20px rgba(244, 184, 204, 0.5);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 10px var(--banner-modal-accent), 0 0 20px rgba(244, 184, 204, 0.5); }
-  50% { box-shadow: 0 0 20px var(--banner-modal-accent), 0 0 40px rgba(244, 184, 204, 0.5); }
-}
-
-/* Cyberpunk GitHub link */
-.banner-modal__github-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-  padding: 14px 24px;
-  border: 1px solid rgba(112, 145, 240, 0.3);
-  border-radius: 4px;
-  font-family: var(--font-cyber);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--text-secondary);
-  background: rgba(244, 184, 204, 0.03);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  width: fit-content;
-  animation: linkReveal 0.5s ease 0.5s both;
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes linkReveal {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.banner-modal__github-link:hover {
-  background: linear-gradient(135deg, rgba(244, 184, 204, 0.1), rgba(112, 145, 240, 0.1));
-  border-color: var(--banner-modal-accent);
-  color: var(--banner-modal-accent);
-  transform: translateX(8px);
-  box-shadow:
-    0 0 20px rgba(244, 184, 204, 0.3),
-    0 0 40px rgba(112, 145, 240, 0.2);
-}
-
-.banner-modal__github-link svg {
-  width: 18px;
-  height: 18px;
-  transition: transform 0.3s ease;
-}
-
-.banner-modal__github-link:hover svg {
-  transform: translateX(4px);
-}
-
-/* Responsive */
-@media (max-width: 800px) {
-  .banner-modal__image-panel {
-    aspect-ratio: 16 / 10;
-    max-height: 40vh;
-  }
-  .banner-modal__info-panel {
-    padding: 40px 36px;
-  }
-  .banner-modal__info-panel::before {
-    display: none;
-  }
-  .modal-backdrop {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    animation: none;
-  }
-}
-
-@media (max-width: 540px) {
-  .modal-backdrop {
-    padding: 16px;
-  }
-  .banner-modal__image-panel {
-    aspect-ratio: 4 / 3;
-  }
-  .banner-modal__info-panel {
-    padding: 28px 24px;
-    gap: 20px;
-  }
-  .banner-modal__title {
-    font-size: 26px;
-  }
-  .banner-modal__description {
-    font-size: 14px;
-  }
-  .banner-modal__bracket {
-    width: 16px;
-    height: 16px;
-  }
-  .banner-modal__github-link {
-    width: 100%;
-    justify-content: center;
-  }
-  .banner-modal,
-  .banner-modal__entry,
-  .banner-modal__image-accent,
-  .banner-modal__info-panel,
-  .banner-modal__divider,
-  .banner-modal__description,
-  .banner-modal__deco,
-  .banner-modal__github-link {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .banner-modal__image {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
 }

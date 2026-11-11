@@ -1,4 +1,5 @@
-import { useState, useCallback, useMemo, memo } from 'react';
+import { useState, useCallback, useMemo, memo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import CharacterCard from '../components/CharacterCard';
 import BannerCard from '../components/BannerCard';
@@ -14,13 +15,31 @@ const MemoizedCharacterCard = memo(CharacterCard);
 const MemoizedBannerCard = memo(BannerCard);
 
 export default function Archive() {
-  const [selected, setSelected] = useState(null);
-  const [selectedBanner, setSelectedBanner] = useState(null);
+  const [params, setParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('archive');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSetSelected = useCallback((char) => setSelected(char), []);
-  const handleSetSelectedBanner = useCallback((banner) => setSelectedBanner(banner), []);
+  // Selection lives in the URL so every entry has a shareable link.
+  const entryParam = params.get('entry');
+  const bannerParam = params.get('banner');
+  const selected = useMemo(
+    () => (entryParam ? characters.find((c) => c.number === entryParam) || null : null),
+    [entryParam]
+  );
+  const selectedBanner = useMemo(
+    () => (bannerParam ? banners.find((b) => String(b.id) === bannerParam) || null : null),
+    [bannerParam]
+  );
+
+  const handleSetSelected = useCallback(
+    (char) => setParams({ entry: char.number }, { replace: true }),
+    [setParams]
+  );
+  const handleSetSelectedBanner = useCallback(
+    (banner) => setParams({ banner: String(banner.id) }, { replace: true }),
+    [setParams]
+  );
+  const closeModal = useCallback(() => setParams({}, { replace: true }), [setParams]);
   const handleTabChange = useCallback((tab) => {
     setActiveTab(tab);
     setSearchQuery('');
@@ -54,6 +73,27 @@ export default function Archive() {
     (showCharacterGrid && filteredCharacters.length === 0) ||
     (showBannerGrid && filteredBanners.length === 0)
   );
+
+  // Operator view: arrow keys step through entries inside an open modal.
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const list = filteredCharacters;
+      const i = list.findIndex((c) => c.number === selected.number);
+      if (i === -1) return;
+      const next = e.key === 'ArrowRight' ? list[i + 1] : list[i - 1];
+      if (!next) return;
+      e.preventDefault();
+      setParams({ entry: next.number }, { replace: true });
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected, filteredCharacters, setParams]);
+
+  // Announce entry changes to screen readers (arrow-key navigation is silent otherwise).
+  // Derived during render — a live region announces on DOM text change, no state needed.
+  const announce = selected ? `Entry ${selected.number}, ${selected.name}` : '';
 
   return (
     <div className="archive-wrapper">
@@ -187,13 +227,18 @@ export default function Archive() {
           )}
         </section>
 
+        {/* Live region so arrow-key stepping is announced */}
+        <span className="visually-hidden" role="status" aria-live="polite">
+          {announce}
+        </span>
+
         {/* Modals with AnimatePresence (M6) */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {selected && (
-            <CharacterModal character={selected} onClose={() => setSelected(null)} />
+            <CharacterModal character={selected} onClose={closeModal} />
           )}
           {selectedBanner && (
-            <BannerModal banner={selectedBanner} onClose={() => setSelectedBanner(null)} />
+            <BannerModal banner={selectedBanner} onClose={closeModal} />
           )}
         </AnimatePresence>
       </main>

@@ -1,145 +1,119 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import characters from '../data/characters.json';
+import Button from '../components/ui/Button';
+import DecodeText from '../components/motion/DecodeText';
+import Reveal from '../components/motion/Reveal';
+import DrawLine from '../components/motion/DrawLine';
 import './Home.css';
 
-const currentYear = new Date().getFullYear();
-
 export default function Home() {
+  const [booting, setBooting] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return false;
+    return !sessionStorage.getItem('archive_booted');
+  });
+
+  useEffect(() => {
+    if (!booting) return;
+
+    const timer = setTimeout(() => {
+      setBooting(false);
+      sessionStorage.setItem('archive_booted', '1');
+    }, 1600);
+
+    const onKey = (e) => {
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+        setBooting(false);
+        sessionStorage.setItem('archive_booted', '1');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [booting]);
+
+  const handleSkipBoot = () => {
+    setBooting(false);
+    sessionStorage.setItem('archive_booted', '1');
+  };
+
   return (
     <div className="home-wrapper">
+      {/* Boot Intro Sequence (M12) */}
+      {booting && (
+        <div className="home__boot" onClick={handleSkipBoot} role="button" tabIndex={0} aria-label="Skip initialization">
+          <div className="home__boot-line" />
+          <DecodeText
+            text="INITIALIZING SYS.ONLINE // THE ARCHIVE"
+            duration={800}
+            className="home__boot-text"
+          />
+          <span className="home__boot-skip">[ CLICK / ESC TO SKIP ]</span>
+        </div>
+      )}
+
       <main className="home">
-
-        {/* Background decorative layer */}
-        <div className="home__bg-grid" />
-        <div className="home__bg-accent" />
-        <div className="home__bg-lines" />
-        <div className="home__scanline" aria-hidden="true" />
-
-        {/* Floating decorative orbs */}
-        <div className="home__float home__float--1" aria-hidden="true" />
-        <div className="home__float home__float--2" aria-hidden="true" />
-        <div className="home__float home__float--3" aria-hidden="true" />
-
-        {/* Issue stamp — top right */}
-        <div className="home__issue-stamp">
-          <span className="home__issue-label">The Archive</span>
-          <span className="home__issue-divider" />
-          <span className="home__issue-vol">Vol. I</span>
-        </div>
-
-        {/* Main content area */}
-        <div className="home__layout">
-
-          {/* Left vertical rule */}
-          <div className="home__rule-col">
-            <div className="home__rule-line" />
-            <span className="home__rule-text">EST. {currentYear}</span>
-            <div className="home__rule-line home__rule-line--bottom" />
+        {/* Hero Section */}
+        <div className="home__hero-section">
+          {/* Eyebrow & Meta */}
+          <div className="home__header-meta">
+            <span className="home__dossier-code">SEC-00 // TERMINAL_ONLINE</span>
+            <span className="home__meta-sep">/</span>
+            <span className="home__count-tag">// {characters.length} OPERATOR DOSSIERS</span>
           </div>
 
-          {/* Center content */}
-          <div className="home__content">
+          <DrawLine delay={0.1} />
 
-            {/* Eyebrow row */}
-            <div className="home__eyebrow-row">
-              <span className="home__eyebrow">— Design Collection</span>
-              <span className="home__eyebrow-dot" />
-              <span className="home__eyebrow">{characters.length} Entries</span>
-            </div>
-
-            {/* Hero title */}
-            <div className="home__hero">
-              <h1 className="home__title">
-                <span className="home__title-line home__title-line--1">
-                  <span className="home__title-serif">A curated</span>
-                </span>
-                <span className="home__title-line home__title-line--2">
-                  <span className="home__title-bold">Archive</span>
-                  <span className="home__title-accent">.</span>
-                </span>
-                <span className="home__title-line home__title-line--3">
-                  <span className="home__title-serif home__title-serif--indent">of characters</span>
-                </span>
-              </h1>
-
-              {/* Decorative year marker */}
-              <div className="home__year-marker">
-                <span className="home__year-num">{currentYear}</span>
-              </div>
-            </div>
-
-            {/* Description block */}
-            <div className="home__desc-block">
-              <div className="home__desc-rule" />
-              <p className="home__desc">
-                Each entry is a design study — a character, a world, a visual language
-                built from scratch. A celebration of craft, storytelling, and the art of
-                bringing ideas to life.
-              </p>
-            </div>
-
-            {/* Actions */}
-            <div className="home__actions">
-              <Link to="/archive" className="home__btn home__btn--primary">
-                <span className="home__btn-text">Browse Archive</span>
-                <span className="home__btn-arrow">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <span className="home__btn-line" />
-              </Link>
-              <Link to="/about" className="home__btn home__btn--secondary">
-                Meet the Creator
-                <span className="home__btn-dot" />
-              </Link>
-              <Link to="/projects" className="home__btn home__btn--secondary">
-                View Projects
-                <span className="home__btn-dot" />
-              </Link>
-            </div>
-
+          {/* Title Block with Decode */}
+          <div className="home__title-block">
+            <p className="home__title-sub">
+              <DecodeText text="A Curated Archive" duration={450} delay={100} />
+            </p>
+            <h1 className="home__title-main">
+              <DecodeText text="OF CHARACTERS" duration={650} delay={250} />
+              <span className="home__title-signal">.</span>
+            </h1>
           </div>
 
-          {/* Right decorative column */}
-          <div className="home__deco-col">
-            <div className="home__deco-number">
-              <span className="home__deco-num">01</span>
-            </div>
-            <div className="home__deco-lines">
-              <span className="home__deco-line" />
-              <span className="home__deco-line" />
-              <span className="home__deco-line" />
-            </div>
+          {/* Description */}
+          <Reveal delay={0.3} className="home__desc-panel">
+            <p className="home__desc">
+              Each entry is a design study — an original character, a visual world, and a system
+              language built from scratch. A focused study in craft, storytelling, and digital drafting.
+            </p>
+          </Reveal>
+
+          {/* 3 Action Buttons */}
+          <Reveal delay={0.4} className="home__actions">
+            <Button to="/archive" variant="primary">
+              Browse Archive <span>→</span>
+            </Button>
+            <Button to="/about" variant="secondary">
+              Meet Creator <span>↗</span>
+            </Button>
+            <Button to="/projects" variant="secondary">
+              View Projects <span>↗</span>
+            </Button>
+          </Reveal>
+        </div>
+
+        {/* Footer Status Strip */}
+        <div className="home__status-strip">
+          <div className="home__status-item">
+            <span className="home__status-dot" />
+            <span>SYS.STATUS: OPERATIONAL</span>
           </div>
-
-        </div>
-
-        {/* Footer strip */}
-        <div className="home__footer">
-          <div className="home__footer-inner">
-            <div className="home__footer-left">
-              <span className="home__footer-tag">CheloKebab10k</span>
-              <span className="home__footer-sep">/</span>
-              <span className="home__footer-date">{currentYear}</span>
-            </div>
-            <div className="home__footer-center">
-              <span className="home__footer-tagline">Storytelling with design</span>
-            </div>
-            <div className="home__footer-right">
-              <span className="home__footer-scroll-text">Scroll to explore</span>
-              <div className="home__footer-scroll-line">
-                <div className="home__footer-scroll-progress" />
-              </div>
-            </div>
+          <div className="home__status-item">
+            <span>LOC: 07.24°S // 112.75°E</span>
+          </div>
+          <div className="home__status-item">
+            <span>EST. 2026 // CHELO ARCHIVE</span>
           </div>
         </div>
-
-        {/* Ghost watermark */}
-        <div className="home__watermark" aria-hidden="true">
-          ARCHIVE
-        </div>
-
       </main>
     </div>
   );

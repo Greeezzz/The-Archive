@@ -8,6 +8,7 @@ import DecodeText from '../components/motion/DecodeText';
 import Reveal from '../components/motion/Reveal';
 import characters from '../data/characters.json';
 import banners from '../data/banners.json';
+import GhostText from '../components/lines/GhostText';
 import './Archive.css';
 
 const MemoizedCharacterCard = memo(CharacterCard);
@@ -82,6 +83,11 @@ export default function Archive() {
     (showBannerGrid && filteredBanners.length === 0)
   );
 
+  const visible = isCharacterTab ? filteredCharacters : filteredBanners;
+  const collection = isCharacterTab ? characters : banners;
+  const range = visible.length ? `${visible[0].number ?? visible[0].id}–${visible.at(-1).number ?? visible.at(-1).id}` : '—';
+  const chapters = isSearching ? [filteredCharacters] : Array.from({ length: Math.ceil(filteredCharacters.length / 8) }, (_, i) => filteredCharacters.slice(i * 8, i * 8 + 8));
+
   // Paging: the viewer owns the arrow keys, these callbacks own the URL.
   const selectedIndex = selected
     ? filteredCharacters.findIndex((c) => c.number === selected.number)
@@ -142,6 +148,7 @@ export default function Archive() {
           </div>
 
           <div className="archive__header-main">
+            <span className="archive__ghost" aria-hidden="true"><GhostText size="clamp(72px, 12vw, 150px)">{String(collection.length).padStart(2, '0')}</GhostText></span>
             <div className="archive__title-block">
               <span className="archive__eyebrow">// ARCHIVE COLLECTION</span>
               <h1 className="archive__title">
@@ -211,10 +218,17 @@ export default function Archive() {
               )}
             </div>
           </div>
+          <div className="archive__counts" role="status">SHOWING {visible.length}/{collection.length} {isCharacterTab ? 'OPERATORS' : 'BANNERS'} · SORT {range}</div>
         </header>
 
         {/* Content Section */}
         <section className="archive__section">
+          {!noResults && (
+            <span className="archive__dossier">
+              {isCharacterTab ? 'DOSSIER / COLLECTION INDEX' : 'DOSSIER / BANNER INDEX'}
+            </span>
+          )}
+
           {/* Empty State */}
           {noResults && (
             <div className="archive__empty">
@@ -231,8 +245,17 @@ export default function Archive() {
 
           {/* Character Grid */}
           {showCharacterGrid && !noResults && (
+            <div className="archive__chapters">
+              {chapters.map((chapter, section) => (
+                <section key={section} className="archive__chapter">
+                  {!isSearching && (
+                    <h2 className="archive__chapter-title">
+                      <span>SEC-{String(section + 1).padStart(2, '0')} / {chapter[0].number}–{chapter.at(-1).number}</span>
+                      <GhostText size="56px">{String(section + 1).padStart(2, '0')}</GhostText>
+                    </h2>
+                  )}
             <motion.div layout className="archive__grid">
-              {filteredCharacters.map((char, i) => (
+              {chapter.map((char, i) => (
                 <Reveal
                   key={char.id}
                   delay={Math.min(i * 0.04, 0.3)}
@@ -248,6 +271,9 @@ export default function Archive() {
                 </Reveal>
               ))}
             </motion.div>
+                </section>
+              ))}
+            </div>
           )}
 
           {/* Banner Grid */}
@@ -280,6 +306,8 @@ export default function Archive() {
               entry={selected}
               index={selectedIndex}
               total={filteredCharacters.length}
+              entries={filteredCharacters}
+              onSelect={handleSetSelected}
               onClose={closeModal}
               onPrev={goPrev}
               onNext={goNext}
@@ -292,6 +320,8 @@ export default function Archive() {
               entry={selectedBanner}
               index={bannerIndex}
               total={filteredBanners.length}
+              entries={filteredBanners}
+              onSelect={handleSetSelectedBanner}
               onClose={closeModal}
               onPrev={goPrevBanner}
               onNext={goNextBanner}

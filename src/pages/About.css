@@ -1,192 +1,218 @@
-/* About.css — Industrial HUD Style */
+/* About.css — console skeleton (DESIGN.md v2 §4) */
 
 .about-wrapper {
-  min-height: 100vh;
-  background: var(--bg);
   position: relative;
+  width: 100%;
 }
 
 .about {
-  min-height: 100vh;
-  padding: calc(var(--frame) + 72px) var(--frame) calc(var(--frame) + 40px);
+  position: relative;
+  z-index: 1;
   max-width: 1360px;
   margin: 0 auto;
-  position: relative;
-  z-index: 2;
+  padding: clamp(88px, 10vw, 128px) var(--frame) 60px;
 }
 
 /* ── Header ── */
 .about__header {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 40px;
+  gap: 18px;
 }
 
 .about__top-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--line);
+  gap: 16px;
+  flex-wrap: wrap;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
-  color: var(--ink-dim);
   text-transform: uppercase;
+  color: var(--ink-dim);
 }
 
 .about__status-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--ink);
 }
 
 .about__status-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   background: var(--signal);
 }
 
 .about__title-block {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding: 8px 0 12px;
 }
 
 .about__eyebrow {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: var(--ink-dim);
 }
 
 .about__title {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(40px, 7vw, 76px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--text);
-  line-height: 1;
+  font-size: clamp(34px, 7vw, 88px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
   text-transform: uppercase;
-}
-
-.about__title-signal {
   color: var(--ink);
 }
 
-/* ── Layout ── */
+.about__ghost {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  z-index: -1;
+  line-height: 0.7;
+  pointer-events: none;
+}
+
+.about__rule {
+  margin: 8px 0 clamp(16px, 3vw, 28px);
+}
+
+/* ── Content grid ── */
 .about__content {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 36px);
   align-items: start;
 }
 
 .about__main {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
+  min-width: 0;
 }
 
-/* Bio Panel */
-.about__bio-box {
-  padding: 24px;
+.about__panel {
+  background: var(--paper-2);
+}
+
+.about__panel-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  padding: clamp(16px, 2.5vw, 26px);
 }
 
-.about__section-tag {
+.about__field-label {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--ink);
+  font-size: 9px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 600;
+  color: var(--ink-dim);
 }
 
 .about__bio {
+  margin: 0;
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--text);
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.7;
+  color: var(--ink-2);
 }
 
 .about__quote {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-dim);
-  padding-left: 12px;
+  margin: 0;
+  padding-left: 14px;
   border-left: 2px solid var(--signal);
-  font-style: italic;
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
 }
 
-/* Socials List */
+/* ── Socials ── */
 .about__socials {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+}
+
+.about__social-rows {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px dashed var(--hair);
 }
 
 .about__social-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  color: var(--text);
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 10px;
+  border-bottom: 1px dashed var(--hair);
   text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  clip-path: polygon(
-    var(--cut-sm) 0,
-    100% 0,
-    100% calc(100% - var(--cut-sm)),
-    calc(100% - var(--cut-sm)) 100%,
-    0 100%,
-    0 var(--cut-sm)
-  );
+  color: var(--ink-2);
   transition:
-    border-color var(--dur-micro) var(--ease-snap),
     background-color var(--dur-micro) var(--ease-snap),
-    transform var(--dur-micro) var(--ease-snap);
+    color var(--dur-micro) var(--ease-snap);
 }
 
-.about__social-row:hover {
-  border-color: var(--ink);
-  background: var(--panel-2);
-  transform: translateX(4px);
+.about__social-row:hover,
+.about__social-row:focus-visible {
+  background: var(--paper-2);
   color: var(--ink);
+}
+
+.about__social-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.about__social-label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .about__social-arrow {
-  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-dim);
 }
 
-/* ── Aside (Photo & Stats) ── */
+/* ── Aside: photo + stats ── */
 .about__aside {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
+  min-width: 0;
 }
 
-/* Photo */
 .about__photo-panel {
-  padding: 1px;
+  background: var(--paper-2);
+  overflow: hidden;
 }
 
 .about__photo-wrap {
-  position: relative;
   aspect-ratio: 1 / 1;
-  background: var(--bg);
   overflow: hidden;
-  max-width: 380px;
+  background: var(--paper-3);
+  display: grid;
+  place-items: center;
 }
 
 .about__photo {
@@ -197,77 +223,80 @@
 }
 
 .about__photo-fallback {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: var(--font-mono);
-  font-size: 48px;
-  color: var(--ink-dim);
+  font-size: 16px;
+  color: var(--ink-mute);
 }
 
 .about__caption-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--panel);
-  border-top: 1px solid var(--line);
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border: 1px dashed var(--hair);
+  border-top: none;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
+  font-size: 9px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--ink-dim);
 }
 
-/* 2x2 Stats Grid */
 .about__stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 8px;
 }
 
 .about__stat-card {
-  padding: 16px;
-  background: var(--panel);
-  border: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  clip-path: polygon(
-    var(--cut-sm) 0,
-    100% 0,
-    100% calc(100% - var(--cut-sm)),
-    calc(100% - var(--cut-sm)) 100%,
-    0 100%,
-    0 var(--cut-sm)
-  );
+  gap: 3px;
+  padding: 12px;
+  background: var(--paper-2);
+  border: 1px dashed var(--hair);
 }
 
 .about__stat-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.14em;
-  color: var(--ink-dim);
   text-transform: uppercase;
+  color: var(--ink-dim);
 }
 
 .about__stat-value {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--ink);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  color: var(--ink);
 }
 
-@media (max-width: 860px) {
+/* ── Responsive ── */
+@media (max-width: 900px) {
   .about__content {
     grid-template-columns: 1fr;
-    gap: 36px;
   }
+
+  .about__ghost {
+    display: none;
+  }
+
   .about__photo-wrap {
-    max-width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .about {
+    padding-top: 92px;
+  }
+
+  .about__top-meta {
+    font-size: 9px;
   }
 }

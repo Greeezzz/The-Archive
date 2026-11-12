@@ -2,6 +2,7 @@ import DecodeText from '../components/motion/DecodeText';
 import Reveal from '../components/motion/Reveal';
 import Tag from '../components/ui/Tag';
 import Button from '../components/ui/Button';
+import { DashRule, Frame, GhostText } from '../components/lines';
 import './Projects.css';
 
 const deployedProjects = [
@@ -62,11 +63,11 @@ export default function Projects() {
   return (
     <div className="projects-wrapper">
       <main className="projects">
-        {/* Header */}
+        {/* ── Console header ── */}
         <header className="projects__header">
           <div className="projects__top-meta">
             <span className="projects__status-label">
-              <span className="projects__status-dot" />
+              <span className="projects__status-dot" aria-hidden="true" />
               DATABASE // SEC-02 // DEPLOYMENT_INDEX
             </span>
             <span>VER: 1.0.4 // STABLE</span>
@@ -74,41 +75,44 @@ export default function Projects() {
 
           <div className="projects__header-main">
             <div className="projects__title-block">
-              <span className="projects__eyebrow">// PROJECT REGISTRY</span>
+              <span className="projects__eyebrow">// PROJECT_REGISTRY</span>
               <h1 className="projects__title">
                 <DecodeText text="WHAT I BUILT" duration={550} />
-                <span className="projects__title-signal">.</span>
               </h1>
               <p className="projects__subtitle">
                 Mostly bikin karena penasaran, bosen, atau kena deadline sekolah.
               </p>
+              <GhostText size="clamp(64px, 12vw, 170px)" className="projects__ghost">
+                {String(deployedProjects.length + unreleasedProjects.length).padStart(2, '0')}
+              </GhostText>
             </div>
 
-            {/* Diagnostic Console Box */}
             <div className="projects__diag-box">
               <div className="projects__diag-line">
-                <span className="projects__diag-key">SYSTEM:</span>
+                <span className="projects__diag-key">SYSTEM</span>
                 <span className="projects__diag-val projects__diag-val--active">ACTIVE</span>
               </div>
               <div className="projects__diag-line">
-                <span className="projects__diag-key">DB_CONN:</span>
+                <span className="projects__diag-key">DB_CONN</span>
                 <span className="projects__diag-val">STABLE</span>
               </div>
               <div className="projects__diag-line">
-                <span className="projects__diag-key">RECORDS:</span>
+                <span className="projects__diag-key">RECORDS</span>
                 <span className="projects__diag-val">
-                  {deployedProjects.length + unreleasedProjects.length} ENTS
+                  {deployedProjects.length + unreleasedProjects.length} ENT
                 </span>
               </div>
               <div className="projects__diag-line">
-                <span className="projects__diag-key">LOC_IP:</span>
+                <span className="projects__diag-key">LOC_IP</span>
                 <span className="projects__diag-val">127.0.0.1</span>
               </div>
             </div>
           </div>
         </header>
 
-        {/* Deployed Projects */}
+        <DashRule className="projects__rule" />
+
+        {/* ── Deployed ── */}
         <section className="projects__section">
           <div className="projects__section-header">
             <span className="projects__section-label">DEPLOYED [PUBLIC_APPS]</span>
@@ -119,68 +123,64 @@ export default function Projects() {
             {deployedProjects.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.1}>
                 <article className="pcard">
-                  {/* Corner Brackets */}
-                  <span className="pcard__bracket pcard__bracket--tl" aria-hidden="true" />
-                  <span className="pcard__bracket pcard__bracket--tr" aria-hidden="true" />
-                  <span className="pcard__bracket pcard__bracket--bl" aria-hidden="true" />
-                  <span className="pcard__bracket pcard__bracket--br" aria-hidden="true" />
-
-                  <div className="pcard__image-wrap">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      className="pcard__image"
-                      width={1200}
-                      height={674}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="pcard__badge">
-                      <Tag variant="signal">{p.env}</Tag>
-                    </div>
-                  </div>
-
-                  <div className="pcard__info">
-                    <div className="pcard__meta-bar">
-                      <span className="pcard__sysref">REF: {p.sysRef}</span>
-                      <div className="pcard__links">
-                        <a
-                          href={p.github}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="pcard__link"
-                        >
-                          [GITHUB]
-                        </a>
-                        <a
-                          href={p.demo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="pcard__link"
-                        >
-                          [LIVE_DEMO ↗]
-                        </a>
+                  <Frame className="pcard__frame" hoverable={false}>
+                    <div className="pcard__image-wrap">
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="pcard__image"
+                        width={1200}
+                        height={674}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="pcard__badge">
+                        <Tag variant="signal">{p.env}</Tag>
                       </div>
                     </div>
 
-                    <h2 className="pcard__name">{p.name}</h2>
-                    <p className="pcard__desc">{p.description}</p>
+                    <div className="pcard__info">
+                      <div className="pcard__meta-bar">
+                        <span className="pcard__sysref">{p.sysRef}</span>
+                        <div className="pcard__links">
+                          <a
+                            href={p.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="pcard__link"
+                          >
+                            GITHUB &#8599;
+                          </a>
+                          <a
+                            href={p.demo}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="pcard__link"
+                          >
+                            LIVE_DEMO &#8599;
+                          </a>
+                        </div>
+                      </div>
 
-                    <div className="pcard__tech">
-                      {p.tech.map((t) => (
-                        <Tag key={t} variant="default">
-                          {t}
-                        </Tag>
-                      ))}
+                      <h2 className="pcard__name">{p.name}</h2>
+                      <p className="pcard__desc">{p.description}</p>
+
+                      <div className="pcard__tech">
+                        {p.tech.map((t) => (
+                          <Tag key={t} variant="default">
+                            {t}
+                          </Tag>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </Frame>
                 </article>
               </Reveal>
             ))}
           </div>
         </section>
 
-        {/* Unreleased Projects */}
+        {/* ── Unreleased ── */}
         <section className="projects__section">
           <div className="projects__section-header">
             <span className="projects__section-label">UNRELEASED [INTERNAL_ARCHIVE]</span>
@@ -193,11 +193,11 @@ export default function Projects() {
                 <div className="prow">
                   <div className="prow__left">
                     <div className="prow__meta">
-                      <Tag variant="data">{p.env}</Tag>
-                      <span className="prow__sysref">REF: {p.sysRef}</span>
+                      <Tag variant="default">{p.env}</Tag>
+                      <span className="prow__sysref">{p.sysRef}</span>
                     </div>
 
-                    <h3 className="prow__name">{p.name}</h3>
+                    <h2 className="prow__name">{p.name}</h2>
                     <p className="prow__desc">{p.description}</p>
 
                     <div className="prow__tech">
@@ -211,7 +211,7 @@ export default function Projects() {
 
                   <div className="prow__right">
                     <Button href={p.github} variant="secondary">
-                      Source Code <span>↗</span>
+                      Source Code <span aria-hidden="true">&#8599;</span>
                     </Button>
                   </div>
                 </div>

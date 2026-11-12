@@ -36,7 +36,6 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
       {/* Image Panel */}
       <div className="card__image-wrap">
         <span className="card__scanline" aria-hidden="true" />
-        <span className="card__image-scrim" aria-hidden="true" />
 
         {!imgError ? (
           <img

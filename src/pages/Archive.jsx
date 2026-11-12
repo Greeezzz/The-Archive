@@ -15,12 +15,14 @@ const MemoizedBannerCard = memo(BannerCard);
 
 export default function Archive() {
   const [params, setParams] = useSearchParams();
-  const [activeTab, setActiveTab] = useState('archive');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Selection lives in the URL so every entry has a shareable link.
+  // Both the tab and the open entry live in the URL, so a shared link lands on
+  // exactly what the sender saw: /archive?tab=banner&banner=1
   const entryParam = params.get('entry');
   const bannerParam = params.get('banner');
+  // An open banner implies the banner tab; otherwise trust ?tab=, default archive.
+  const activeTab = bannerParam || params.get('tab') === 'banner' ? 'banner' : 'archive';
   const selected = useMemo(
     () => (entryParam ? characters.find((c) => c.number === entryParam) || null : null),
     [entryParam]
@@ -35,14 +37,21 @@ export default function Archive() {
     [setParams]
   );
   const handleSetSelectedBanner = useCallback(
-    (banner) => setParams({ banner: String(banner.id) }, { replace: true }),
+    (banner) => setParams({ tab: 'banner', banner: String(banner.id) }, { replace: true }),
     [setParams]
   );
-  const closeModal = useCallback(() => setParams({}, { replace: true }), [setParams]);
-  const handleTabChange = useCallback((tab) => {
-    setActiveTab(tab);
-    setSearchQuery('');
-  }, []);
+  const closeModal = useCallback(
+    () => setParams(activeTab === 'banner' ? { tab: 'banner' } : {}, { replace: true }),
+    [setParams, activeTab]
+  );
+  const handleTabChange = useCallback(
+    (tab) => {
+      // Switching tabs closes any open entry and keeps the tab in the URL.
+      setParams(tab === 'banner' ? { tab: 'banner' } : {}, { replace: true });
+      setSearchQuery('');
+    },
+    [setParams]
+  );
 
   // Filter characters
   const filteredCharacters = useMemo(() => {
@@ -95,13 +104,19 @@ export default function Archive() {
 
   const goPrevBanner = useCallback(() => {
     if (bannerIndex > 0) {
-      setParams({ banner: String(filteredBanners[bannerIndex - 1].id) }, { replace: true });
+      setParams(
+        { tab: 'banner', banner: String(filteredBanners[bannerIndex - 1].id) },
+        { replace: true }
+      );
     }
   }, [bannerIndex, filteredBanners, setParams]);
 
   const goNextBanner = useCallback(() => {
     if (bannerIndex >= 0 && bannerIndex < filteredBanners.length - 1) {
-      setParams({ banner: String(filteredBanners[bannerIndex + 1].id) }, { replace: true });
+      setParams(
+        { tab: 'banner', banner: String(filteredBanners[bannerIndex + 1].id) },
+        { replace: true }
+      );
     }
   }, [bannerIndex, filteredBanners, setParams]);
 
@@ -123,7 +138,7 @@ export default function Archive() {
               <span className="archive__status-dot" />
               DATABASE // SEC-01 // OPERATOR_REGISTRY
             </span>
-            <span>VER: 2.4.0 // STABLE</span>
+            <span className="archive__ver">VER: 2.4.0 // STABLE</span>
           </div>
 
           <div className="archive__header-main">
@@ -218,7 +233,13 @@ export default function Archive() {
           {showCharacterGrid && !noResults && (
             <motion.div layout className="archive__grid">
               {filteredCharacters.map((char, i) => (
-                <Reveal key={char.id} delay={Math.min(i * 0.04, 0.3)}>
+                <Reveal
+                  key={char.id}
+                  delay={Math.min(i * 0.04, 0.3)}
+                  className={
+                    char.isWiderDesign ? 'archive__cell archive__cell--wide' : 'archive__cell'
+                  }
+                >
                   <MemoizedCharacterCard
                     character={char}
                     index={i}

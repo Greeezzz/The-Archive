@@ -188,7 +188,13 @@
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  background: var(--paper-2);
+  /* Fallback for browsers without color-mix (pre-2023). */
+  background-color: var(--paper-2);
+  /* Entry colour as a faint FILL behind the art (never text or a line), plus
+     halftone dots so the pillarbox bars are not flat grey. */
+  background-color: color-mix(in srgb, var(--entry, #111) 14%, var(--paper-2));
+  background-image: radial-gradient(circle, rgba(17, 17, 17, 0.16) 1px, transparent 1.3px);
+  background-size: 10px 10px;
   display: flex;
 }
 
@@ -207,15 +213,6 @@
   height: 100%;
   object-fit: contain;
   display: block;
-}
-
-.stage__art-scrim {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 30%;
-  background: linear-gradient(to top, rgba(17, 17, 17, 0.28), transparent);
-  pointer-events: none;
-  z-index: 1;
 }
 
 .stage__image-fallback {

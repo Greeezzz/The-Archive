@@ -148,7 +148,7 @@
 .banner-card__image-fallback {
   font-family: var(--font-mono);
   font-size: 14px;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 /* Info */
@@ -179,7 +179,17 @@
 .banner-card__num {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--entry-text, var(--entry, var(--signal)));
+  color: var(--ink-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.banner-card__num::before {
+  content: '';
+  width: 12px;
+  height: 3px;
+  background: var(--entry);
 }
 
 .banner-card__description {

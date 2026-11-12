@@ -1,5 +1,4 @@
 import { memo, useState, useCallback } from 'react';
-import { readableOn } from '../lib/color';
 import './CharacterCard.css';
 
 const CharacterCard = memo(function CharacterCard({ character, onClick, index }) {
@@ -23,8 +22,7 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       style={{
-        '--entry': character.color || 'var(--signal)',
-        '--entry-text': readableOn(character.color || '#e9ecef'),
+        '--entry': character.color || 'var(--ink-mute)',
       }}
       role="button"
       tabIndex={0}

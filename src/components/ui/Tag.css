@@ -8,17 +8,9 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 3px 8px;
-  background: var(--panel-2);
-  border: 1px solid var(--line);
-  color: var(--text-dim);
-  clip-path: polygon(
-    var(--cut-sm) 0,
-    100% 0,
-    100% calc(100% - var(--cut-sm)),
-    calc(100% - var(--cut-sm)) 100%,
-    0 100%,
-    0 var(--cut-sm)
-  );
+  background: var(--paper-2);
+  border: 1px solid var(--hair);
+  color: var(--ink-2);
   line-height: 1.4;
   user-select: none;
 }
@@ -28,9 +20,9 @@
 }
 
 .ui-tag--signal {
+  background: var(--signal);
   border-color: var(--signal);
-  color: var(--signal);
-  background: rgba(255, 229, 0, 0.05);
+  color: var(--signal-ink);
 }
 
 .ui-tag--data {

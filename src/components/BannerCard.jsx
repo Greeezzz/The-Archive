@@ -1,5 +1,4 @@
 import { memo, useState, useCallback } from 'react';
-import { readableOn } from '../lib/color';
 import './BannerCard.css';
 
 const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
@@ -23,8 +22,7 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       style={{
-        '--entry': banner.color || 'var(--signal)',
-        '--entry-text': readableOn(banner.color || '#e9ecef'),
+        '--entry': banner.color || 'var(--ink-mute)',
       }}
       role="button"
       tabIndex={0}

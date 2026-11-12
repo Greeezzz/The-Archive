@@ -4,7 +4,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(10, 11, 13, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
@@ -106,7 +106,7 @@
 .modal__close:hover,
 .modal__close:focus-visible {
   background: var(--signal);
-  border-color: var(--signal);
+  border-color: var(--ink);
   color: var(--signal-ink);
 }
 
@@ -141,7 +141,7 @@
 .modal__image-fallback {
   font-family: var(--font-mono);
   font-size: 32px;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 /* Right Data Panel */
@@ -190,7 +190,7 @@
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.18em;
-  color: var(--text-mute);
+  color: var(--ink-dim);
   text-transform: uppercase;
 }
 
@@ -209,7 +209,7 @@
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.14em;
-  color: var(--text-mute);
+  color: var(--ink-dim);
   text-transform: uppercase;
   padding-top: 12px;
   border-top: 1px solid var(--line);

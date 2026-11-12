@@ -62,7 +62,7 @@ export default function Home() {
           {/* Eyebrow & Meta */}
           <div className="home__header-meta">
             <span className="home__dossier-code">SEC-00 // TERMINAL_ONLINE</span>
-            <span className="home__meta-sep">/</span>
+            <span className="home__meta-sep" aria-hidden="true">/</span>
             <span className="home__count-tag">// {characters.length} OPERATOR DOSSIERS</span>
           </div>
 

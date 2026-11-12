@@ -32,7 +32,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
-  color: var(--text-mute);
+  color: var(--ink-dim);
   text-transform: uppercase;
 }
 
@@ -40,7 +40,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .about__status-dot {
@@ -74,7 +74,7 @@
 }
 
 .about__title-signal {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 /* ── Layout ── */
@@ -103,7 +103,7 @@
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
-  color: var(--signal);
+  color: var(--ink);
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -159,14 +159,14 @@
 }
 
 .about__social-row:hover {
-  border-color: var(--signal);
+  border-color: var(--ink);
   background: var(--panel-2);
   transform: translateX(4px);
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .about__social-arrow {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 /* ── Aside (Photo & Stats) ── */
@@ -204,7 +204,7 @@
   justify-content: center;
   font-family: var(--font-mono);
   font-size: 48px;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 .about__caption-bar {
@@ -249,7 +249,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--text-mute);
+  color: var(--ink-dim);
   text-transform: uppercase;
 }
 
@@ -257,7 +257,7 @@
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 700;
-  color: var(--signal);
+  color: var(--ink);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }

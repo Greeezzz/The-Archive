@@ -1,29 +1,42 @@
 :root {
-  /* surfaces */
-  --bg:        #0a0b0d;
-  --panel:     #111316;
-  --panel-2:   #171a1e;
-  --line:      #2a2e34;   /* 1px default borders */
-  --line-hi:   #3d434b;   /* hover / active borders */
+  /* ── paper ── */
+  --paper:   #ffffff;
+  --paper-2: #f3f3f2;   /* panels, checker light */
+  --paper-3: #e7e7e5;   /* ghost numerals, hatch, checker dark */
 
-  /* text */
-  --text:      #e9ecef;
-  --text-dim:  #8a9099;
-  --text-mute: #7c838c;   /* 4.6:1 on --panel-2 — was #555b63 (2.9:1, failed WCAG AA) */
+  /* ── ink ── */
+  --ink:      #111111;
+  --ink-2:    #3a3a3c;
+  --ink-dim:  #6f6f73;   /* 4.68:1 on --paper — safe for text */
+  --ink-mute: #a4a4a8;   /* decoration only, never essential text */
 
-  /* signal colors */
-  --signal:    #ffe500;   /* primary accent: hazard yellow. CTAs, active, key labels */
-  --signal-ink:#0a0b0d;   /* text on top of --signal */
-  --data:      #3de0ff;   /* secondary: small data readouts only, never big fills */
-  --alert:     #ff4d3d;   /* errors / 404 only */
+  /* ── lines ── */
+  --hair:    #cfcfd2;   /* dashed rules */
+  --hair-hi: #9a9aa0;   /* handles, active rules */
 
-  /* per-entry color. Set inline from characters.json `color` */
-  --entry:     #ffffff;
+  /* ── dark rail ── */
+  --rail: #333437;
 
-  /* type */
-  --font-display: 'Chakra Petch', 'Rajdhani', sans-serif;
+  /* ── signal ── */
+  --signal:     #ffe500;
+  --signal-ink: #111111;  /* text on yellow, always */
+  --lime:       #b6ff2e;  /* swoosh gradient end stop only */
+
+  /* ── glitch slivers (1–4px blocks, max 3 per screen) ── */
+  --glitch-m: #ff2bd6;
+  --glitch-c: #00e5ff;
+  --glitch-g: #7dff3a;
+
+  --alert: #ff3b2f;   /* 404 / errors only */
+
+  /* ── per-entry color, set inline from characters.json ── */
+  /* NEVER as text or hairline on paper: #FFFFFF/#FFEE6B/#B6B6B6 vanish. */
+  --entry: #111111;
+
+  /* ── type ── */
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', 'DM Mono', monospace;
+  --font-mono:    'JetBrains Mono', monospace;
 
   /* geometry */
   --cut:       14px;            /* chamfer size, large panels */

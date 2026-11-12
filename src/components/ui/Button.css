@@ -34,7 +34,7 @@
 }
 
 .ui-btn:hover {
-  border-color: var(--signal);
+  border-color: var(--ink);
   color: #fff;
   transform: translateY(-1px);
 }
@@ -46,7 +46,7 @@
 /* Primary Variant (filled signal) */
 .ui-btn--primary {
   background: var(--signal);
-  border-color: var(--signal);
+  border-color: var(--ink);
   color: var(--signal-ink);
   font-weight: 700;
 }

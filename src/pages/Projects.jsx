@@ -157,7 +157,6 @@ export default function Projects() {
                           target="_blank"
                           rel="noreferrer"
                           className="pcard__link"
-                          style={{ color: 'var(--signal)' }}
                         >
                           [LIVE_DEMO ↗]
                         </a>

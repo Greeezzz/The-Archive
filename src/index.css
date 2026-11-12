@@ -6,39 +6,50 @@
   padding: 0;
 }
 
-/* Compatibility aliases during component migration */
+/* Compatibility aliases during component migration.
+   v1 components still read --bg/--panel/--text/--line. Map them onto paper/ink
+   so the whole site flips light on this commit instead of after every phase. */
 :root {
-  --bg-primary: var(--bg);
-  --bg-secondary: var(--panel);
-  --bg-card: var(--panel);
-  --bg-card-hover: var(--panel-2);
-  --text-primary: var(--text);
-  --text-secondary: var(--text-dim);
-  --text-muted: var(--text-mute);
-  --border: var(--line);
-  --border-hover: var(--line-hi);
+  --bg:        var(--paper);
+  --panel:     var(--paper-2);
+  --panel-2:   var(--paper-3);
+  --line:      var(--hair);
+  --line-hi:   var(--hair-hi);
+
+  --text:      var(--ink);
+  --text-dim:  var(--ink-dim);
+  --text-mute: var(--ink-mute);
+
+  --bg-primary: var(--paper);
+  --bg-secondary: var(--paper-2);
+  --bg-card: var(--paper-2);
+  --bg-card-hover: var(--paper-3);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-dim);
+  --text-muted: var(--ink-mute);
+  --border: var(--hair);
+  --border-hover: var(--hair-hi);
 
   /* Legacy mappings until components migrate to --signal / --entry */
   --accent: var(--signal);
-  --accent-alt: var(--data);
-  --accent-cyan: var(--data);
+  --accent-alt: var(--ink);
+  --accent-cyan: var(--ink);
   --accent-glow: transparent;
   --accent-alt-glow: transparent;
   --accent-cyan-glow: transparent;
 
   --font-sans: var(--font-body);
-  --font-mono: var(--font-mono);
   --font-cyber: var(--font-display);
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--bg);
+  background-color: var(--paper);
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -83,19 +94,19 @@ img {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: var(--paper-2);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--line-hi);
+  background: var(--hair-hi);
   border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-mute);
+  background: var(--ink-mute);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--line-hi) var(--bg);
+  scrollbar-color: var(--hair-hi) var(--paper-2);
 }
 
 /* ── Selection ── */
@@ -108,10 +119,11 @@ img {
   color: var(--signal-ink);
 }
 
-/* ── Accessible Focus visible per DESIGN.md: 2px solid --signal, offset 3px, no glow ── */
+/* ── Focus ring (DESIGN.md §8): ink core + yellow outer, works on paper and on yellow ── */
 :focus-visible {
-  outline: 2px solid var(--signal);
-  outline-offset: 3px;
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--signal);
 }
 
 /* ── Skip link ── */
@@ -130,7 +142,6 @@ img {
   padding: 8px 16px;
   z-index: 10000;
   transition: top 0.2s ease;
-  clip-path: polygon(0 0, 100% 0, calc(100% - var(--cut-sm)) 100%, var(--cut-sm) 100%);
 }
 
 .skip-link:focus {
@@ -175,16 +186,15 @@ img {
   border: 0;
 }
 
-/* ── Subtle Ambient Grid (M11) ── */
+/* ── Halftone page texture (DESIGN.md §3) — static, low contrast ── */
 .ambient-grid {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: radial-gradient(circle, var(--hair) 1px, transparent 1.3px);
+  background-size: 8px 8px;
+  opacity: 0.5;
 }
 
 @media (prefers-reduced-motion: reduce) {

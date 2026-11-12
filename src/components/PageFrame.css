@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 6px 12px;
-  background: rgba(17, 19, 22, 0.7);
+  background: rgba(243, 243, 242, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
@@ -40,14 +40,14 @@
 }
 
 .page-frame__coords {
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 .page-frame__corner {
   position: absolute;
   width: 8px;
   height: 8px;
-  border-color: var(--signal);
+  border-color: var(--ink);
   border-style: solid;
 }
 

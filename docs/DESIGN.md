@@ -1,138 +1,159 @@
-# DESIGN.md — Industrial HUD design system
+# DESIGN.md — v2 (Light industrial console + poster mode)
 
-Concept: **a field terminal that stores operator dossiers.** Every page is a console screen; every character is a file. Calm, dark, precise; the art provides the color, the UI provides structure.
+> **v2 supersedes v1.** The reference screenshots show a **light** base (white / pale gray) with **black + hazard yellow**, dashed hairlines, halftone/checker/topographic textures, square corner handles, giant ghost numerals, and a dark vertical side rail. A second reference shows a loud **poster** treatment: heavy bracket labels, yellow/black blocks, neon yellow→lime swooshes, tiny RGB glitch slivers. The v1 dark palette (`#0a0b0d` etc.) is retired. Line/motion details live in `LINES.md`.
 
-## 1. Tokens
+Concept: **an exhibition terminal.** Calm light pages with precise dashed linework (console mode) that can burst into loud yellow/black poster frames (poster mode) at key moments.
 
-Put all tokens in a new `src/styles/tokens.css`, imported once from `src/index.css`. Remove the old neon tokens (`--accent` pink, `--accent-alt`, `--accent-cyan`, `*-glow`).
+## 0. Two modes
+
+| Mode | Used on | Feel |
+|---|---|---|
+| **Console** (light) | Archive, About, Projects, NotFound, modals/stage | Quiet, dense, hairline dashed grid, tiny mono labels, art is the hero |
+| **Poster** (loud) | Home hero, section openers, page transitions, 404 | Yellow/black slabs, `[ BRACKET ]` titles, huge type, gradient swooshes, glitch slivers |
+
+Don't mix at full intensity on one screen: console pages may borrow one poster element (e.g. one bracket title or one yellow slab).
+
+## 1. Tokens (`src/styles/tokens.css`)
 
 ```css
 :root {
-  /* surfaces */
-  --bg:        #0a0b0d;
-  --panel:     #111316;
-  --panel-2:   #171a1e;
-  --line:      #2a2e34;   /* 1px default borders */
-  --line-hi:   #3d434b;   /* hover / active borders */
+  /* paper */
+  --paper:   #ffffff;
+  --paper-2: #f3f3f2;   /* panels, checker light */
+  --paper-3: #e7e7e5;   /* ghost numerals, hatch, checker dark */
 
-  /* text */
-  --text:      #e9ecef;
-  --text-dim:  #8a9099;
-  --text-mute: #555b63;
+  /* ink */
+  --ink:     #111111;
+  --ink-2:   #3a3a3c;
+  --ink-dim: #6f6f73;   /* verify >= 4.5:1 on --paper before using for text */
+  --ink-mute:#a4a4a8;   /* decoration only, never essential text */
 
-  /* signal colors (tune by eye, keep the roles) */
-  --signal:    #ffe500;   /* primary accent: hazard yellow. CTAs, active, key labels */
-  --signal-ink:#0a0b0d;   /* text on top of --signal */
-  --data:      #3de0ff;   /* secondary: small data readouts only, never big fills */
-  --alert:     #ff4d3d;   /* errors / 404 only */
+  /* lines */
+  --hair:    #cfcfd2;   /* dashed rules */
+  --hair-hi: #9a9aa0;   /* handles, active rules */
 
-  /* per-entry color. Set inline from characters.json `color` */
-  --entry: #ffffff;
+  /* dark rail (right sidebar, buttons) */
+  --rail:    #333437;
 
-  /* type */
-  --font-display: 'Chakra Petch', 'Rajdhani', sans-serif;
+  /* signal */
+  --signal:    #ffe500; /* hazard yellow */
+  --signal-ink:#111111; /* text on yellow, always */
+  --lime:      #b6ff2e; /* end stop of swoosh gradients only */
+
+  /* glitch slivers (1–4px blocks, max 3 per screen) */
+  --glitch-m: #ff2bd6;
+  --glitch-c: #00e5ff;
+  --glitch-g: #7dff3a;
+
+  --alert: #ff3b2f;     /* 404 / errors only */
+
+  /* per-entry color, set inline from characters.json */
+  --entry: #111111;
+
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif; /* variable: width + weight */
   --font-body:    'Inter', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', 'DM Mono', monospace;
+  --font-mono:    'JetBrains Mono', monospace;
 
-  /* geometry */
-  --cut: 14px;            /* chamfer size, large panels */
-  --cut-sm: 8px;          /* chamfer size, buttons/tags */
-  --gap: 8px;             /* base spacing unit; use multiples */
-  --frame: clamp(16px, 3vw, 40px); /* page side padding */
+  --cut: 14px;  --cut-sm: 8px;
+  --gap: 8px;
+  --frame: clamp(16px, 3vw, 40px);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-io:  cubic-bezier(.76,0,.24,1);
 }
 ```
 
-Rules:
-- `--signal` appears on at most ~5% of any screen. It marks what matters (primary CTA, active nav item, focus ring, entry number).
-- `--entry` is the only per-item color. It replaces the old per-card `--accent` override (rename to avoid colliding with any global accent). It may tint borders, corner brackets, an underline, and a thin glow strip, not whole backgrounds.
-- No gradients between two hues. Gradients are only allowed as dark-to-transparent scrims over art.
+Color rules (important, learned from `characters.json`):
+- **`--entry` colors include `#FFFFFF`, `#FFEE6B`, `#B6B6B6`: they vanish on a white page.** Never use `--entry` as a text color or hairline on `--paper`. Use it only as a **fill behind/under art**, a small chip with `--ink` text, or an edge strip on top of art. Lines/handles stay `--ink`/`--hair-hi`.
+- **Yellow is a fill, never text on white** (fails contrast). Text on yellow is always `--ink`.
+- Console mode: yellow <= ~10% of the screen. Poster mode: yellow may dominate.
+- Glitch colors only as tiny slivers on edges/art, never as fills or text.
 
 ## 2. Typography
 
-Load via the existing Google Fonts `@import` in `index.css` (replace the family list): **Chakra Petch** (600/700), **Inter** (400/500/600), **JetBrains Mono** (400/500). Remove **Playfair Display** and **Orbitron**.
+Google Fonts: `Archivo` (variable `wdth` 62–125, `wght` 100–900), `Inter`, `JetBrains Mono`. Remove Chakra Petch if v1 added it. (Font choice is my pick for a similar bold geometric feel; swap if Chelo prefers.)
 
-| Role | Font | Style |
-|---|---|---|
-| Hero / page titles | Display | 700, uppercase, `letter-spacing: 0.02em`, tight line-height (0.95–1.0), `clamp()` sizes |
-| Section labels, nav, buttons, tags | Mono | 11–12px, uppercase, `letter-spacing: 0.14em` |
-| Body copy | Body | 15–16px, line-height 1.6, `--text-dim` |
-| Numbers / codes | Mono, tabular-nums | e.g. `ENTRY-007`, `SEC-03`, `0023` |
-
-Hierarchy trick to reuse: giant display word + tiny mono caption next to it (`ARCHIVE` / `// 23 ENTRIES`).
-
-## 3. Geometry & linework
-
-- **No `border-radius`** (0). **No soft shadows, no neon glow.**
-- Panels use chamfered corners via `clip-path`, 1px borders drawn with an inner pseudo-element or an SVG/gradient (clip-path cuts borders, so draw the border as a second clipped layer):
-
-```css
-.panel {
-  position: relative;
-  background: var(--panel);
-  clip-path: polygon(
-    var(--cut) 0, 100% 0,
-    100% calc(100% - var(--cut)),
-    calc(100% - var(--cut)) 100%,
-    0 100%, 0 var(--cut)
-  );
-}
-.panel::before { /* the 1px border, one pixel inset layer */
-  content: ''; position: absolute; inset: 0;
-  background: var(--line);
-  clip-path: inherit; z-index: -1;
-}
-.panel > .panel__inner { margin: 1px; background: var(--panel); clip-path: inherit; }
-```
-
-- Corner brackets (already exist as `.card__bracket`, `.modal__bracket`, `.about__bracket`) stay, but become 12–16px L-shaped, 1px, `--line-hi`, turning `--signal`/`--entry` on hover.
-- Dividers: 1px lines with a small notch or tick marks every 8px (use a repeating-linear-gradient). Section labels sit on a line: `SEC-02 ─────── CHARACTER ENTRIES`.
-- Page frame: thin 1px frame inset `--frame` from viewport edges on desktop, with a top status bar (`THE ARCHIVE // SYS.ONLINE // 2026`) and optional side coordinates. Hidden/simplified under 768px.
-
-## 4. Decorative vocabulary (use sparingly)
-
-Barcodes, hazard stripes (45° yellow/black, only on 1–2 small elements per page), crosshair `+` marks, tick rulers, coded labels (`ID-007`, `REF: GACHA_001`), progress ticks, "signal bars". Total decoration <= ~10% of visual weight. Never put decorative text in the way of real content, and hide it < 768px if it risks overflow.
-
-Original-details rule: invent your own labels and glyphs (Archive-specific codes such as `OPERATOR FILE`, `ENTRY-007`, `SECTOR: ARCHIVE`). Do not reproduce any game's exact icons, logos, or layouts.
-
-## 5. Component mapping (current → new)
-
-| Current file | New treatment |
+| Role | Spec |
 |---|---|
-| `Navbar.jsx/.css` | Slim top bar, mono uppercase links with `[ ]`-style bracket on active, signal underline wipe on hover, mobile menu = full-height panel sliding in with staggered links. Logo `[THE ARCHIVE]` stays as text |
-| `Home.jsx/.css` | Remove serif title lines, floating orbs, `home__watermark`, bg-lines. New: display-type hero with decode-in, HUD frame, status strip footer, 3 chamfered CTA buttons (primary filled `--signal`, others outlined) |
-| `Archive.jsx/.css` | Header becomes a "console header": giant title, count readout, tabs as segmented control with chamfered active state, search as terminal-style input (`> search_`), grid of dossier cards |
-| `CharacterCard.jsx/.css` | Chamfered panel; art top; bottom info bar with `ENTRY-NN` + name; `--entry` color for brackets/underline; hover = lock-on (brackets expand, scan line sweeps, label slides) |
-| `CharacterModal.jsx/.css` | Two-panel dossier: art left, data right (number, name, quote as "transcript"), chamfered, opens with clip-path wipe. Keep focus trap, Esc, scroll lock, portal |
-| `BannerCard`, `BannerModal` | Same family as the character versions, wide aspect |
-| `About.jsx/.css` | Bio in a text panel, socials as list rows with arrow, photo in framed panel with brackets and caption bar, stats as 2x2 readout grid |
-| `Projects.jsx/.css` | Each project = panel with `sysRef`, `env` status tag (`PROD_CLOUD` signal-colored, `LOCAL_DEV` dim), tech chips as mono tags |
-| `NotFound.jsx/.css` | "SIGNAL LOST" in `--alert`, glitch-free, with a link back |
-| `Cursor.jsx/.css` | Small square crosshair + thin ring; fine pointers only; scales/locks onto interactive elements |
-| `BackToTop`, scroll progress | Thin 2px `--signal` bar (no gradient/glow), square back-to-top button |
-| `src/index.css` globals | Delete `.grain`, `.ambient-glow*`, neon utility classes, hexagon, data-stream, gradient scrollbar/selection. Keep skip-link, focus-visible (restyle) |
-| `App.css` | Review; remove anything unused after the migration |
+| Poster titles | Archivo 800–900, uppercase, tight leading (0.9–1.0), can go very wide or condensed via `font-stretch`; `clamp()` up to ~12vw |
+| Page / section titles | Archivo 800, uppercase |
+| Labels | JetBrains Mono 10–11px, uppercase, `letter-spacing: .14em`, `--ink-dim` |
+| Field pattern | `//Label` in small mono dim, value below in bold body/display (e.g. `//Entry` → `Chisato Nishikigi`). Use your own field names |
+| Body | Inter 15–16px, line-height 1.6, `--ink-2` |
+| Ghost numerals | Archivo 900, 200–320px, `--paper-3` fading to transparent downward (mask gradient), decorative, `aria-hidden` |
+| Counters | Mono tabular-nums: `01 / 23` |
 
-## 6. Layout
+## 3. Textures (all pure CSS/SVG, all low contrast)
 
-- Mobile-first. Breakpoints: `480`, `768`, `1024`, `1440`.
-- Archive grid: 1 col < 480, 2 cols < 1024, 3–4 cols above; `card--wide` spans 2 cols where there is room, falls back to 1 on small screens.
-- Max content width ~1360px, centered, side padding `--frame`.
-- Keep real text content selectable and in DOM order for screen readers (decoration is `aria-hidden`).
+- **Halftone dots**: `radial-gradient(circle, var(--hair) 1px, transparent 1.3px) 0 0 / 8px 8px`, opacity .5, on page background.
+- **Checker**: two-tone pale squares (`--paper-2` / `--paper-3`), large (48–96px), only in side zones, fading out with a mask.
+- **Hatch**: `repeating-linear-gradient(135deg, var(--paper-3) 0 6px, transparent 6px 12px)` for ghost letters/blocks (clip to text via `background-clip:text` or SVG pattern).
+- **Topographic contours**: faint SVG contour lines (3–6 paths) in the header and poster corners; drawn by us, not traced from any game asset.
+
+## 4. Console page skeleton
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ logo │ TAB 01 ┆ TAB 02 ┆ TAB 03 ┆ TAB 04                   │ ← header, dashed vertical dividers
+├──────┬──────────────────────────────────────────┬──────────┤
+│ meta │  ▪ STAGE (framed art, corner handles) ▪  │ dark rail │
+│ col  │                                          │ crosshairs│
+│ ghost│                                          │ rotated   │
+│ 01   │                                          │ text      │
+├──────┴──────────────────────────────────────────┴──────────┤
+│ credit · tiny chips                      pager  ‹ 01 / 23 › │ ← bottom bar
+└──────────────────────────────────────────────────────────────┘
+```
+- Header tabs: each has a thin vertical bar at its left (gray; yellow when active), bold title, small subtitle; active subtitle gets a yellow highlight.
+- Stage: art inside a dashed frame with **4 square corner handles** (10px, `--hair-hi`; turn `--signal` on hover/focus).
+- Left meta column: yellow square icon tile, small progress bar `01/23`, `//Field` pairs, ghost numeral at the bottom, two square black buttons with yellow icons (share, fullscreen).
+- Right rail (`--rail`, ~64px): crosshair circle icons, vertical rotated text (site section name), yellow square button at bottom, tiny 4-color bar on top (glitch colors).
+- Bottom bar: © line, tiny chips, pager `‹ 01 / 23 ›` with a black center cell and gray arrow cells.
+- < 900px: rail collapses into the bottom bar; meta column stacks above the stage; ghost numerals hidden; handles stay.
+
+## 5. Poster mode vocabulary
+
+- **Bracket title**: heavy black L-brackets (6px, ~40px arms) around a display title: `[ THE ARCHIVE ]`.
+- **Tag line**: `ENTRY [07.] ↘` small mono + boxed arrow glyph.
+- **Black label bar**: white text on `--ink`, thin yellow outline offset by 4px.
+- **Swooshes**: thick rounded arrow/curve shapes in SVG with `--signal` → `--lime` gradient (the only allowed gradient besides scrims).
+- **Repeated micro text**: rows of tiny mono text (`THE ARCHIVE · GALLERY · THE ARCHIVE …`) as texture bands.
+- **Glitch slivers**: 2–4px magenta/cyan/green blocks at edges of slabs/art.
+- **Ghost hatched letters** huge at the bottom edge of the viewport.
+- **Stripe/checker slabs** in yellow/black.
+
+## 6. Component mapping (current repo → v2)
+
+| Current | v2 treatment |
+|---|---|
+| `Navbar` | Becomes the console header: logo left, 4 tabs (Home / Archive / About / Projects) with dashed dividers, active = yellow highlight. Mobile: full-screen yellow/black menu panel |
+| `Home` | **Poster mode** hero: bracket title, huge `A curated Archive` type, yellow/black slab, swoosh, art cutout area, micro-text bands, 3 CTAs as square black buttons with yellow arrows. Entry count readout from `characters.json` |
+| `Archive` | Index grid (cards) + **Stage viewer** (see below). Search = mono input with `//Search` label, dashed underline |
+| `CharacterCard` | Paper-2 panel, dashed border, 4 handles; art; bottom bar `ENTRY 07` + name; hover = handles turn yellow + glitch scan sweep |
+| `CharacterModal` | **Replace with the Stage viewer** (console skeleton §4, prev/next pager, keyboard ←/→/Esc). Keep portal/focus trap/scroll lock. This is the closest match to reference #1. Decision for Chelo: confirm the modal becomes a full-screen viewer |
+| `BannerCard/Modal` | Same family, wide aspect |
+| `About` | Console skeleton: bio as text slab, socials as rows with arrow tiles, photo in dashed frame + handles, stats as 2×2 mono readout |
+| `Projects` | Panels with `sysRef` chip, `env` tag (`PROD_CLOUD` yellow fill + ink text, `LOCAL_DEV` hatch), tech chips mono |
+| `NotFound` | Poster mode, `--alert` accent, big `404` ghost |
+| `Cursor` | Small square crosshair; locks to element bounds; ink on light, fine pointers only |
+| Scroll progress | 2px `--ink` bar with a `--signal` head |
+| Globals | Remove v1 dark tokens, neon, blur orbs. Page background = `--paper` + halftone |
 
 ## 7. Imagery
 
-- Character art (`/characters/*.webp`) is never recolored, filtered, or blurred by the UI. Allowed: a dark bottom scrim for text, a thin `--entry` tint strip, a scan-line sweep on hover.
-- Keep `loading="lazy"` and the existing fallback block when an image errors.
-- Always set width/height or `aspect-ratio` to prevent layout shift.
+Art is never filtered/recolored. Allowed: dark bottom scrim for text on art, `--entry` fill behind transparent art, thin glitch scan line sweep, corner handles. Keep `loading="lazy"`, fallback block, explicit `aspect-ratio`.
 
 ## 8. Accessibility
 
-- Text contrast >= 4.5:1 (check `--text-mute` on `--panel`; don't use it for essential text).
-- `:focus-visible`: 2px solid `--signal`, offset 3px, no glow.
-- Everything interactive reachable by keyboard; cards keep `role="button"`, `tabIndex=0`, Enter handler (also add Space).
-- All motion respects `prefers-reduced-motion` (see `MOTION.md`).
-- Custom cursor only when `(pointer: fine)`; never hide the native cursor on touch.
+- Contrast >= 4.5:1 for all essential text; ink on paper/yellow passes; verify `--ink-dim`.
+- `:focus-visible`: 2px solid `--ink` + 2px `--signal` outer ring (works on light and yellow), offset 3px.
+- Stage viewer: `role="dialog"` or route-based page with logical order; ←/→ keys; pager buttons labelled.
+- Decoration (`ghost`, textures, rail icons, micro-text) is `aria-hidden`.
+- Motion rules in `LINES.md` / `MOTION.md`; reduced motion honored.
 
-## 9. Don'ts
+## 9. Originality & IP
 
-Neon glows, gradient text, rounded corners, drop shadows, floating blur orbs, serif display type, emoji as UI, stock icon packs, more than one accent color per screen, infinite animations on more than a few small elements.
+The reference game's look is *inspiration only*. Don't use its logo, wordmark, name, Chinese titles/copy, icons, illustrations, or UI screenshots. Don't reproduce its layout pixel-for-pixel: keep the vocabulary (light paper, dashed grid, handles, rail, brackets) but use your own labels, shapes, proportions, and glyphs. Site identity remains "The Archive by Chelo".
+
+## 10. Don'ts
+
+Dark base, neon glow, rounded corners, soft shadows, blur orbs, yellow text on white, `--entry` color as text/line on paper, gradient text, stock icon packs, more than 3 glitch slivers per screen, copying game assets.

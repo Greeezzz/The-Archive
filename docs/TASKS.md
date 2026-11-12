@@ -1,4 +1,6 @@
-# TASKS.md — Phased plan
+# TASKS.md — Phased plan (LEGACY v1)
+
+> **Superseded by `TASKS-V2.md`.** Keep using Phase 0 (bug fixes) and the manual regression checklist below. Phases 1–5 assume the old dark look and are replaced by the v2 plan.
 
 One phase = one commit (or small PR). After each phase run `npm run lint && npm run build`, then the manual checklist at the bottom. Don't start the next phase while the current one is broken.
 

@@ -30,9 +30,9 @@ export default function Navbar() {
     <>
       <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <Link to="/" className="navbar__logo">
-          <span className="navbar__logo-bracket">[</span>
+          <span className="navbar__logo-bracket" aria-hidden="true">[</span>
           THE ARCHIVE
-          <span className="navbar__logo-bracket">]</span>
+          <span className="navbar__logo-bracket" aria-hidden="true">]</span>
         </Link>
 
         {/* Desktop Links */}
@@ -85,7 +85,7 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span>{item.label}</span>
-                <span style={{ color: 'var(--signal)' }}>{isActive ? '●' : '→'}</span>
+                <span className="navbar__mobile-link-glyph">{isActive ? '●' : '→'}</span>
               </Link>
             );
           })}

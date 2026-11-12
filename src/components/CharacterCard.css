@@ -166,7 +166,7 @@
 .card__image-fallback {
   font-family: var(--font-mono);
   font-size: 20px;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 /* ── Info Bar ── */
@@ -198,8 +198,19 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--entry-text, var(--entry, var(--signal)));
+  color: var(--ink-dim);
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Entry color as a chip FILL only (DESIGN.md §1: never as text on paper). */
+.card__number::before {
+  content: '';
+  width: 12px;
+  height: 3px;
+  background: var(--entry);
 }
 
 .card__name {

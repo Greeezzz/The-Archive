@@ -11,6 +11,8 @@ This redesign replaces the current look (cyberpunk neon + editorial serif: pink/
 
 "Inspired by" is a hard boundary: see §8 (IP).
 
+> **v2 update:** the target look is now a **light** industrial/exhibition style (white paper, black + hazard yellow, dashed hairlines, corner handles, dark side rail) with a loud **poster mode** for Home/404 and a dedicated **line-motion system** (`LINES.md`). Wherever this PRD or v1 docs imply a dark base or the old neon look, `DESIGN.md` v2 wins. The Archive page's modal becomes a full-screen stage viewer with a pager.
+
 ## 2. Goals
 
 1. Total visual overhaul of every page and component (Home, Archive, About, Projects, NotFound, Navbar, cards, modals, cursor, transitions).
@@ -90,6 +92,6 @@ Take the *design language* (angular panels, HUD linework, coded labels, mechanic
 
 ## 11. Open questions for Chelo
 
-1. Signature accent: hazard yellow (default in `DESIGN.md`) or another color?
+1. ~~Signature accent~~ Resolved in v2: hazard yellow + black on a light base.
 2. Keep the Indonesian-slang bio as is? (Default: yes, unchanged.)
 3. Want a loading/boot intro on first visit only (session-based) or every load? (Default: first visit per session.)

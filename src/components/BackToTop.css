@@ -36,8 +36,9 @@
 }
 
 .back-to-top:hover {
+  background: var(--signal);
   border-color: var(--signal);
-  color: var(--signal);
+  color: var(--signal-ink);
   background: var(--panel-2);
   transform: translateY(-2px);
 }

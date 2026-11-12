@@ -2,6 +2,8 @@
 
 Feel: **mechanical, precise, fast-in / settled-out.** Things slice, wipe, lock, and decode. Nothing bounces, wobbles, or floats.
 
+> **v2 overrides:** line-based motion (dashed dividers drawing on, corner handles popping, scan line sweep, ghost numerals, brackets building) is specified in `LINES.md` and takes priority over M4, M5 and M11 below. The visual base is now light (`DESIGN.md` v2), so any v1 mention of dark surfaces or `--signal` glow is obsolete. Tokens, performance budget, and reduced-motion rules in this file still apply.
+
 ## 1. Tokens (put in `src/lib/motion.js`)
 
 ```js

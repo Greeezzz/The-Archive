@@ -93,7 +93,7 @@
 .banner-modal__close:hover,
 .banner-modal__close:focus-visible {
   background: var(--signal);
-  border-color: var(--signal);
+  border-color: var(--ink);
   color: var(--signal-ink);
 }
 
@@ -129,7 +129,7 @@
 .banner-modal__image-fallback {
   font-family: var(--font-mono);
   font-size: 24px;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 /* Info Panel */

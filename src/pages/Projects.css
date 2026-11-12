@@ -34,7 +34,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.16em;
-  color: var(--text-mute);
+  color: var(--ink-dim);
   text-transform: uppercase;
 }
 
@@ -42,7 +42,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .projects__status-dot {
@@ -84,7 +84,7 @@
 }
 
 .projects__title-signal {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .projects__subtitle {
@@ -125,7 +125,7 @@
 }
 
 .projects__diag-key {
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 .projects__diag-val {
@@ -134,7 +134,7 @@
 }
 
 .projects__diag-val--active {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 /* ── Section Titles ── */
@@ -158,13 +158,13 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .projects__section-count {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 /* ── Deployed Grid (2 cols) ── */
@@ -192,7 +192,7 @@
 }
 
 .pcard:hover {
-  border-color: var(--signal);
+  border-color: var(--ink);
   transform: translateY(-2px);
 }
 
@@ -236,22 +236,22 @@
 
 .pcard:hover .pcard__bracket--tl {
   transform: translate(-3px, -3px);
-  border-color: var(--signal);
+  border-color: var(--ink);
 }
 
 .pcard:hover .pcard__bracket--tr {
   transform: translate(3px, -3px);
-  border-color: var(--signal);
+  border-color: var(--ink);
 }
 
 .pcard:hover .pcard__bracket--bl {
   transform: translate(-3px, 3px);
-  border-color: var(--signal);
+  border-color: var(--ink);
 }
 
 .pcard:hover .pcard__bracket--br {
   transform: translate(3px, 3px);
-  border-color: var(--signal);
+  border-color: var(--ink);
 }
 
 /* Image */
@@ -299,7 +299,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .pcard__links {
@@ -311,13 +311,13 @@
 .pcard__link {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-dim);
+  color: var(--ink-2);
   text-decoration: none;
   transition: color var(--dur-micro) var(--ease-snap);
 }
 
 .pcard__link:hover {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .pcard__name {
@@ -392,7 +392,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: var(--text-mute);
+  color: var(--ink-dim);
 }
 
 .prow__name {

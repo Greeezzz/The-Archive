@@ -1,6 +1,6 @@
 # AGENTS.md — Rules for AI coding agents
 
-You are redesigning **The Archive** (Chelo's portfolio) into an industrial HUD / motion-graphic style. Read in this order: this file → `PRD.md` → `DESIGN.md` → `MOTION.md` → `TASKS.md`. If documents conflict: `AGENTS.md` > `PRD.md` > `DESIGN.md` > `MOTION.md` > `TASKS.md`.
+You are redesigning **The Archive** (Chelo's portfolio) into an industrial HUD / motion-graphic style. Read in this order: this file → `PRD.md` → `DESIGN.md` (**v2, light theme**) → `LINES.md` → `MOTION.md` → `TASKS-V2.md`. If documents conflict: `AGENTS.md` > `PRD.md` > `DESIGN.md` > `LINES.md` > `MOTION.md` > `TASKS-V2.md`. `TASKS.md` is legacy: only its Phase 0 and the regression checklist still apply.
 
 ## Stack (do not change)
 

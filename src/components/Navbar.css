@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px var(--frame);
-  background: rgba(10, 11, 13, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
@@ -28,7 +28,7 @@
 }
 
 .navbar--scrolled {
-  background: rgba(17, 19, 22, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   border-bottom-color: var(--line-hi);
 }
 
@@ -48,11 +48,11 @@
 }
 
 .navbar__logo-bracket {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .navbar__logo:hover {
-  color: var(--signal);
+  color: var(--ink);
 }
 
 .navbar__links {
@@ -82,11 +82,12 @@
 }
 
 .navbar__link--active {
-  color: var(--signal);
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .navbar__link-bracket {
-  color: var(--signal);
+  color: var(--hair);
   opacity: 0;
   transition: opacity var(--dur-micro) var(--ease-snap);
 }
@@ -204,7 +205,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--ink-2);
   padding: 12px 16px;
   min-height: 44px;
   border: 1px solid var(--line);
@@ -224,10 +225,31 @@
   transition: border-color var(--dur-micro) var(--ease-snap), color var(--dur-micro) var(--ease-snap);
 }
 
-.navbar__mobile-link:hover,
+.navbar__mobile-link:hover {
+  border-color: var(--hair-hi);
+  color: var(--ink);
+}
+
 .navbar__mobile-link--active {
-  border-color: var(--signal);
-  color: var(--signal);
+  border-color: var(--ink);
+  border-left-width: 4px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Glyph is ink; the active dot gets a yellow tile behind it, never yellow text. */
+.navbar__mobile-link-glyph {
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+.navbar__mobile-link--active .navbar__mobile-link-glyph {
+  background: var(--signal);
+  color: var(--signal-ink);
+  padding: 2px 5px;
 }
 
 @media (max-width: 768px) {

@@ -70,7 +70,7 @@
     width: 34px;
     height: 34px;
     margin: -17px 0 0 -17px;
-    border-color: var(--signal);
+    border-color: var(--ink);
     background-color: rgba(255, 229, 0, 0.06);
   }
 

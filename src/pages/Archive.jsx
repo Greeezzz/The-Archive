@@ -123,7 +123,7 @@ export default function Archive() {
               <span className="archive__status-dot" />
               DATABASE // SEC-01 // OPERATOR_REGISTRY
             </span>
-            <span>VER: 2.4.0 // STABLE</span>
+            <span className="archive__ver">VER: 2.4.0 // STABLE</span>
           </div>
 
           <div className="archive__header-main">
@@ -218,7 +218,13 @@ export default function Archive() {
           {showCharacterGrid && !noResults && (
             <motion.div layout className="archive__grid">
               {filteredCharacters.map((char, i) => (
-                <Reveal key={char.id} delay={Math.min(i * 0.04, 0.3)}>
+                <Reveal
+                  key={char.id}
+                  delay={Math.min(i * 0.04, 0.3)}
+                  className={
+                    char.isWiderDesign ? 'archive__cell archive__cell--wide' : 'archive__cell'
+                  }
+                >
                   <MemoizedCharacterCard
                     character={char}
                     index={i}

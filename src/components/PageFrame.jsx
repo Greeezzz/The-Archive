@@ -33,7 +33,7 @@ export default function PageFrame() {
           <span>SYS.ONLINE</span>
         </div>
         <div className="console-bottom-bar__right">
-          <span>SCROLL: {Math.round(scrollY)}PX</span>
+          <span className="console-bottom-bar__scroll">SCROLL: {Math.round(scrollY)}PX</span>
           <span className="console-bottom-bar__cell">ARCHIVE STAGE v2.4</span>
         </div>
       </footer>

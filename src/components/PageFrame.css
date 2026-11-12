@@ -108,6 +108,21 @@
   font-weight: 600;
 }
 
+.console-bottom-bar span {
+  white-space: nowrap;
+}
+
+/* Phones: drop the scroll readout so the bar stays on one line */
+@media (max-width: 540px) {
+  .console-bottom-bar {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+  .console-bottom-bar__scroll {
+    display: none;
+  }
+}
+
 /* Responsive: collapse rail into bottom bar < 900px */
 @media (max-width: 900px) {
   .console-rail {

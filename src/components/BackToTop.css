@@ -53,7 +53,7 @@
 
 @media (max-width: 768px) {
   .back-to-top {
-    bottom: 16px;
+    bottom: 48px; /* clear the 32px fixed status bar */
     right: 16px;
   }
 }

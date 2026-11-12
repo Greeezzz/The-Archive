@@ -199,7 +199,6 @@ export default function StageViewer({
             <Frame className="stage__frame" hoverable={false}>
               <div className="stage__art">
                 <ScanLine key={scanKey} active={!shouldReduceMotion} />
-                <span className="stage__art-scrim" aria-hidden="true" />
                 {!imgError ? (
                   <img
                     src={entry.image}

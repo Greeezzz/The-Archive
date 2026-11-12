@@ -258,19 +258,19 @@
   {
     "id": 29,
     "number": "029",
-    "name": "Stelle",
-    "quote": "Joy or pain... What matters is that we're the ones making the call.",
+    "name": "Belle",
+    "quote": "I've always thought that leaving the air conditioner on all night was a huge waste of money, but now...",
     "image": "/characters/archive_29.webp",
-    "color": "#E8C84A",
+    "color": "#203C39",
     "category": "archive"
   },
   {
     "id": 30,
     "number": "030",
-    "name": "Belle",
-    "quote": "I've always thought that leaving the air conditioner on all night was a huge waste of money, but now...",
+    "name": "Stelle",
+    "quote": "Joy or pain... What matters is that we're the ones making the call.",
     "image": "/characters/archive_30.webp",
-    "color": "#203C39",
+    "color": "#E8C84A",
     "category": "archive"
   },
   {

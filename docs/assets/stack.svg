@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 667 30" width="667" height="30" role="img" aria-label="Stack: React 19, Vite 8, React Router 7, Motion, plain CSS">
+<style>.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}</style>
+<text x="0" y="20" class="mono" font-size="12" letter-spacing="1.5" fill="#6f6f73">STACK //</text>
+<polygon points="86.8,0 179.8,0 187.8,8 187.8,30 94.8,30 86.8,22" fill="#111111"/>
+<text x="102.8" y="20" class="mono" font-size="12" letter-spacing="1.5" fill="#ffffff" font-weight="700" textLength="69" lengthAdjust="spacing">REACT 19</text>
+<polygon points="197.8,0 273.8,0 281.8,8 281.8,30 205.8,30 197.8,22" fill="#ffe500"/>
+<text x="213.8" y="20" class="mono" font-size="12" letter-spacing="1.5" fill="#111111" font-weight="700" textLength="52" lengthAdjust="spacing">VITE 8</text>
+<polygon points="291.8,0 435.8,0 443.8,8 443.8,30 299.8,30 291.8,22" fill="#111111"/>
+<text x="307.8" y="20" class="mono" font-size="12" letter-spacing="1.5" fill="#ffffff" font-weight="700" textLength="120" lengthAdjust="spacing">REACT ROUTER 7</text>
+<polygon points="453.8,0 529.8,0 537.8,8 537.8,30 461.8,30 453.8,22" fill="#ffe500"/>
+<text x="469.8" y="20" class="mono" font-size="12" letter-spacing="1.5" fill="#111111" font-weight="700" textLength="52" lengthAdjust="spacing">MOTION</text>
+<polygon points="547.8,0 648.8,0 656.8,8 656.8,30 555.8,30 547.8,22" fill="#111111"/>
+<text x="563.8" y="20" class="mono" font-size="12" letter-spacing="1.5" fill="#ffffff" font-weight="700" textLength="77" lengthAdjust="spacing">PLAIN CSS</text>
+</svg>

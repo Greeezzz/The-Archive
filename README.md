@@ -1,34 +1,51 @@
-# The Archive
+<p align="center">
+  <img src="docs/assets/hero.svg" alt="The Archive — industrial exhibition-terminal portfolio by Chelo" width="100%">
+</p>
 
-> Industrial exhibition-terminal portfolio by Chelo (Greeezzz).
-> Live: [https://www.cheloarchive.my.id/](https://www.cheloarchive.my.id/)
+<p align="center">
+  <a href="https://www.cheloarchive.my.id/"><b>[ ENTER THE ARCHIVE ↗ ]</b></a>
+  &nbsp;·&nbsp;
+  <a href="docs/DESIGN.md">Design system</a>
+  &nbsp;·&nbsp;
+  <a href="docs/LINES.md">Line motion</a>
+</p>
 
----
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
 
-## Overview
+## 01 // Overview
 
-**The Archive** is a personal portfolio of original and fan character designs, banner
-graphics, and software projects. It is presented as an exhibition terminal: calm paper-white
-console pages with precise dashed linework, and a loud yellow/black poster mode at key
-moments (home hero, 404, route transitions).
+**The Archive** is the personal portfolio of Chelo (Greeezzz): original and fan character designs, banner graphics, and software projects, presented as an **exhibition terminal**.
 
-## Tech stack
+Most pages are calm and paper-white, built from precise dashed linework, corner handles, and tiny mono labels, so the artwork stays the hero. At key moments (home hero, 404, route transitions) the site switches to a loud yellow/black **poster mode** with bracket titles, giant type, and a swoosh.
 
-- **Framework:** React 19
-- **Build:** Vite 8
-- **Routing:** React Router 7
-- **Styling:** plain CSS, one file per component, tokens in `src/styles/tokens.css`
-- **Motion:** `motion/react`
-- **Type:** Archivo (variable display), Inter (body), JetBrains Mono (labels/code)
+Every character is a "dossier": it has an entry number, a quote, a color, and a shareable link (`/archive?entry=007`).
 
-## Two visual modes
+## 02 // Screens
+
+| Home · poster mode | Archive · operator registry |
+|:--|:--|
+| <img src="docs/screenshots/home.webp" alt="Home page: bracketed 'Of Characters' title, hatched ghost lettering and a yellow swoosh"> | <img src="docs/screenshots/archive.webp" alt="Archive page: segmented tabs, terminal-style search and a grid of character cards"> |
+| **About · personnel dossier** | **Projects · deployment index** |
+| <img src="docs/screenshots/about.webp" alt="About page: personnel memo, social channels and a framed portrait"> | <img src="docs/screenshots/projects.webp" alt="Projects page: deployed apps shown in framed panels with status tags"> |
+
+## 03 // Two visual modes
 
 | Mode | Where | Feel |
 |---|---|---|
 | **Console** | Archive, About, Projects, stage viewer | Quiet, hairline dashed grid, tiny mono labels, art is the hero |
 | **Poster** | Home hero, 404, page transitions | Yellow/black slabs, bracket titles, giant type, swoosh, glitch slivers |
 
-## Project structure
+Motion is part of the design: dashed dividers draw themselves, frames pop their corner handles, a scan line sweeps the art when an entry changes. All of it falls back to a static layout with `prefers-reduced-motion`.
+
+## 04 // Stack
+
+<img src="docs/assets/stack.svg" alt="Stack: React 19, Vite 8, React Router 7, Motion, plain CSS" height="30">
+
+- **Styling:** plain CSS, one file per component, shared tokens in `src/styles/tokens.css`
+- **Motion:** `motion/react`
+- **Type:** Archivo (variable display), Inter (body), JetBrains Mono (labels and code)
+
+## 05 // Project structure
 
 ```
 src/
@@ -46,10 +63,11 @@ src/
   pages/            Home, Archive, About, Projects, NotFound
   styles/           tokens.css, lines.css, poster.css
 public/             characters/, banners/, projects/, profile/
-docs/               PRD, DESIGN, LINES, MOTION, TASKS-V2, AGENTS
+scripts/            image optimization helpers
+docs/               design and build specs
 ```
 
-## Scripts
+## 06 // Run it
 
 ```bash
 npm install      # install
@@ -59,12 +77,11 @@ npm run build    # production build
 npm run preview  # preview the build
 ```
 
-## Adding a character
+## 07 // Adding a character
 
 1. Drop the artwork in `public/characters/` as `.webp`.
-2. Run `bash scripts/optimize-images.sh` — it resizes anything wider than 900px and
-   re-encodes at quality 82. Skipping this is how the repo once shipped 16MB of art.
-3. Append an entry to `src/data/characters.json`:
+2. Run `bash scripts/optimize-images.sh`. It resizes anything wider than 900px and re-encodes at quality 82 to keep pages fast.
+3. Append an entry to `src/data/characters.json` (use the next free `id` and `number`):
 
 ```json
 {
@@ -79,16 +96,20 @@ npm run preview  # preview the build
 }
 ```
 
-The grid, search, pager, and ghost numerals all read from that file. Nothing else to edit.
+The grid, search, pager, entry count, and ghost numerals all read from that file. Nothing else to edit.
 
-## Colour rule worth knowing
+> **Colour rule:** the entry's `color` never colours text or hairlines (several entries are white or light gray and would vanish on paper). It only appears as a fill behind art, an edge strip, or a chip next to ink text. Details in [`docs/DESIGN.md`](docs/DESIGN.md).
 
-`color` from the JSON becomes `--entry`. It is **never** used as text or as a hairline:
-several entries are `#FFFFFF` or `#B6B6B6` and would vanish on paper. It only ever appears
-as a fill behind art, an edge strip, or a small chip next to ink text. Yellow follows the
-same rule — fill only, always with ink text on top.
+## 08 // Docs
 
-## Docs
+The build specs live in `docs/`. Read them in this order:
 
-Read in this order: `docs/AGENTS.md` → `docs/PRD.md` → `docs/DESIGN.md` → `docs/LINES.md`
-→ `docs/MOTION.md` → `docs/TASKS-V2.md`. The v1 design docs are kept in `docs/v1-archive/`.
+`AGENTS.md` → `PRD.md` → `DESIGN.md` → `LINES.md` → `MOTION.md` → `TASKS-V2.md`
+
+The first-generation design docs are kept in `docs/v1-archive/`.
+
+<p align="center"><img src="docs/assets/divider.svg" alt="" width="100%"></p>
+
+## 09 // Rights
+
+© 2026 Chelo (Greeezzz). Original artwork, layouts, and designs are all rights reserved; please ask before reusing them. Fan designs depict characters owned by their respective rights holders and are shown as non-commercial design studies. The source code is public for reference.

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" role="img" aria-labelledby="t d">
+  <title id="t">The Archive</title>
+  <desc id="d">Industrial exhibition-terminal portfolio by Chelo: bracketed title, hatched ghost lettering and a yellow swoosh on paper-white.</desc>
+  <defs>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="0.9" fill="#cfcfd2" opacity="0.7"/>
+    </pattern>
+    <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="12" fill="#e4e4e2"/>
+    </pattern>
+    <linearGradient id="sw" gradientUnits="userSpaceOnUse" x1="700" y1="0" x2="1150" y2="0">
+      <stop offset="0" stop-color="#ffe500"/>
+      <stop offset="1" stop-color="#b6ff2e"/>
+    </linearGradient>
+    <clipPath id="tick"><rect x="40" y="20" width="1120" height="24"/></clipPath>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    .disp { font-family: "Arial Black", "Archivo Black", Impact, "Helvetica Neue", Arial, sans-serif; font-weight: 900; }
+    .draw { stroke-dasharray: 1; stroke-dashoffset: 0; animation: draw .9s cubic-bezier(.76,0,.24,1) both; }
+    .d2 { animation-delay: .08s } .d3 { animation-delay: .16s } .d4 { animation-delay: .24s }
+    .rise { animation: rise .8s cubic-bezier(.16,1,.3,1) .35s both; }
+    .fade { animation: fade .8s ease-out .6s both; }
+    .swoosh { stroke-dasharray: 1; stroke-dashoffset: 0; animation: draw 1.2s cubic-bezier(.76,0,.24,1) .7s both; }
+    .tick { animation: tick 22s linear infinite; }
+    .blink { animation: blink 3.2s steps(1) infinite; }
+    .march { animation: march 1.2s linear infinite; }
+    @keyframes draw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
+    @keyframes rise { from { opacity: 0; transform: translateX(-28px) } to { opacity: 1; transform: none } }
+    @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes tick { from { transform: translateX(0) } to { transform: translateX(-440px) } }
+    @keyframes blink { 0%,92% { opacity: 1 } 93%,96% { opacity: .15 } 97%,100% { opacity: 1 } }
+    @keyframes march { to { stroke-dashoffset: -8 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <!-- paper -->
+  <rect width="1200" height="480" fill="#ffffff"/>
+  <rect width="1200" height="480" fill="url(#dots)"/>
+
+  <!-- micro-text ticker -->
+  <g clip-path="url(#tick)">
+    <g class="tick mono" font-size="11" letter-spacing="3" fill="#a4a4a8">
+      <text x="40"   y="36" textLength="400" lengthAdjust="spacing">THE ARCHIVE · GALLERY · OPERATOR FILES ·</text>
+      <text x="480"  y="36" textLength="400" lengthAdjust="spacing">THE ARCHIVE · GALLERY · OPERATOR FILES ·</text>
+      <text x="920"  y="36" textLength="400" lengthAdjust="spacing">THE ARCHIVE · GALLERY · OPERATOR FILES ·</text>
+      <text x="1360" y="36" textLength="400" lengthAdjust="spacing">THE ARCHIVE · GALLERY · OPERATOR FILES ·</text>
+    </g>
+  </g>
+  <line x1="40" y1="52" x2="1160" y2="52" stroke="#cfcfd2" stroke-width="1" stroke-dasharray="4 4" class="march"/>
+
+  <!-- badge row -->
+  <rect x="36" y="68" width="216" height="36" fill="none" stroke="#ffe500" stroke-width="1.6"/>
+  <rect x="42" y="73" width="204" height="26" fill="#111111"/>
+  <text x="56" y="91" class="mono" font-size="12" letter-spacing="3" fill="#ffffff" textLength="176" lengthAdjust="spacing">EXHIBITION TERMINAL</text>
+  <text x="272" y="91" class="mono" font-size="12" letter-spacing="2" fill="#6f6f73" textLength="252" lengthAdjust="spacing">SEC-00 // TERMINAL_ONLINE</text>
+  <g class="blink">
+    <rect x="548" y="78" width="30" height="3" fill="#ff2bd6"/>
+    <rect x="548" y="84" width="20" height="3" fill="#00e5ff"/>
+    <rect x="548" y="90" width="25" height="3" fill="#7dff3a"/>
+  </g>
+  <g stroke="#111111" stroke-width="1" fill="none">
+    <circle cx="1130" cy="88" r="15"/>
+    <line x1="1130" y1="68" x2="1130" y2="108"/>
+    <line x1="1110" y1="88" x2="1150" y2="88"/>
+  </g>
+
+  <!-- label -->
+  <text x="62" y="148" class="mono" font-size="14" letter-spacing="6" fill="#3a3a3c" textLength="240" lengthAdjust="spacing">A CURATED ARCHIVE</text>
+
+  <!-- bracket title -->
+  <g fill="none" stroke="#111111" stroke-width="9" stroke-linecap="butt">
+    <path pathLength="1" class="draw"     d="M40 212 V166 H92"/>
+    <path pathLength="1" class="draw d2"  d="M1108 166 H1160 V212"/>
+    <path pathLength="1" class="draw d3"  d="M1160 270 V316 H1108"/>
+    <path pathLength="1" class="draw d4"  d="M92 316 H40 V270"/>
+  </g>
+  <text class="disp rise" x="88" y="290" font-size="140" fill="#111111" textLength="1024" lengthAdjust="spacingAndGlyphs">THE ARCHIVE</text>
+
+  <!-- subtitle -->
+  <text x="62" y="346" class="mono fade" font-size="14" letter-spacing="2" fill="#3a3a3c" textLength="700" lengthAdjust="spacing">CHARACTER DESIGNS  ·  BANNER GRAPHICS  ·  SOFTWARE PROJECTS</text>
+
+  <!-- hatched ghost word -->
+  <text class="disp fade" x="60" y="444" font-size="104" fill="url(#hatch)" textLength="1080" lengthAdjust="spacingAndGlyphs">PORTFOLIO</text>
+
+  <!-- swoosh -->
+  <path pathLength="1" class="swoosh" d="M700 428 C800 358 900 338 990 360 S1100 392 1150 350"
+        fill="none" stroke="url(#sw)" stroke-width="26" stroke-linecap="round"/>
+
+  <!-- status strip -->
+  <line x1="40" y1="454" x2="1160" y2="454" stroke="#cfcfd2" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="40" y="472" class="mono" font-size="11" letter-spacing="3" fill="#6f6f73" textLength="230" lengthAdjust="spacing">© 2026 CHELO / SYS.ONLINE</text>
+  <rect x="980" y="458" width="180" height="18" fill="#111111"/>
+  <text x="994" y="471" class="mono" font-size="11" letter-spacing="3" fill="#ffffff" textLength="152" lengthAdjust="spacing">ARCHIVE STAGE</text>
+</svg>

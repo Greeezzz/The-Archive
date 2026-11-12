@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 24" width="1200" height="24" role="presentation" aria-hidden="true">
+  <style>
+    .march { stroke-dasharray: 4 4; animation: march 1.2s linear infinite; }
+    .pulse { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes march { to { stroke-dashoffset: -8 } }
+    @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <rect width="1200" height="24" fill="#ffffff"/>
+  <line x1="24" y1="12" x2="1176" y2="12" stroke="#9a9aa0" stroke-width="1" class="march"/>
+  <rect x="8"    y="8" width="8" height="8" fill="#9a9aa0"/>
+  <rect x="1184" y="8" width="8" height="8" fill="#9a9aa0"/>
+  <rect x="594" y="6" width="12" height="12" fill="#ffe500" stroke="#111111" stroke-width="1" class="pulse"/>
+</svg>

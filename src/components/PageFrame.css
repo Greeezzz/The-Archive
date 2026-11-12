@@ -1,83 +1,119 @@
-.page-frame {
+/* PageFrame.css — v2 console right rail & bottom bar (DESIGN.md §4) */
+
+/* Right Rail */
+.console-rail {
   position: fixed;
-  inset: var(--frame);
-  border: 1px solid var(--line);
-  pointer-events: none;
-  z-index: 90;
+  top: 64px;
+  right: 0;
+  bottom: 32px;
+  width: 56px;
+  background: var(--paper);
+  border-left: 1px dashed var(--hair);
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  padding: 16px 0;
+  pointer-events: none;
+  z-index: 90;
 }
 
-/* Status bar along top of frame */
-.page-frame__top {
+.console-rail__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.console-rail__line {
+  width: 1px;
+  height: 48px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--hair) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.console-rail__middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.console-rail__rot {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.console-rail__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.console-rail__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--signal);
+}
+
+/* Bottom Bar */
+.console-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: var(--paper);
+  border-top: 1px dashed var(--hair);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  background: rgba(243, 243, 242, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
+  padding: 0 var(--frame);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--text-dim);
+  color: var(--ink-dim);
   text-transform: uppercase;
+  pointer-events: none;
+  z-index: 90;
 }
 
-.page-frame__status {
-  display: inline-flex;
+.console-bottom-bar__left {
+  display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.page-frame__indicator {
-  width: 6px;
-  height: 6px;
-  background: var(--signal);
-  display: inline-block;
+.console-bottom-bar__sep {
+  color: var(--hair-hi);
 }
 
-.page-frame__coords {
-  color: var(--ink-dim);
+.console-bottom-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.page-frame__corner {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-color: var(--ink);
-  border-style: solid;
+.console-bottom-bar__cell {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2px 8px;
+  font-weight: 600;
 }
 
-.page-frame__corner--tl {
-  top: -1px;
-  left: -1px;
-  border-width: 1px 0 0 1px;
-}
-
-.page-frame__corner--tr {
-  top: -1px;
-  right: -1px;
-  border-width: 1px 0 1px 0;
-}
-
-.page-frame__corner--bl {
-  bottom: -1px;
-  left: -1px;
-  border-width: 0 0 1px 1px;
-}
-
-.page-frame__corner--br {
-  bottom: -1px;
-  right: -1px;
-  border-width: 0 1px 1px 0;
-}
-
-/* Hide on mobile and tablets to prevent content obstruction */
-@media (max-width: 768px) {
-  .page-frame {
+/* Responsive: collapse rail into bottom bar < 900px */
+@media (max-width: 900px) {
+  .console-rail {
     display: none;
+  }
+  .console-bottom-bar {
+    right: 0;
   }
 }

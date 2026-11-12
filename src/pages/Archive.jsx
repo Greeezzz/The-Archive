@@ -1,10 +1,9 @@
-import { useState, useCallback, useMemo, memo, useEffect } from 'react';
+import { useState, useCallback, useMemo, memo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import CharacterCard from '../components/CharacterCard';
 import BannerCard from '../components/BannerCard';
-import CharacterModal from '../components/CharacterModal';
-import BannerModal from '../components/BannerModal';
+import StageViewer from '../components/StageViewer';
 import DecodeText from '../components/motion/DecodeText';
 import Reveal from '../components/motion/Reveal';
 import characters from '../data/characters.json';
@@ -74,26 +73,45 @@ export default function Archive() {
     (showBannerGrid && filteredBanners.length === 0)
   );
 
-  // Operator view: arrow keys step through entries inside an open modal.
-  useEffect(() => {
-    if (!selected) return;
-    const onKey = (e) => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      const list = filteredCharacters;
-      const i = list.findIndex((c) => c.number === selected.number);
-      if (i === -1) return;
-      const next = e.key === 'ArrowRight' ? list[i + 1] : list[i - 1];
-      if (!next) return;
-      e.preventDefault();
-      setParams({ entry: next.number }, { replace: true });
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [selected, filteredCharacters, setParams]);
+  // Paging: the viewer owns the arrow keys, these callbacks own the URL.
+  const selectedIndex = selected
+    ? filteredCharacters.findIndex((c) => c.number === selected.number)
+    : -1;
+  const bannerIndex = selectedBanner
+    ? filteredBanners.findIndex((b) => String(b.id) === String(selectedBanner.id))
+    : -1;
+
+  const goPrev = useCallback(() => {
+    if (selectedIndex > 0) {
+      setParams({ entry: filteredCharacters[selectedIndex - 1].number }, { replace: true });
+    }
+  }, [selectedIndex, filteredCharacters, setParams]);
+
+  const goNext = useCallback(() => {
+    if (selectedIndex >= 0 && selectedIndex < filteredCharacters.length - 1) {
+      setParams({ entry: filteredCharacters[selectedIndex + 1].number }, { replace: true });
+    }
+  }, [selectedIndex, filteredCharacters, setParams]);
+
+  const goPrevBanner = useCallback(() => {
+    if (bannerIndex > 0) {
+      setParams({ banner: String(filteredBanners[bannerIndex - 1].id) }, { replace: true });
+    }
+  }, [bannerIndex, filteredBanners, setParams]);
+
+  const goNextBanner = useCallback(() => {
+    if (bannerIndex >= 0 && bannerIndex < filteredBanners.length - 1) {
+      setParams({ banner: String(filteredBanners[bannerIndex + 1].id) }, { replace: true });
+    }
+  }, [bannerIndex, filteredBanners, setParams]);
 
   // Announce entry changes to screen readers (arrow-key navigation is silent otherwise).
   // Derived during render — a live region announces on DOM text change, no state needed.
-  const announce = selected ? `Entry ${selected.number}, ${selected.name}` : '';
+  const announce = selected
+    ? `Entry ${selected.number}, ${selected.name}`
+    : selectedBanner
+      ? `Banner ${selectedBanner.title}`
+      : '';
 
   return (
     <div className="archive-wrapper">
@@ -232,13 +250,31 @@ export default function Archive() {
           {announce}
         </span>
 
-        {/* Modals with AnimatePresence (M6) */}
+        {/* Stage viewer (Phase E) replaces the two modals */}
         <AnimatePresence mode="wait">
           {selected && (
-            <CharacterModal character={selected} onClose={closeModal} />
+            <StageViewer
+              key="operator-stage"
+              kind="operator"
+              entry={selected}
+              index={selectedIndex}
+              total={filteredCharacters.length}
+              onClose={closeModal}
+              onPrev={goPrev}
+              onNext={goNext}
+            />
           )}
           {selectedBanner && (
-            <BannerModal banner={selectedBanner} onClose={closeModal} />
+            <StageViewer
+              key="banner-stage"
+              kind="banner"
+              entry={selectedBanner}
+              index={bannerIndex}
+              total={filteredBanners.length}
+              onClose={closeModal}
+              onPrev={goPrevBanner}
+              onNext={goNextBanner}
+            />
           )}
         </AnimatePresence>
       </main>

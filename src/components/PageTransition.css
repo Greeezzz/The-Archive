@@ -1,4 +1,4 @@
-/* PageTransition.css — Industrial HUD Wipe & Transition (M1) */
+/* PageTransition.css — poster slab wipe (M1 v2) */
 
 .pt-wrapper {
   position: relative;
@@ -6,12 +6,19 @@
   width: 100%;
 }
 
-.pt-wipe {
+.pt-slab {
   position: fixed;
   inset: 0;
-  background: var(--panel);
-  border-right: 2px solid var(--signal);
   z-index: 999;
   transform-origin: right;
   pointer-events: none;
+}
+
+.pt-slab--ink {
+  background: var(--ink);
+}
+
+.pt-slab--signal {
+  background: var(--signal);
+  z-index: 998;
 }

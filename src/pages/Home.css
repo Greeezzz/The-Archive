@@ -1,29 +1,24 @@
-/* Home.css — Industrial HUD Style */
+/* Home.css — poster mode hero (DESIGN.md v2 §5) */
 
 .home-wrapper {
-  min-height: 100vh;
-  background: var(--bg);
   position: relative;
+  width: 100%;
 }
 
 .home {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: calc(var(--frame) + 72px) var(--frame) calc(var(--frame) + 16px);
+  z-index: 1;
   max-width: 1360px;
   margin: 0 auto;
-  z-index: 2;
+  padding: clamp(88px, 10vw, 128px) var(--frame) 40px;
 }
 
-/* ── Boot Sequence Overlay (M12) ── */
+/* ── Boot intro (M12) ── */
 .home__boot {
   position: fixed;
   inset: 0;
-  background: var(--bg);
-  z-index: 200;
+  background: var(--paper);
+  z-index: 400;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,14 +30,14 @@
 .home__boot-line {
   width: 120px;
   height: 2px;
-  background: var(--signal);
+  background: var(--ink);
 }
 
 .home__boot-text {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.2em;
-  color: var(--ink);
+  color: var(--ink-dim);
   text-transform: uppercase;
 }
 
@@ -50,117 +45,136 @@
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.14em;
-  color: var(--ink-dim);
+  color: var(--ink-mute);
   text-transform: uppercase;
 }
 
-/* ── Hero Container ── */
-.home__hero-section {
+/* ── Poster section ── */
+.poster {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  max-width: 960px;
-  margin-top: 40px;
+  gap: clamp(20px, 3vw, 36px);
+  padding-bottom: clamp(32px, 5vw, 64px);
 }
 
-.home__header-meta {
+.poster__band {
+  opacity: 0.9;
+}
+
+.poster__band--top {
+  border-bottom: 1px dashed var(--hair);
+  padding-bottom: 6px;
+}
+
+.poster__band--bottom {
+  border-top: 1px dashed var(--hair);
+  padding-top: 6px;
+  margin-top: clamp(12px, 2vw, 24px);
+}
+
+/* Meta row */
+.poster__meta {
   display: flex;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
 }
 
-.home__dossier-code {
+.poster__meta-code {
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
   letter-spacing: 0.16em;
-  color: var(--ink);
   text-transform: uppercase;
+  color: var(--ink-dim);
 }
 
-.home__meta-sep {
-  color: var(--line-hi);
-}
-
-.home__count-tag {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-/* ── Title Block ── */
-.home__title-block {
+/* Headline block */
+.poster__headline {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  padding: clamp(8px, 1.5vw, 16px) 0;
 }
 
-.home__title-sub {
+.poster__kicker {
   font-family: var(--font-mono);
-  font-size: clamp(14px, 2vw, 18px);
-  letter-spacing: 0.18em;
-  color: var(--text-dim);
+  font-size: clamp(11px, 1.2vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  font-weight: 500;
+  color: var(--ink-dim);
+  margin: 0;
 }
 
-.home__title-main {
-  font-family: var(--font-display);
-  font-size: clamp(48px, 9vw, 110px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 0.95;
-  color: var(--text);
-  text-transform: uppercase;
+.poster__title {
+  font-size: clamp(42px, 9.5vw, 132px);
+  padding: clamp(10px, 1.6vw, 20px) clamp(16px, 2.4vw, 32px);
+  align-self: flex-start;
+  max-width: 100%;
 }
 
-.home__title-signal {
-  color: var(--ink);
+/* Sits in flow under the title, aligned right: at 1280px the title is nearly
+   full width, so an absolute swoosh overlapped it by ~294x115px. */
+.poster__swoosh {
+  position: relative;
+  align-self: flex-end;
+  width: clamp(120px, 24vw, 320px);
+  height: clamp(45px, 9vw, 120px);
+  margin-top: 4px;
+  opacity: 0.95;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* ── Description Panel ── */
-.home__desc-panel {
+.poster__ghost {
+  position: absolute;
+  left: 0;
+  bottom: clamp(-24px, -2vw, -8px);
+  z-index: -1;
+  line-height: 0.7;
+  max-width: 100%;
+  overflow: hidden;
+  opacity: 0.75;
+}
+
+/* Description */
+.poster__desc {
   max-width: 620px;
-  margin-top: 8px;
 }
 
-.home__desc {
+.poster__desc p {
+  margin: 0;
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--text-dim);
-  padding: 16px 20px;
-  border-left: 2px solid var(--signal);
-  background: rgba(243, 243, 242, 0.6);
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.65;
+  color: var(--ink-2);
 }
 
-/* ── Action Buttons (3 CTAs) ── */
-.home__actions {
+/* CTAs */
+.poster__actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 16px;
 }
 
-/* ── Status Strip Footer ── */
+/* ── Footer status strip ── */
 .home__status-strip {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   padding: 16px 0 0;
-  border-top: 1px solid var(--line);
-  margin-top: 60px;
+  border-top: 1px dashed var(--hair);
+  margin-top: 24px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   color: var(--ink-dim);
   text-transform: uppercase;
   flex-wrap: wrap;
-  gap: 12px;
 }
 
 .home__status-item {
@@ -175,21 +189,38 @@
   background: var(--signal);
 }
 
-@media (max-width: 768px) {
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .poster__swoosh {
+    width: 110px;
+    height: 42px;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  .poster__ghost {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
   .home {
-    padding: 80px 20px 24px;
+    padding-top: 92px;
   }
-  .home__hero-section {
-    margin-top: 20px;
-    gap: 20px;
-  }
-  .home__actions {
+
+  .poster__actions {
     flex-direction: column;
     align-items: stretch;
   }
-  .home__actions .ui-btn {
+
+  .poster__actions .ui-btn {
     width: 100%;
   }
+
+  .poster__band {
+    font-size: 8px;
+  }
+
   .home__status-strip {
     flex-direction: column;
     align-items: flex-start;

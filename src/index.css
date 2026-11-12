@@ -1,5 +1,6 @@
 @import './styles/tokens.css';
 @import './styles/lines.css';
+@import './styles/poster.css';
 
 *, *::before, *::after {
   box-sizing: border-box;

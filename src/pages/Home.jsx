@@ -3,7 +3,14 @@ import characters from '../data/characters.json';
 import Button from '../components/ui/Button';
 import DecodeText from '../components/motion/DecodeText';
 import Reveal from '../components/motion/Reveal';
-import DrawLine from '../components/motion/DrawLine';
+import GhostText from '../components/lines/GhostText';
+import {
+  BracketTitle,
+  Swoosh,
+  MicroTextBand,
+  SlabLabel,
+  GlitchSlivers,
+} from '../components/poster';
 import './Home.css';
 
 export default function Home() {
@@ -43,9 +50,15 @@ export default function Home() {
 
   return (
     <div className="home-wrapper">
-      {/* Boot Intro Sequence (M12) */}
+      {/* Boot intro (M12) */}
       {booting && (
-        <div className="home__boot" onClick={handleSkipBoot} role="button" tabIndex={0} aria-label="Skip initialization">
+        <div
+          className="home__boot"
+          onClick={handleSkipBoot}
+          role="button"
+          tabIndex={0}
+          aria-label="Skip initialization"
+        >
           <div className="home__boot-line" />
           <DecodeText
             text="INITIALIZING SYS.ONLINE // THE ARCHIVE"
@@ -57,54 +70,70 @@ export default function Home() {
       )}
 
       <main className="home">
-        {/* Hero Section */}
-        <div className="home__hero-section">
-          {/* Eyebrow & Meta */}
-          <div className="home__header-meta">
-            <span className="home__dossier-code">SEC-00 // TERMINAL_ONLINE</span>
-            <span className="home__meta-sep" aria-hidden="true">/</span>
-            <span className="home__count-tag">// {characters.length} OPERATOR DOSSIERS</span>
+        {/* ── Poster hero ── */}
+        <section className="poster">
+          <MicroTextBand
+            text="THE ARCHIVE · GALLERY · OPERATOR FILES"
+            repeat={10}
+            className="poster__band poster__band--top"
+          />
+
+          <div className="poster__meta">
+            <SlabLabel>{characters.length} OPERATOR DOSSIERS</SlabLabel>
+            <span className="poster__meta-code">
+              <DecodeText text="SEC-00 // TERMINAL_ONLINE" duration={500} delay={120} />
+            </span>
+            <GlitchSlivers />
           </div>
 
-          <DrawLine delay={0.1} />
-
-          {/* Title Block with Decode */}
-          <div className="home__title-block">
-            <p className="home__title-sub">
-              <DecodeText text="A Curated Archive" duration={450} delay={100} />
+          <div className="poster__headline">
+            <p className="poster__kicker">
+              <DecodeText text="A Curated Archive" duration={420} delay={80} />
             </p>
-            <h1 className="home__title-main">
-              <DecodeText text="OF CHARACTERS" duration={650} delay={250} />
-              <span className="home__title-signal">.</span>
-            </h1>
+
+            <BracketTitle className="poster__title">
+              <DecodeText text="OF CHARACTERS" duration={620} delay={220} />
+            </BracketTitle>
+
+            <Swoosh className="poster__swoosh" delay={0.35} />
+
+            <GhostText size="clamp(72px, 16vw, 240px)" hatched className="poster__ghost">
+              ARCHIVE
+            </GhostText>
           </div>
 
-          {/* Description */}
-          <Reveal delay={0.3} className="home__desc-panel">
-            <p className="home__desc">
+          <Reveal delay={0.35} className="poster__desc">
+            <p>
               Each entry is a design study — an original character, a visual world, and a system
-              language built from scratch. A focused study in craft, storytelling, and digital drafting.
+              language built from scratch. A focused study in craft, storytelling, and digital
+              drafting.
             </p>
           </Reveal>
 
-          {/* 3 Action Buttons */}
-          <Reveal delay={0.4} className="home__actions">
+          <Reveal delay={0.45} className="poster__actions">
             <Button to="/archive" variant="primary">
-              Browse Archive <span>→</span>
+              Browse Archive <span aria-hidden="true">→</span>
             </Button>
             <Button to="/about" variant="secondary">
-              Meet Creator <span>↗</span>
+              Meet Creator <span aria-hidden="true">↗</span>
             </Button>
             <Button to="/projects" variant="secondary">
-              View Projects <span>↗</span>
+              View Projects <span aria-hidden="true">↗</span>
             </Button>
           </Reveal>
-        </div>
 
-        {/* Footer Status Strip */}
+          <MicroTextBand
+            text="THE ARCHIVE · EXHIBITION TERMINAL · 2026"
+            repeat={10}
+            className="poster__band poster__band--bottom"
+            reverse
+          />
+        </section>
+
+        {/* Footer status strip */}
         <div className="home__status-strip">
           <div className="home__status-item">
-            <span className="home__status-dot" />
+            <span className="home__status-dot" aria-hidden="true" />
             <span>SYS.STATUS: OPERATIONAL</span>
           </div>
           <div className="home__status-item">

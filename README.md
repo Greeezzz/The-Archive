@@ -1,80 +1,94 @@
 # The Archive
 
-> Industrial HUD / Tactical Sci-Fi Portfolio by Chelo (Greeezzz).  
+> Industrial exhibition-terminal portfolio by Chelo (Greeezzz).
 > Live: [https://www.cheloarchive.my.id/](https://www.cheloarchive.my.id/)
 
 ---
 
 ## Overview
 
-**The Archive** is a personal portfolio showcasing original and fan character designs, banner graphics, and software projects. Styled as an industrial operator dossier terminal, it draws inspiration from tactical sci-fi motion graphics and technical field interfaces.
+**The Archive** is a personal portfolio of original and fan character designs, banner
+graphics, and software projects. It is presented as an exhibition terminal: calm paper-white
+console pages with precise dashed linework, and a loud yellow/black poster mode at key
+moments (home hero, 404, route transitions).
 
-## Tech Stack
+## Tech stack
 
 - **Framework:** React 19
-- **Build Tool:** Vite 8
-- **Routing:** React Router v7
-- **Styling:** Vanilla CSS with custom design tokens (`tokens.css`) & BEM-like conventions
-- **Motion:** `motion/react` (Framer Motion)
-- **Typography:** Chakra Petch (Display), Inter (Body), JetBrains Mono (Code/HUD)
+- **Build:** Vite 8
+- **Routing:** React Router 7
+- **Styling:** plain CSS, one file per component, tokens in `src/styles/tokens.css`
+- **Motion:** `motion/react`
+- **Type:** Archivo (variable display), Inter (body), JetBrains Mono (labels/code)
 
-## Project Structure
+## Two visual modes
+
+| Mode | Where | Feel |
+|---|---|---|
+| **Console** | Archive, About, Projects, stage viewer | Quiet, hairline dashed grid, tiny mono labels, art is the hero |
+| **Poster** | Home hero, 404, page transitions | Yellow/black slabs, bracket titles, giant type, swoosh, glitch slivers |
+
+## Project structure
 
 ```
-The-Archive/
-├── docs/                 # System architecture, PRD, design, and motion specs
-├── public/
-│   ├── characters/       # Character artwork (.webp)
-│   ├── banners/          # Banner artwork (.webp)
-│   ├── projects/         # Project showcase images (.webp)
-│   └── profile/          # Profile assets
-├── src/
-│   ├── components/       # Shell & UI components (Navbar, Cursor, Frame, Modals, Cards)
-│   │   ├── motion/       # Motion primitives (DecodeText, Reveal, DrawLine)
-│   │   └── ui/           # Reusable HUD primitives (Button, Panel, Tag)
-│   ├── data/             # characters.json (23 entries), banners.json (2 entries)
-│   ├── lib/              # Utility helpers (color, motion tokens)
-│   ├── pages/            # Home, Archive, About, Projects, NotFound
-│   ├── styles/           # tokens.css (color, typography, geometry tokens)
-│   ├── App.jsx           # Root layout & route tree
-│   ├── index.css         # Reset & global tokens import
-│   └── main.jsx
+src/
+  components/
+    lines/          DashRule, Frame, ScanLine, GhostText, Crosshair, TopoLines, DrawLine
+    poster/         BracketTitle, Swoosh, MicroTextBand, SlabLabel, GlitchSlivers
+    motion/         DecodeText, Reveal
+    ui/             Button, Tag
+    Navbar          console header (tabs + dashed dividers)
+    PageFrame       right rail + bottom status bar
+    StageViewer     full-screen entry viewer with pager
+    CharacterCard, BannerCard, Cursor, PageTransition, BackToTop, ScrollProgress
+  data/             characters.json, banners.json
+  lib/              color.js, motion.js
+  pages/            Home, Archive, About, Projects, NotFound
+  styles/           tokens.css, lines.css, poster.css
+public/             characters/, banners/, projects/, profile/
+docs/               PRD, DESIGN, LINES, MOTION, TASKS-V2, AGENTS
 ```
 
-## Available Scripts
+## Scripts
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Run ESLint checks
-npm run lint
-
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
+npm install      # install
+npm run dev      # dev server
+npm run lint     # eslint
+npm run build    # production build
+npm run preview  # preview the build
 ```
 
-## Adding a New Character Entry
+## Adding a character
 
-To add a new operator entry to the archive:
-1. Place the character image inside `public/characters/` (recommended format: `.webp`).
-2. Open `src/data/characters.json` and append a new entry:
+1. Drop the artwork in `public/characters/` as `.webp`.
+2. Run `bash scripts/optimize-images.sh` — it resizes anything wider than 900px and
+   re-encodes at quality 82. Skipping this is how the repo once shipped 16MB of art.
+3. Append an entry to `src/data/characters.json`:
+
 ```json
 {
-  "id": 24,
-  "number": "024",
+  "id": 32,
+  "number": "032",
   "name": "CHARACTER NAME",
-  "quote": "Character voice line or memorable quote.",
-  "image": "/characters/archive_24.webp",
+  "quote": "Character voice line.",
+  "image": "/characters/archive_32.webp",
   "color": "#E5A93C",
-  "category": "ORIGINAL",
+  "category": "archive",
   "isWiderDesign": false
 }
 ```
-3. Run `npm run build` to verify. The entry will automatically be rendered in the archive grid and search filter.
+
+The grid, search, pager, and ghost numerals all read from that file. Nothing else to edit.
+
+## Colour rule worth knowing
+
+`color` from the JSON becomes `--entry`. It is **never** used as text or as a hairline:
+several entries are `#FFFFFF` or `#B6B6B6` and would vanish on paper. It only ever appears
+as a fill behind art, an edge strip, or a small chip next to ink text. Yellow follows the
+same rule — fill only, always with ink text on top.
+
+## Docs
+
+Read in this order: `docs/AGENTS.md` → `docs/PRD.md` → `docs/DESIGN.md` → `docs/LINES.md`
+→ `docs/MOTION.md` → `docs/TASKS-V2.md`. The v1 design docs are kept in `docs/v1-archive/`.

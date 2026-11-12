@@ -41,6 +41,8 @@ const CharacterCard = memo(function CharacterCard({ character, onClick, index })
         {!imgError ? (
           <img
             src={character.image}
+            srcSet={`${character.image.replace('/characters/', '/characters/480/')} 480w, ${character.image} 900w`}
+            sizes="(max-width: 540px) 90vw, (max-width: 900px) 45vw, 23vw"
             alt={character.name}
             className="card__image"
             width={900}

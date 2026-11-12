@@ -7,7 +7,6 @@
   border: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  outline: none;
   clip-path: polygon(
     var(--cut) 0,
     100% 0,

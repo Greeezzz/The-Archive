@@ -1,3 +1,4 @@
+@import './styles/fonts.css';
 @import './styles/tokens.css';
 @import './styles/lines.css';
 @import './styles/poster.css';
@@ -142,13 +143,15 @@ img {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 8px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   z-index: 10000;
   transition: top 0.2s ease;
 }
 
 .skip-link:focus {
   top: 0;
-  outline: none;
 }
 
 /* ── DecodeText: scrambling copy overlays a fixed-width ghost (no layout shift) ── */

@@ -247,6 +247,10 @@
 }
 
 .pcard__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.12em;

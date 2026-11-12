@@ -41,6 +41,8 @@ const BannerCard = memo(function BannerCard({ banner, onClick, index }) {
         {!imgError ? (
           <img
             src={banner.image}
+            srcSet={`${banner.image.replace('/banners/', '/banners/960/')} 960w, ${banner.image} 1720w`}
+            sizes="(max-width: 900px) 90vw, 46vw"
             alt={banner.title}
             className="banner-card__image"
             width={1720}

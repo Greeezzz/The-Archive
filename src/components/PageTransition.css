@@ -12,6 +12,7 @@
   z-index: 999;
   transform-origin: right;
   pointer-events: none;
+  will-change: transform;
 }
 
 .pt-slab--ink {
@@ -21,4 +22,9 @@
 .pt-slab--signal {
   background: var(--signal);
   z-index: 998;
+}
+
+.pt-content {
+  position: relative;
+  z-index: 1;
 }

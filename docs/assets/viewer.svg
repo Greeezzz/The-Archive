@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-labelledby="vt vd">
+  <title id="vt">Stage viewer anatomy</title>
+  <desc id="vd">The full-screen entry viewer: metadata column with colour swatch and real image dimensions, framed art, thumbnail filmstrip and the prev/next pager.</desc>
+  <defs>
+    <style>
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+      .ttl { font-size: 10px; font-weight: 700; letter-spacing: 1.6px; fill: #111111; }
+      .lbl { font-size: 8.5px; letter-spacing: 1.5px; fill: #6f6f73; }
+      .dim { font-size: 8px; letter-spacing: 1.3px; fill: #a4a4a8; }
+    </style>
+  </defs>
+  <rect width="1200" height="300" fill="#ffffff"/>
+
+  <!-- outer frame + handles -->
+  <rect x="8.5" y="8.5" width="1183" height="283" fill="none" stroke="#9a9aa0" stroke-width="1" stroke-dasharray="4 4"/>
+  <g fill="#9a9aa0">
+    <rect x="4" y="4" width="9" height="9"/>
+    <rect x="1187" y="4" width="9" height="9"/>
+    <rect x="4" y="287" width="9" height="9"/>
+    <rect x="1187" y="287" width="9" height="9"/>
+  </g>
+
+  <text x="28" y="34" class="mono ttl">OPERATOR DOSSIER // ENTRY-007</text>
+  <line x1="28" y1="44" x2="1172" y2="44" stroke="#cfcfd2" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- meta column -->
+  <rect x="28" y="60" width="18" height="18" fill="#3E3B3B" stroke="#9a9aa0" stroke-width="1"/>
+  <text x="56" y="74" class="mono dim">ENTRY COLOUR</text>
+
+  <text x="28" y="102" class="mono lbl">//ENTRY</text>
+  <text x="28" y="118" class="mono ttl">007</text>
+  <text x="28" y="142" class="mono lbl">//NAME</text>
+  <text x="28" y="158" class="mono ttl">REZE</text>
+  <text x="28" y="182" class="mono lbl">//COLOUR</text>
+  <text x="28" y="198" class="mono ttl">#3E3B3B</text>
+  <text x="28" y="222" class="mono lbl">//SOURCE</text>
+  <text x="28" y="238" class="mono ttl">900 &#215; 1126 PX</text>
+  <text x="28" y="258" class="mono dim">//RATIO 450:563</text>
+  <line x1="200" y1="60" x2="200" y2="270" stroke="#cfcfd2" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- art stage -->
+  <rect x="220" y="60" width="640" height="176" fill="#f3f3f2" stroke="#9a9aa0" stroke-width="1" stroke-dasharray="4 4"/>
+  <g fill="#e7e7e5">
+    <rect x="300" y="80" width="480" height="136"/>
+  </g>
+  <text x="540" y="156" class="mono dim" text-anchor="middle">ARTWORK</text>
+  <text x="540" y="172" class="mono dim" text-anchor="middle">object-fit: contain</text>
+  <!-- scan line -->
+  <line x1="220" y1="120" x2="860" y2="120" stroke="#111111" stroke-width="1" opacity="0.45"/>
+  <line x1="220" y1="118" x2="860" y2="118" stroke="#ff2bd6" stroke-width="1" opacity="0.8"/>
+  <line x1="220" y1="122" x2="860" y2="122" stroke="#00e5ff" stroke-width="1" opacity="0.8"/>
+
+  <!-- filmstrip -->
+  <text x="220" y="256" class="mono lbl">FILMSTRIP</text>
+  <g stroke="#cfcfd2" stroke-width="1" fill="#f3f3f2">
+    <rect x="300" y="244" width="34" height="22"/>
+    <rect x="340" y="244" width="34" height="22"/>
+    <rect x="380" y="244" width="34" height="22" stroke="#111111" stroke-width="2"/>
+    <rect x="420" y="244" width="34" height="22"/>
+    <rect x="460" y="244" width="34" height="22"/>
+  </g>
+
+  <!-- pager -->
+  <g>
+    <rect x="900" y="240" width="34" height="30" fill="#f3f3f2" stroke="#9a9aa0" stroke-width="1"/>
+    <text x="917" y="260" class="mono ttl" text-anchor="middle">&#8249;</text>
+    <rect x="934" y="240" width="92" height="30" fill="#111111"/>
+    <text x="980" y="260" class="mono ttl" fill="#ffffff" text-anchor="middle">07 / 31</text>
+    <rect x="1026" y="240" width="34" height="30" fill="#f3f3f2" stroke="#9a9aa0" stroke-width="1"/>
+    <text x="1043" y="260" class="mono ttl" text-anchor="middle">&#8250;</text>
+  </g>
+
+  <!-- zoom cluster -->
+  <g>
+    <rect x="900" y="60" width="30" height="30" fill="#f3f3f2" stroke="#9a9aa0" stroke-width="1"/>
+    <text x="915" y="80" class="mono ttl" text-anchor="middle">+</text>
+    <rect x="934" y="60" width="30" height="30" fill="#f3f3f2" stroke="#9a9aa0" stroke-width="1"/>
+    <text x="949" y="80" class="mono ttl" text-anchor="middle">&#8722;</text>
+    <rect x="968" y="60" width="46" height="30" fill="#f3f3f2" stroke="#9a9aa0" stroke-width="1"/>
+    <text x="991" y="80" class="mono dim" text-anchor="middle">RESET</text>
+    <rect x="1022" y="60" width="86" height="30" fill="#ffe500"/>
+    <text x="1065" y="80" class="mono ttl" text-anchor="middle">FULLSCREEN</text>
+  </g>
+  <text x="900" y="112" class="mono dim">KEYBOARD &#8592; &#8594; &#183; ESC CLOSES</text>
+
+  <!-- captions -->
+  <text x="900" y="160" class="mono lbl">//TRANSCRIPT_LOG</text>
+  <text x="900" y="178" class="mono dim">&#8220;quote from the entry&#8221;</text>
+  <text x="900" y="200" class="mono dim">focus trap &#183; scroll lock</text>
+  <text x="900" y="214" class="mono dim">focus returns to the card</text>
+</svg>
